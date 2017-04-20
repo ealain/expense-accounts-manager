@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta title="User dashboard">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  </head>
+  
+  <body>
+    
+    <div ng-app="userDash" ng-controller="userDashCtrl">
+
+      <h1>Welcome to your dashboard</h1>
+
+      <ul>
+	<li ng-repeat="n in notes">{{n}}</li>
+      </ul>
+      
+    </div>
+    
+    <script src="userDash.js"></script>
+    <script src="userDashCtrl.js"></script>
+
+  </body>
+</html>
