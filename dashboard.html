@@ -2,8 +2,10 @@
   <h1>Welcome to your dashboard</h1>
   
   <ul>
-    <li ng-repeat="n in notes">{{n}}</li>
+    <li ng-repeat="n in notesData.get()">{{n}}</li>
   </ul>
+
+  <button ng-click="notesData.get()">Cliquer</button>
 
   <a href="#!/note">Nouvelle note</a>
 

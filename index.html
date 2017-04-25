@@ -7,17 +7,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
   </head>
 
-  <body ng-app="billManager">
+  <body ng-app="billManager" ng-controller="init">
 
-    <p><a href="#/">Dashboard</a></p>
-
+    <a href="#/">Dashboard</a>
     <a href="#!/note">Édition</a>
 
     <ng-view></ng-view>
 
     <script src="billManager.js"></script>
-    <script src="billManagerCtrl.js"></script>
     <script src="userDashCtrl.js"></script>
+    <script src="userEditCtrl.js"></script>
+    <script src="noteDataService.js"></script>
 
   </body>
 </html>
