@@ -1,8 +1,14 @@
 <div ng-controller="userEdit">
-  <h1>Welcome to the edition menu</h1>
+  <h1>Ajouter une nouvelle note</h1>
 
-  <p>Input something in the input box:</p>
-  <p>Name: <input type="text" ng-model="addMe" placeholder="Votre nouvelle note"></input>
-    <button ng-click="addItem()">Add</button></p>
+  <p>Remplir les cases suivantes</p>
+  <form>
+    <p>Date <input type="text" ng-model="note.date" placeholder="1 janvier 2000"></input></p>
+    <p>Intitulé <input type="text" ng-model="note.title" placeholder="Déplacement à Brest"></input></p>
+    <p>Montant <input type="text" ng-model="note.amount" placeholder="100"></input></p>
+    <p>Devise <input type="text" ng-model="note.currency" placeholder="€"></input></p>
+    <p>Commentaire <input type="text" ng-model="note.comment"></input></p>
+    <p><button ng-click="addNote()">Add</button></p>
+</form>
   <p>{{addMe}}</p>
 </div>

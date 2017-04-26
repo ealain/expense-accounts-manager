@@ -1,26 +1,25 @@
 'use strict';
 
-app.factory('notesData', function() {
+app.service('notesData', function() {
     var data = [];
-    function get() {
+    this.get = function() {
 	return data;
     };
-    function set(local_data) {
+    this.set = function(local_data) {
 	data = local_data;
+	return;
     };
-    function add(value) {
-	data.push(value);
+    this.add = function(note) {
+	data.push(note);
+	return;
     };
-    function del(note) {
-	console.log(data);
+    this.del = function(note) {
 	var i = data.indexOf(note);
 	if(i !== -1) {
 	    data.splice(i, 1);
 	}
     };
-
-    return {get: get,
-	    set: set,
-	    add: add,
-	    del: del}
+    this.isEmpty = function() {
+	return (data.length === 0);
+    };
 });

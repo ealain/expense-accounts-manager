@@ -1,8 +1,10 @@
 <div ng-controller="userDashCtrl">
   <h1>Welcome to your dashboard</h1>
+
+  <p ng-if="notesData.isEmpty()">Aucune note de frais</p>
   
   <ul>
-    <li ng-repeat="n in notesData.get() track by $index">{{n}}<button ng-click="notesData.del(n)">x</button></li>
+    <li ng-repeat="n in notesData.get() track by $index">{{n.title}}<button ng-click="notesData.del(n)">x</button></li>
   </ul>
 
   <a href="#!/note">Nouvelle note</a>
