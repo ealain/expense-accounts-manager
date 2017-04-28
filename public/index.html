@@ -5,6 +5,12 @@
     <meta title="Notes de frais">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+    <script src="js/billManager.js"></script>
+    <script src="js/billManagerCtrl.js"></script>
+    <script src="js/userDashCtrl.js"></script>
+    <script src="js/userEditCtrl.js"></script>
+    <script src="js/noteDataService.js"></script>    
   </head>
 
   <body ng-app="billManager" ng-controller="init">
@@ -13,12 +19,6 @@
     <a href="#!/note">Édition</a>
 
     <ng-view></ng-view>
-
-    <script src="billManager.js"></script>
-    <script src="billManagerCtrl.js"></script>
-    <script src="userDashCtrl.js"></script>
-    <script src="userEditCtrl.js"></script>
-    <script src="noteDataService.js"></script>
 
   </body>
 </html>

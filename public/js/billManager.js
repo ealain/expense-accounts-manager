@@ -5,9 +5,9 @@ var app = angular.module("billManager", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
 	.when("/note", {
-	    templateUrl : "edit.html"
+	    templateUrl : "views/edit.html"
 	})
 	.otherwise({
-	    templateUrl : "dashboard.html"
+	    templateUrl : "views/dashboard.html"
 	});
 })
