@@ -2,7 +2,7 @@
 
 var app = angular.module("billManager", ["ngRoute"]);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
     $routeProvider
 	.when("/note", {
 	    templateUrl : "views/edit.html"
@@ -10,4 +10,6 @@ app.config(function($routeProvider) {
 	.otherwise({
 	    templateUrl : "views/dashboard.html"
 	});
+
+    $locationProvider.html5Mode(true);
 })

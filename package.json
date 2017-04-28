@@ -1,14 +1,16 @@
 {
-    "name": "expense-accounts-manager",
-    "description": "An application to manage expense accounts",
-    "version": "0.1.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ealain/expense-accounts-manager.git"
-    },
-    "license": "MIT",
-    "main": "index.js",
-    "dependencies": {
-	"express": "~4.14.0"
-    }
+  "name": "expense-accounts-manager",
+  "description": "An application to manage expense accounts",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ealain/expense-accounts-manager.git"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "~4.14.0",
+    "mongodb": "~2.2.0"
+  }
 }
