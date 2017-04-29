@@ -5,7 +5,7 @@ app.controller('userEdit', function($scope, $http, notesData) {
         $http({
 	    method: 'POST',
 	    data: angular.toJson($scope.note),
-	    url: '/note'
+	    url: '/notes'
 	}).then(function success(res) {
 	    console.log('Posted ' + angular.toJson($scope.note));
 	}, function error(res) {
