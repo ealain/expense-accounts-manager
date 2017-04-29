@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module("billManager", ["ngRoute"]);
+var app = angular.module('billManager', ['ngRoute', 'ngResource']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider

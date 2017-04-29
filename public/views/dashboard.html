@@ -4,7 +4,7 @@
   <p ng-if="notes.length === 0">Aucune note de frais</p>
   
   <ul>
-    <li ng-repeat="n in notes track by $index">{{n.title}}<button ng-click="del(n._id)">x</button></li>
+    <li ng-repeat="n in notes track by $index">{{n.title}}<button ng-click="del(n)">x</button></li>
   </ul>
 
   <a href="note">Nouvelle note</a>

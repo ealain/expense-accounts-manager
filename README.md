@@ -1,14 +1,21 @@
 # Installation
 
+## Prerequisite
+
+You need **npm**, **nodejs** and **bower** installed.
+
+## Step by step
+
 Download the application code:
 ```
 git clone https://github.com/ealain/expense-accounts-manager.git
 ```
-Install the application:
+Install the modules for the application:
 ```
 npm install
+bower install
 ```
 Run the application:
 ```
-nodejs index.js
+node index.js
 ```
