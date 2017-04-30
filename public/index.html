@@ -6,21 +6,22 @@
 
     <base href="/">
 
-    <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/angular-route/angular-route.min.js"></script>
-    <script src="libs/angular-resource/angular-resource.min.js"></script>
+    <script src="libs/angular/angular.js"></script>
+    <script src="libs/angular-route/angular-route.js"></script>
+    <script src="libs/angular-resource/angular-resource.js"></script>
 
     <script src="js/billManager.js"></script>
-    <script src="js/billManagerCtrl.js"></script>
     <script src="js/userDashCtrl.js"></script>
     <script src="js/userEditCtrl.js"></script>
+    <script src="js/loginCtrl.js"></script>
+    <script src="js/signupCtrl.js"></script>
     <script src="services/notes.service.js"></script>
   </head>
 
   <body ng-app="billManager">
 
-    <a href="/">Dashboard</a>
-    <a href="note">Édition</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/note">Édition</a>
 
     <ng-view></ng-view>
 
