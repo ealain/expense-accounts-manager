@@ -21,6 +21,7 @@ module.exports = function(app) {
     });
 
     app.post('/login', function(req, res) {
+	console.log('Request to login');
 	User.findOne({
 	    login: req.body.login
 	}, function(err, user) {
@@ -35,10 +36,7 @@ module.exports = function(app) {
 		    var token = jwt.sign(user, app.get('token_key'), {expiresIn: 60*60*24});
 
 		    res.append('Set-Cookie', 'access_token=' + token + '; HttpOnly');
-		    res.json({
-			success: true,
-			message: 'Enjoy your token!'
-		    });
+		    res.json({success: true, message: 'Enjoy your token!'});
 		    console.log('Sent token');
 		}
 	    }
@@ -55,29 +53,42 @@ module.exports = function(app) {
 	note.currency = req.body.currency;
 	note.comment = req.body.comment;
 
-	console.log(note.title);
+	console.log('Extracting token from header...');
+	var token = req.headers.cookie.split('=')[1];
 
-	res.type('html');
+	jwt.verify(token, app.get('token_key'), function(err, decoded) {
+	    if(err) {
+		console.log('Invalid token... aborting' + err);
+		res.json({success: 'false', message: 'Invalid token'});
+	    }
+	    else {
+		console.log('User successfully authentified');
 
-	note.save(function(err) {
-	    if(err)
-		res.send(err);
-	    else
-		res.send('Request received' + note);
+		note.save(function(err) {
+		    if(err) {
+			console.log('Error while saving' + err);
+			res.json({success: false, message: 'Invalid token'});
+		    }
+		    else {
+			console.log('Saved note ' + note.title);
+			res.json({success: true, message: 'Token accepted and account saved'});
+		    }
+		});
+	    }
 	});
     });
 
     app.get('/notes', function(req, res) {
 	console.log('Request to read notes');
 
-	res.type('json');
-
 	Note.find(function(err, notes) {
-	    if(err)
-		res.send(err);
+	    if(err) {
+		console.log('Error looking for notes' + err);
+		res.json({success: false, message: 'Unable to read notes'});
+	    }
 	    else {
-		console.log("Sent: " + notes);
-		res.send(notes);
+		console.log("Accounts sent");
+		res.json(notes);
 	    }
 	});
     });
@@ -85,16 +96,16 @@ module.exports = function(app) {
     app.delete('/notes/:id', function(req, res) {
 	console.log('Request to delete note ' + req.params.id);
 
-	res.type('html');
-
 	Note.remove({
 	    _id: req.params.id
-	}, function(err) {
-	    if(err)
-		res.send(err);
+	}, function(err, note) {
+	    if(err) {
+		console.log('Error deleting note' + err);
+		res.json({success: false, message: 'Unable to delete note'});
+	    }
 	    else {
 		console.log("Deleted note with id: " + req.params.id);
-		res.send('');
+		res.json({success: true, message: 'Note deleted'});
 	    }
 	});
     });
