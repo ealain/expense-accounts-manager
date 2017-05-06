@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('userEdit', function($scope, $http) {
+app.controller('userEditCtrl', function($scope, $http) {
 
     $scope.addNote = function() {
         $http({

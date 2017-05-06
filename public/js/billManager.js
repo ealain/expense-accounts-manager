@@ -1,25 +1,11 @@
 'use strict';
 
-var app = angular.module('billManager', ['ngRoute', 'ngResource']);
+var app = angular.module('billManager', ['ngResource', 'ui.router']);
 
-app.config(function($routeProvider, $locationProvider) {
-    $routeProvider
-	.when('/dashboard', {
-	    controller: 'userDashCtrl',
-	    templateUrl: 'views/dashboard.html'
-	})
-	.when('/note', {
-	    controller: 'userEdit',
-	    templateUrl: 'views/edit.html'
-	})
-	.when('/signup', {
-	    controller: 'signupCtrl',
-	    templateUrl: 'views/signup.html'
-	})
-	.otherwise({
-	    controller: 'loginCtrl',
-	    templateUrl: 'views/login.html'
-	});
-
+app.config(function($locationProvider) {
     $locationProvider.html5Mode(true);
 })
+
+app.run(function($state) {
+    $state.go('home');
+});

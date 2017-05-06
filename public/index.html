@@ -7,8 +7,8 @@
     <base href="/">
 
     <script src="libs/angular/angular.js"></script>
-    <script src="libs/angular-route/angular-route.js"></script>
     <script src="libs/angular-resource/angular-resource.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
 
     <script src="js/billManager.js"></script>
     <script src="js/userDashCtrl.js"></script>
@@ -17,14 +17,12 @@
     <script src="js/signupCtrl.js"></script>
     <script src="services/notes.service.js"></script>
     <script src="services/auth.service.js"></script>
+    <script src="states/states.js"></script>
   </head>
 
   <body ng-app="billManager">
 
-    <a href="/dashboard">Dashboard</a>
-    <a href="/note">Édition</a>
-
-    <ng-view></ng-view>
+    <div ui-view></div>
 
   </body>
 </html>

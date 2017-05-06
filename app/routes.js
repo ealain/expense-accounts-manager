@@ -9,6 +9,8 @@ module.exports = function(app) {
 	var user = new User;
 	user.login = req.body.login;
 	user.password = req.body.password;
+	user.admin = false;
+	user.manager = false;
 
 	res.type('html');
 
@@ -36,7 +38,7 @@ module.exports = function(app) {
 		    var token = jwt.sign(user, app.get('token_key'), {expiresIn: 60*60*24});
 
 		    res.append('Set-Cookie', 'access_token=' + token + '; HttpOnly');
-		    res.json({success: true, message: 'Enjoy your token!'});
+		    res.json({success: true, admin: user.admin, manager: user.manager, message: 'Enjoy your token!'});
 		    console.log('Sent token');
 		}
 	    }
