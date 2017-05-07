@@ -1,16 +1,20 @@
 'use strict';
 
-app.controller('userEditCtrl', function($scope, $http) {
+app.controller('userEditCtrl', function($scope, $state, $stateParams, $http, NotesService) {
 
-    $scope.addNote = function() {
-        $http({
-	    method: 'POST',
-	    data: angular.toJson($scope.note),
-	    url: '/notes'
-	}).then(function success(res) {
-	    console.log('Post successful: ' + res.data.success);
-	}, function error(res) {
-	    console.log('Error happened posting data');
+    $scope.note = NotesService.getOne($stateParams.note_id);
+
+    $scope.update = function() {
+	NotesService.update($scope.note, function() {
+	    // Popup note modifiée
+	    $state.go('user.dashboard');
 	});
     };
+
+    $scope.del = function() {
+	NotesService.del($scope.note, function() {
+	    // Popup note supprimée
+	    $state.go('user.dashboard');
+	});
+    }
 });

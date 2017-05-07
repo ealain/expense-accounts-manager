@@ -6,7 +6,8 @@ var noteSchema = new Schema({
     title: String,
     amount: Number,
     currency: String,
-    comment: String
+    comment: String,
+    approved: Boolean
 });
 
 module.exports = mongoose.model('note', noteSchema);

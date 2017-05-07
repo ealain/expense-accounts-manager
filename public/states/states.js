@@ -20,9 +20,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('user.edit', {
-	url: '/edit',
+	url: '/edit/:note_id',
 	templateUrl: 'views/edit.html',
 	controller: 'userEditCtrl'
+    });
+
+    $stateProvider.state('user.create', {
+	url: '/edit',
+	templateUrl: 'views/create.html',
+	controller: 'userCreateCtrl'
     });
     
     $stateProvider.state('admin', {});
