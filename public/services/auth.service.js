@@ -15,12 +15,12 @@ app.service('AuthService', function($http, $state) {
 			}, function(err) {
 			    console.log(err);
 			});
-		    $state.go('user').then(function() {
-			console.log('State is now user: ' + $state.is('user'));
-		    }, function(err) {
-			console.log(err);
-		    });
-
+		    else
+			$state.go('user').then(function() {
+			    console.log('State is now user: ' + $state.is('user'));
+			}, function(err) {
+			    console.log(err);
+			});
 		}
 	    }, function() {
 		console.error('Error submitting login')

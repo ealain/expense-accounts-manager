@@ -25,4 +25,5 @@ db.once('open', function() {
     console.log('Connection to database successful');
 });
 
-require('./app/routes')(app);
+require('./app/routes.notes')(app);
+require('./app/routes.users')(app);

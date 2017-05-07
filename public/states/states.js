@@ -38,7 +38,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'userCreateCtrl'
     });
     
-    $stateProvider.state('admin', {});
+    $stateProvider.state('admin', {
+	url: '/admin',
+	templateUrl: 'views/admin.html',
+	controller: 'adminCtrl'
+    });
+
+    $stateProvider.state('admin.adduser', {
+	url: '/user',
+	templateUrl: 'views/admin.adduser.html',
+	controller: 'adminAddUserCtrl'
+    });
     
     $stateProvider.state('manager', {});
 });

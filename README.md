@@ -10,12 +10,11 @@ Download the application code:
 ```
 git clone https://github.com/ealain/expense-accounts-manager.git
 ```
-Install the modules for the application:
+Install the application:
 ```
-npm install
-bower install
+./install.sh
 ```
 Run the application:
 ```
-node index.js
+./start_server.sh
 ```
