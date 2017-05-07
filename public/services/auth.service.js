@@ -22,9 +22,17 @@ app.service('AuthService', function($http, $state) {
 		    });
 
 		}
-		console.log(res.data);
 	    }, function() {
 		console.error('Error submitting login')
+	    });
+    };
+
+    this.signup = function(user) {
+	$http.post('/signup', angular.toJson(user))
+	    .then(function() {
+		$state.go('home');
+	    }, function() {
+		console.error('Error submitting sign up information')
 	    });
     };
 });

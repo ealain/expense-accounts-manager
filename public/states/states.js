@@ -1,11 +1,18 @@
 app.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.when('/user', '/user/dashboard');
+    $urlRouterProvider.otherwise('/');
     
     $stateProvider.state('home', {
 	url: '/',
 	templateUrl: 'views/login.html',
 	controller: 'loginCtrl'
+    });
+
+    $stateProvider.state('signup', {
+	url: '/signup',
+	templateUrl: 'views/signup.html',
+	controller: 'signupCtrl'
     });
     
     $stateProvider.state('user', {
