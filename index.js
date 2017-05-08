@@ -1,5 +1,5 @@
 var assert = require('assert');
-var config = require('./app/config');
+var config = require('./config');
 
 var express = require('express');
 var app = express();

@@ -10,11 +10,15 @@ Download the application code:
 ```
 git clone https://github.com/ealain/expense-accounts-manager.git
 ```
-Install the application:
+Install and configure the application (Bash script):
 ```
+cd expense-accounts-manager
 ./install.sh
 ```
+By default, a directory *data* will be created for MongoDB. Another directory *log* will be created to store more information about the installation process. The latter may be deleted.
+
 Run the application:
 ```
-./start_server.sh
+mongod [--nojournal] --dbpath=data
+node index.js
 ```
