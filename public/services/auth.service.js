@@ -5,19 +5,16 @@ app.service('AuthService', function($http, $state) {
 		if(res.data.success === true) {
 		    if(res.data.admin)
 			$state.go('admin.users').then(function() {
-			    console.log('State is now child of admin: ' + $state.is('admin.users'));
 			}, function(err) {
 			    console.log(err);
 			});
 		    else if(res.data.admin)
 			$state.go('manager').then(function() {
-			    console.log('State is now manager: ' + $state.is('manager'));
 			}, function(err) {
 			    console.log(err);
 			});
 		    else
 			$state.go('user.dashboard').then(function() {
-			    console.log('State is now child of user: ' + $state.is('user.dashboard'));
 			}, function(err) {
 			    console.log(err);
 			});

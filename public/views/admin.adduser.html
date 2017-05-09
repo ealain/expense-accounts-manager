@@ -1,1 +1,11 @@
-<p>Ajout d'utilisateur à implémenter</p>
+<p>Ajout d'utilisateur</p>
+
+<form>
+  <input type="text" ng-model="user.login" placeholder="Login"></input></br>
+  <input type="text" ng-model="user.password" placeholder="Mot de passe"></input></br>
+  <input type="checkbox" ng-model="user.admin" value="true">Administrateur</input></br>
+  <input type="checkbox" ng-model="user.manager" value="true">Manager</input></br>
+  <button ng-click="send()">Valider</button>
+</form>
+
+<p ng-if="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
