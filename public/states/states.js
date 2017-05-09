@@ -1,8 +1,7 @@
 app.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/user', '/user/dashboard');
     $urlRouterProvider.otherwise('/');
-    
+
     $stateProvider.state('home', {
 	url: '/',
 	templateUrl: 'views/login.html',
@@ -14,7 +13,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	templateUrl: 'views/signup.html',
 	controller: 'signupCtrl'
     });
-    
+
+    $stateProvider.state('logout', {
+	url: '/logout',
+	templateUrl: 'views/login.html',
+	controller: 'logoutCtrl'
+    });
+
     $stateProvider.state('user', {
 	url: '/user',
 	templateUrl: 'views/user.html'
@@ -36,16 +41,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	templateUrl: 'views/create.html',
 	controller: 'userCreateCtrl'
     });
-    
+
     $stateProvider.state('admin', {
-	templateUrl: 'views/admin.html',
-	controller: 'adminCtrl'
+	templateUrl: 'views/admin.html'
+    });
+
+    $stateProvider.state('admin.users', {
+	templateUrl: 'views/admin.users.html',
+	controller: 'adminDashCtrl'
     });
 
     $stateProvider.state('admin.adduser', {
 	templateUrl: 'views/admin.adduser.html',
 	controller: 'adminAddUserCtrl'
     });
-    
+
     $stateProvider.state('manager', {});
 });

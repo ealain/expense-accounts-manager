@@ -1,0 +1,14 @@
+<div>
+  <p>Utilisateurs</p>
+  <ul>
+    <li ng-repeat="u in users track by $index" ng-if="!u.admin && !u.manager">{{u.login}}</li>
+  </ul>
+  <p>Gestionnaires</p>
+  <ul>
+    <li ng-repeat="u in users track by $index" ng-if="u.manager">{{u.login}}</li>
+  </ul>
+  <p>Administrateurs</p>
+  <ul>
+    <li ng-repeat="u in users track by $index" ng-if="u.admin">{{u.login}}</li>
+  </ul>
+</div>

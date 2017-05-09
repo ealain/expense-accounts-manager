@@ -44,4 +44,35 @@ module.exports = function(app) {
 	    }
 	});
     });
+
+    app.post('/logout', function(req, res) {
+	console.log('Extracting token from header...');
+	var token = req.headers.cookie.split('=')[1];
+
+	jwt.verify(token, app.get('token_key'), function(err, decoded) {
+	    if(err) {
+		console.log('Invalid token... aborting' + err);
+		res.json({success: false, message: 'Invalid token'});
+	    }
+	    else {
+		console.log('User successfully authentified');
+
+		console.log('Request to logout');
+		User.findOne({
+		    login: decoded._doc.login
+		}, function(err, user) {
+		    if(err) throw err;
+		    if (!user) {
+			res.json({ success: false, message: 'Authentication failed. User not found.' });
+		    } else {
+			res.append('Set-Cookie', 'access_token=deleted' + '; HttpOnly' +
+				   '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
+			console.log('Appended');
+			res.json({success: true, message: 'Token cancelled'});
+			console.log('Sent token deletion');
+		    }
+		});
+	    }
+	});
+    });
 }
