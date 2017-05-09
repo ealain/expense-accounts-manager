@@ -33,19 +33,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('user.create', {
-	url: '/edit',
 	templateUrl: 'views/create.html',
 	controller: 'userCreateCtrl'
     });
     
     $stateProvider.state('admin', {
-	url: '/admin',
 	templateUrl: 'views/admin.html',
 	controller: 'adminCtrl'
     });
 
     $stateProvider.state('admin.adduser', {
-	url: '/user',
 	templateUrl: 'views/admin.adduser.html',
 	controller: 'adminAddUserCtrl'
     });

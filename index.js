@@ -25,5 +25,13 @@ db.once('open', function() {
     console.log('Connection to database successful');
 });
 
-require('./app/routes.notes')(app);
-require('./app/routes.users')(app);
+var notesRouter = express.Router();
+var usersRouter = express.Router();
+
+app.use('/notes', notesRouter);
+app.use('/users', usersRouter);
+
+require('./app/routes')(app);
+
+require('./app/routes.notes')(app, notesRouter);
+require('./app/routes.users')(app, usersRouter);
