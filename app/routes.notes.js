@@ -14,13 +14,14 @@ module.exports = function(app, router) {
 	    }
 	    else {
 		console.log('User successfully authentified');
+		req.userId = decoded._doc._id;
 		next();
 	    }
 	});
     });
 
     router.post('/', function(req, res) {
-	console.log('Request to post a note');
+	console.log('Request to post a note from ' + req.userId);
 
 	var note = new Note;
 	note.date = req.body.date;
@@ -29,6 +30,7 @@ module.exports = function(app, router) {
 	note.currency = req.body.currency;
 	note.comment = req.body.comment;
 	note.approved = false;
+	note.userId = req.userId;
 
 	note.save(function(err) {
 	    if(err) {
@@ -46,7 +48,8 @@ module.exports = function(app, router) {
 	console.log('Request to modify a note');
 
 	Note.findOne({
-	    _id: req.params.id
+	    _id: req.params.id,
+	    userId: req.userId
 	}, function(err, note) {
 	    note.date = req.body.date;
 	    note.title = req.body.title;
@@ -71,7 +74,9 @@ module.exports = function(app, router) {
     router.get('/', function(req, res) {
 	console.log('Request to read notes');
 
-	Note.find(function(err, notes) {
+	Note.find({
+	    userId: req.userId
+	}, function(err, notes) {
 	    if(err) {
 		console.log('Error looking for notes' + err);
 		res.json({success: false, message: 'Unable to read notes'});
@@ -87,7 +92,8 @@ module.exports = function(app, router) {
 	console.log('Request to read note ' + req.params.id);
 
 	Note.findOne({
-	    _id: req.params.id
+	    _id: req.params.id,
+	    userId: req.userId
 	}, function(err, note) {
 	    if(err) {
 		console.log('Error looking for notes' + err);
@@ -105,7 +111,8 @@ module.exports = function(app, router) {
 	console.log('Request to delete note ' + req.params.id);
 
 	Note.find({
-	    _id: req.params.id
+	    _id: req.params.id,
+	    userId: req.userId
 	}, function(err, note) {
 	    if(err) {
 		console.log('Error: cannot find note to be deleted');
