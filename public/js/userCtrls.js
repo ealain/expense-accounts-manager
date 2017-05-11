@@ -19,7 +19,9 @@ app.controller('userCreateCtrl', function($scope, $state, NotesService) {
 
 app.controller('userEditCtrl', function($scope, $state, $stateParams, $http, NotesService) {
 
-    $scope.note = NotesService.getOne($stateParams.note_id);
+    NotesService.getOne($stateParams.note_id, function(n) {
+	$scope.note = n;
+    });
 
     $scope.update = function() {
 	NotesService.update($scope.note, function() {

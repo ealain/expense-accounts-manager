@@ -24,7 +24,7 @@ module.exports = function(app, router) {
 	console.log('Request to post a note from ' + req.userId);
 
 	var note = new Note;
-	note.date = Date(req.body.year, req.body.month, req.body.day).toISOString();
+	note.date = req.body.date;
 	note.title = req.body.title;
 	note.amount = req.body.amount;
 	note.currency = req.body.currency;
@@ -51,7 +51,7 @@ module.exports = function(app, router) {
 	    _id: req.params.id,
 	    userId: req.userId
 	}, function(err, note) {
-	    note.date = String('20'+req.body.year+'-'+req.body.month+'-'+req.body.day);
+	    note.date = req.body.date;
 	    note.title = req.body.title;
 	    note.amount = req.body.amount;
 	    note.currency = req.body.currency;
@@ -101,11 +101,7 @@ module.exports = function(app, router) {
 	    }
 	    else {
 		console.log("Accounts sent");
-		n = note.toObject();
-		n.year = note.date.getFullYear().toString().slice(2,4);
-		n.month = (note.date.getMonth() + 1).toString();
-		n.day = note.date.getDay().toString();
-		res.json(n);
+		res.json(note);
 	    }
 	});
     });

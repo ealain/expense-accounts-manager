@@ -3,7 +3,13 @@
 
   <p>Remplir les cases suivantes</p>
   <form>
-    <p>Date <input type="text" ng-model="note.date" placeholder="1 janvier 2000"></input></p>
+    <p>Date</p>
+    <label for="day">Jour (JJ)</label>
+    <input type="text" id="day" maxlength="2" size="2" ng-model="note.day" placeholder="01"></input>
+    <label for="month">Mois (MM)</label>
+    <input type="text" id="month" maxlength="2" size="2" ng-model="note.month" placeholder="01"></input>
+    <label for="year">Année (AA)</label>
+    <input type="text" id="year" maxlength="4" size="4" ng-model="note.year" placeholder="2017"></input></br>
     <p>Intitulé <input type="text" ng-model="note.title" placeholder="Déplacement à Brest"></input></p>
     <p>Montant <input type="text" ng-model="note.amount" placeholder="100"></input></p>
     <p>Devise <input type="text" ng-model="note.currency" placeholder="€"></input></p>
