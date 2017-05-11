@@ -5,22 +5,28 @@ module.exports = function(app, router) {
 
     router.use(function(req, res, next) {
 	console.log('Extracting token from header...');
-	var token = req.headers.cookie.split('=')[1];
+	if(!req.headers.cookie) {
+	    console.log('No token ! Aborting.');
+	    res.json({success: false, message: 'No token provided'});
+	}
+	else {
+	    var token = req.headers.cookie.split('=')[1];
 
-	jwt.verify(token, app.get('token_key'), function(err, decoded) {
-	    if(err) {
-		console.log('Invalid token... aborting' + err);
-		res.json({success: false, message: 'Invalid token'});
-	    }
-	    else {
-		if(decoded._doc.admin) {
-		    console.log('User successfully authentified');
-		    next();
+	    jwt.verify(token, app.get('token_key'), function(err, decoded) {
+		if(err) {
+		    console.log('Invalid token... aborting' + err);
+		    res.json({success: false, message: 'Invalid token'});
 		}
-		else
-		    console.log('User should be admin');
-	    }
-	});
+		else {
+		    if(decoded._doc.admin) {
+			console.log('User successfully authentified');
+			next();
+		    }
+		    else
+			console.log('User should be admin');
+		}
+	    });
+	}
     });
 
     router.get('/', function(req, res) {

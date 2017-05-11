@@ -1,9 +1,9 @@
 <div>
-  <p>Authentification requise</p>
+  <p>Authentification requise <a ui-sref="signup">Sign up</a></p>
   <label>Identifiant</label>
   <input ng-model="user.login"><br>
   <label>Mot de passe</label>
-  <input ng-model="user.password"><br>
-  <button ng-click="login(user)">Envoyer</button><br>
-  <a ui-sref="signup">Sign up</button>
+  <input type="password" ng-model="user.password"><br>
+  <button ng-click="login(user, setwrongpwd)">Envoyer</button>
+  <p ng-if="wrongpwd">Mot de passe invalide</p>
 </div>

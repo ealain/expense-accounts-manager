@@ -1,7 +1,11 @@
 'use strict'
 
 app.controller('loginCtrl', function($scope, $http, AuthService) {
+    $scope.setwrongpwd = function setwrongpwd() {
+	$scope.wrongpwd = true;
+    };
     $scope.login = AuthService.login;
+    $scope.wrongpwd = false;
 });
 
 app.controller('logoutCtrl', function(AuthService) {

@@ -43,6 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('admin', {
+	url: '/admin',
 	templateUrl: 'views/admin.html'
     });
 

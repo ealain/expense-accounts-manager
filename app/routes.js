@@ -67,7 +67,6 @@ module.exports = function(app) {
 		    } else {
 			res.append('Set-Cookie', 'access_token=deleted' + '; HttpOnly' +
 				   '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
-			console.log('Appended');
 			res.json({success: true, message: 'Token cancelled'});
 			console.log('Sent token deletion');
 		    }

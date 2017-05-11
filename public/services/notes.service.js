@@ -7,7 +7,7 @@ app.service('NotesService', function($resource) {
     };
 
     this.get = function() {
-	return Notes.query();
+	return Notes.query(function() {}, function(err) {console.log('Error getting array');});
     };
 
     this.getOne = function(note_id, next) {
@@ -21,7 +21,6 @@ app.service('NotesService', function($resource) {
     }
 
     this.del = function(note, callback) {
-	console.log('Id for note ' + note._id);
 	note.$remove().then(function success() {
 	    callback();
 	});

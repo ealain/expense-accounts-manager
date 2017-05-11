@@ -1,5 +1,5 @@
 app.service('AuthService', function($http, $state) {
-    this.login = function(user) {
+    this.login = function(user, setwrongpwd) {
 	$http.post('/login', angular.toJson(user))
 	    .then(function(res) {
 		if(res.data.success === true) {
@@ -19,6 +19,8 @@ app.service('AuthService', function($http, $state) {
 			    console.log(err);
 			});
 		}
+		else
+		    setwrongpwd();
 	    }, function() {
 		console.error('Error submitting login')
 	    });

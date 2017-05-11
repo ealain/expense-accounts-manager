@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Reading configuration
-printf "Secret key (token generation): "
+printf "Secret key (for token generation): "
 read token_key
 printf "Admin login (default: admin): "
 read login
@@ -12,6 +12,7 @@ printf "Admin password: "
 read -s password
 
 # Writing configuration file
+printf "\n\nWriting configuration file..."
 printf "module.exports = {\n\t'db_url': " > config.js
 echo -n "'mongodb://localhost:27017/ea-manager'" >> config.js
 
@@ -21,6 +22,7 @@ printf "\n}" >> config.js
 
 
 # Starting local database
+printf "\nStarting local database at localhost:27017/ea-manager..."
 mkdir log 2> /dev/null
 mkdir data 2> /dev/null
 echo -n "" > log/db.log
@@ -29,15 +31,18 @@ mongod --nojournal --dbpath=data 1>> log/db.log 2>> log/db.log &
 MONGO_PID="$!"
 
 ## Fetching NodeJS modules (also waiting for mongod to start)
-echo "Installig Node modules for server..."
+printf "\nInstallig Node modules for server..."
 npm install &> /dev/null
-echo "Installig Node modules for application..."
+printf "\nInstallig Node modules for application..."
 bower install &> /dev/null
 
 # Admin creation
+printf "\nCreating first user (admin)"
 mongo ea-manager --eval "db.users.insertOne({login: \"$login\", password: \"$password\", admin: true, manager: false})" 1>> log/install.log 2>> log/install.log
 
 if [ -z "$address_db" ]; then
-    kill $MONGO_PID
+    kill $MONGO_PID 2>> log/install.log
     echo "Database directory has been set to './data'" >> log/install.log
 fi
+
+printf "\nMore information on the installation is available under log/\n"
