@@ -57,5 +57,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'adminAddUserCtrl'
     });
 
+    $stateProvider.state('admin.adduser.manager', {
+	templateUrl: 'views/admin.attribuser.html',
+	controller: 'adminAddManagerCtrl'
+    });
+
     $stateProvider.state('manager', {});
 });

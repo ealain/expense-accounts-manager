@@ -1,4 +1,5 @@
 var User = require('./models/user');
+var UsersList = require('./models/man-attrib');
 var jwt = require('jsonwebtoken');
 
 module.exports = function(app, router) {
@@ -81,5 +82,35 @@ module.exports = function(app, router) {
 		}
 	    });
 	}
+    });
+
+    router.post('/lists', function(req, res) {
+	console.log('Request to add users list for manager');
+
+	var list = new UsersList;
+	var managerId;
+
+	User.findOne({
+	    login: req.body.managerlogin
+	}, function(err, u) {
+	    if(u) {
+		list.managerId = u._id;
+		list.users = req.body.users;
+		list.save(function(err) {
+		    if(err) {
+			console.log('Error while saving list of users: ' + err);
+			res.json({success: false, message: 'Error while saving list of users'});
+		    }
+		    else {
+			console.log('Saved list of users for ' + u.login);
+			res.json({success: true, message: 'List of users saved !'});
+		    }
+		});
+	    }
+	    else {
+		console.log('Could not find requested manager');
+		res.json({success: false, message: 'Could not find manager to update'});
+	    }
+	});
     });
 }

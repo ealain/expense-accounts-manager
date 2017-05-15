@@ -4,8 +4,11 @@
   <input type="text" ng-model="user.login" placeholder="Login"></input></br>
   <input type="password" ng-model="user.password" placeholder="Mot de passe"></input></br>
   <input type="checkbox" ng-model="user.admin" value="true">Administrateur</input></br>
-  <input type="checkbox" ng-model="user.manager" value="true">Manager</input></br>
-  <button ng-click="send()">Valider</button>
+  <input type="checkbox" ng-click="showUsers()" ng-model="user.manager" value="true">Manager</input></br>
 </form>
+
+<div ui-view>
+  <button ng-click="send()">Valider</button>
+</div>
 
 <p ng-if="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
