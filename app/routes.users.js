@@ -33,7 +33,7 @@ module.exports = function(app, router) {
     router.get('/', function(req, res) {
 	console.log('Request to read users');
 
-	User.find(function(err, users) {
+	User.find({}, '_id login admin manager', function(err, users) {
 	    if(err) {
 		console.log('Error looking for users' + err);
 		res.json({success: false, message: 'Unable to read users'});
