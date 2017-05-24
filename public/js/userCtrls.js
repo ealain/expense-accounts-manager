@@ -1,5 +1,9 @@
 'use strict';
 
+app.controller('userCtrl', function($state) {
+    $state.go('user.udashboard');
+});
+
 app.controller('userDashCtrl', function($scope, NotesService) {
     $scope.notes = NotesService.get();
 
@@ -12,7 +16,7 @@ app.controller('userCreateCtrl', function($scope, $state, NotesService) {
     $scope.addNote = function() {
 	NotesService.add($scope.note, function() {
 	    // Popup note ajoutée
-	    $state.go('user.dashboard');
+	    $state.go('user.udashboard');
 	});
     };
 });
@@ -26,14 +30,14 @@ app.controller('userEditCtrl', function($scope, $state, $stateParams, $http, Not
     $scope.update = function() {
 	NotesService.update($scope.note, function() {
 	    // Popup note modifiée
-	    $state.go('user.dashboard');
+	    $state.go('user.udashboard');
 	});
     };
 
     $scope.del = function() {
 	NotesService.del($scope.note, function() {
 	    // Popup note supprimée
-	    $state.go('user.dashboard');
+	    $state.go('user.udashboard');
 	});
     }
 });

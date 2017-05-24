@@ -4,17 +4,17 @@ app.service('AuthService', function($http, $state) {
 	    .then(function(res) {
 		if(res.data.success === true) {
 		    if(res.data.admin)
-			$state.go('admin.users').then(function() {
+			$state.go('admin').then(function() {
 			}, function(err) {
 			    console.log(err);
 			});
-		    else if(res.data.admin)
+		    else if(res.data.manager)
 			$state.go('manager').then(function() {
 			}, function(err) {
 			    console.log(err);
 			});
 		    else
-			$state.go('user.dashboard').then(function() {
+			$state.go('user').then(function() {
 			}, function(err) {
 			    console.log(err);
 			});

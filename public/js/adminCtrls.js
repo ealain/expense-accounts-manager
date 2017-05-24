@@ -1,3 +1,7 @@
+app.controller('adminCtrl', function($state) {
+    $state.go('admin.ausers');
+});
+
 app.controller('adminDashCtrl', function($scope, AdminService) {
     $scope.users = AdminService.getUsers();
 });
@@ -11,7 +15,7 @@ app.controller('adminAddUserCtrl', function($scope, $state, AdminService) {
     $scope.send = function() {
 	AdminService.addUser($scope.user, function() {
 	    $scope.r = true;
-	    $state.go('admin.users');
+	    $state.go('admin.ausers');
 	}, function() {
 	    $scope.r = false;
 	});
@@ -40,7 +44,7 @@ app.controller('adminAddManagerCtrl', function($scope, $state, AdminService) {
 		    AdminService.addUsersList($scope.user.login, selected);
 		}
 		$scope.r = true;
-		$state.go('admin.users');
+		$state.go('admin.ausers');
 	    }, function() {
 		$scope.r = false;
 	    });

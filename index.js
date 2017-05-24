@@ -27,11 +27,14 @@ db.once('open', function() {
 
 var notesRouter = express.Router();
 var usersRouter = express.Router();
+var managerRouter = express.Router();
 
 app.use('/notes', notesRouter);
 app.use('/users', usersRouter);
+app.use('/manager', managerRouter);
 
 require('./app/routes')(app);
 
 require('./app/routes.notes')(app, notesRouter);
 require('./app/routes.users')(app, usersRouter);
+require('./app/routes.manager')(app, managerRouter);

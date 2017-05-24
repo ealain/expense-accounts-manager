@@ -1,0 +1,8 @@
+<p>Notes par utilisateur</p>
+<ul>
+    <li ng-for="user in users">
+        <ul>
+            <li ng-for="note in notes[user]">{{note}}</li>
+        </ul>
+    </li>
+</ul>

@@ -1,0 +1,10 @@
+Notes à valider
+
+<ul>
+    <li ng-repeat="user in users">
+        {{user.login}}
+        <li ng-repeat="note in notes[user]" ng-if="note.approved == false">
+            {{note.title}}
+        </li>
+    </li>
+</ul>

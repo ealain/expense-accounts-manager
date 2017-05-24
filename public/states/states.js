@@ -22,10 +22,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('user', {
 	url: '/user',
-	templateUrl: 'views/user.html'
+	templateUrl: 'views/user.html',
+        controller: 'userCtrl'
     });
 
-    $stateProvider.state('user.dashboard', {
+    $stateProvider.state('user.udashboard', {
 	url: '/dashboard',
 	templateUrl: 'views/dashboard.html',
 	controller: 'userDashCtrl'
@@ -44,10 +45,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('admin', {
 	url: '/admin',
-	templateUrl: 'views/admin.html'
+	templateUrl: 'views/admin.html',
+        controller: 'adminCtrl'
     });
 
-    $stateProvider.state('admin.users', {
+    $stateProvider.state('admin.ausers', {
 	templateUrl: 'views/admin.users.html',
 	controller: 'adminDashCtrl'
     });
@@ -62,5 +64,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'adminAddManagerCtrl'
     });
 
-    $stateProvider.state('manager', {});
+    $stateProvider.state('manager', {
+        url: '/manager',
+        templateUrl: 'views/manager.html',
+        controller: 'managerCtrl'
+    });
+
+    $stateProvider.state('manager.mdashboard', {
+        url: '/dashboard',
+        templateUrl: 'views/manager.dashboard.html',
+        controller: 'managerDashCtrl'
+    });
+
+    $stateProvider.state('manager.mnotes', {
+        usr: '/notes',
+        templateUrl: 'views/manager.notes.html',
+        controller: 'managerNotesCtrl'
+    });
+
+    $stateProvider.state('manager.musers', {
+        usr: '/users',
+        templateUrl: 'views/manager.users.html',
+        controller: 'managerUsersCtrl'
+    });
 });
