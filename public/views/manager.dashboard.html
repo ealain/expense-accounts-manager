@@ -3,8 +3,10 @@ Notes à valider
 <ul>
     <li ng-repeat="user in users">
         {{user.login}}
-        <li ng-repeat="note in notes[user]" ng-if="note.approved == false">
-            {{note.title}}
-        </li>
+        <ul>
+            <li ng-repeat="note in notes[user._id]" ng-if="note.approved == false">
+                {{note.title}}
+            </li>
+        </ul>
     </li>
 </ul>

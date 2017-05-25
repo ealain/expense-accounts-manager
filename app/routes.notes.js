@@ -1,9 +1,10 @@
 var jwt = require('jsonwebtoken');
 var Note = require('./models/note');
+var ManAttribs = require('./models/man-attrib');
 
 module.exports = function(app, router) {
 
-    router.use(function(req, res, next) {
+    function auth(req, res, next) {
 	console.log('Extracting token from header...');
 	if(!req.headers.cookie) {
 	    console.log('No token ! Aborting.');
@@ -24,9 +25,9 @@ module.exports = function(app, router) {
 		}
 	    });
 	}
-    });
+    };
 
-    router.post('/', function(req, res) {
+    router.post('/', auth, function(req, res) {
 	console.log('Request to post a note from ' + req.userId);
 
 	var note = new Note;
@@ -50,7 +51,7 @@ module.exports = function(app, router) {
 	});
     });
 
-    router.post('/:id', function(req, res) {
+    router.post('/:id', auth, function(req, res) {
 	console.log('Request to modify a note');
 
 	Note.findOne({
@@ -77,24 +78,44 @@ module.exports = function(app, router) {
 	});
     });
 
-    router.get('/', function(req, res) {
-	console.log('Request to read notes');
-
-	Note.find({
-	    userId: req.userId
-	}, function(err, notes) {
-	    if(err) {
-		console.log('Error looking for notes' + err);
-		res.json({success: false, message: 'Unable to read notes'});
-	    }
-	    else {
-		console.log("Accounts sent");
-		res.json(notes);
-	    }
-	});
+    router.get('/', auth, function(req, res, next) {
+        console.log('Request to read notes');
+        if(req.query.user) {
+            // Notes of another user have been requested
+            // Check that the operation is allowed (manager has access to user info)
+            ManAttribs.findOne({
+                managerId: req.userId
+            }, 'users', function(err, users) {
+                if(err || !(users.users.includes(req.query.user))) {
+                    // Requested user was not attributed to the enquirer
+                    console.log('Unauthorized');
+                    res.json({success: false, message: 'Unauthorized'});
+                }
+                else
+                    // Deliver info of user passed in query
+                    next();
+            });
+        }
+        else
+            // Deliver info of enquirer
+            next();
+    }, function(req, res) {
+        var uid = req.query.user || req.userId;
+        Note.find({
+            userId: uid
+        }, function(err, notes) {
+            if(err) {
+                console.log('Error looking for notes' + err);
+                res.json({success: false, message: 'Unable to read notes'});
+            }
+            else {
+                console.log("Accounts sent");
+                res.json(notes);
+            }
+        });
     });
 
-    router.get('/:id', function(req, res) {
+    router.get('/:id', auth, function(req, res) {
 	console.log('Request to read note ' + req.params.id);
 
 	Note.findOne({
@@ -112,7 +133,7 @@ module.exports = function(app, router) {
 	});
     });
 
-    router.delete('/:id', function(req, res) {
+    router.delete('/:id', auth, function(req, res) {
 	console.log('Request to delete note ' + req.params.id);
 
 	Note.find({
