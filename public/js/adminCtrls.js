@@ -20,8 +20,11 @@ app.controller('adminAddUserCtrl', function($scope, $state, AdminService) {
 	    $scope.r = false;
 	});
     };
-    $scope.showUsers = function() {
-	$state.go('admin.adduser.manager');
+    $scope.showHideUsers = function() {
+        if($scope.user.manager)
+	    $state.go('admin.adduser.manager');
+        else
+            $state.go('admin.adduser');
     };
 });
 
