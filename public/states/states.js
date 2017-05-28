@@ -43,6 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'userCreateCtrl'
     });
 
+
     $stateProvider.state('admin', {
 	url: '/admin',
 	templateUrl: 'views/admin.html',
@@ -64,6 +65,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'adminAddManagerCtrl'
     });
 
+    $stateProvider.state('admin.aedit', {
+        url: '/edit/:user_id',
+	templateUrl: 'views/admin.edituser.html',
+	controller: 'adminEditUserCtrl'
+    });
+
+    $stateProvider.state('admin.aedit.emanager', {
+	templateUrl: 'views/admin.attribuser.html',
+	controller: 'adminEditManagerCtrl'
+    });
+
+
     $stateProvider.state('manager', {
         url: '/manager',
         templateUrl: 'views/manager.html',
@@ -77,13 +90,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('manager.mnotes', {
-        usr: '/notes',
+        url: '/notes',
         templateUrl: 'views/manager.notes.html',
         controller: 'managerNotesCtrl'
     });
 
     $stateProvider.state('manager.musers', {
-        usr: '/users',
+        url: '/users',
         templateUrl: 'views/manager.users.html',
         controller: 'managerUsersCtrl'
     });

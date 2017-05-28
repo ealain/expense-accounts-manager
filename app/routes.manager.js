@@ -19,8 +19,10 @@ module.exports = function(app, router) {
                 }
                 else {
                     console.log('User successfully authentified');
-                    req.params.manager = decoded._doc.manager;
-                    if(decoded._doc.manager) {
+                    if(decoded._doc.admin) {
+                        next();
+                    }
+                    else if(decoded._doc.manager) {
                         req.params.managerid = decoded._doc._id;
                         next();
                     }
@@ -32,19 +34,23 @@ module.exports = function(app, router) {
     };
 
     router.get('/ulist', auth, function(req, res) {
-        if(req.params.managerid) {
-            console.log('Request to read list of users for manager ' + req.params.managerid);
+        mid = req.params.managerid || req.query.managerid;
+        if(mid) {
+            console.log('Request to read list of users for manager ' + mid);
 
             UsersList.findOne({
-                managerId: req.params.managerid
+                managerId: mid
             }, 'users', function(err, users) {
                 if(err) {
-                    console.log('Error looking for list of users for manager ' + req.params.managerid);
+                    console.log('Error looking for list of users for manager ' + mid);
                     res.json({success: false, message: 'Unable to read users of manager'});
                 }
-                else {
+                else if(users) {
                     console.log(users.users);
                     res.json(users.users);
+                }
+                else {
+                    res.send([]);
                 }
             });
         }

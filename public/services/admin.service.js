@@ -1,6 +1,10 @@
 app.service('AdminService', function($resource) {
-    var Users = $resource('/users');
+    var Users = $resource('/users/:uid');
     var UsersLists = $resource('/users/lists');
+
+    this.get = function(u_id) {
+        return Users.get({uid: u_id});
+    };
 
     this.getUsers = function() {
 	return Users.query();
@@ -25,6 +29,21 @@ app.service('AdminService', function($resource) {
 	});
     };
 
+    this.updateUser = function(u, callback, error) {
+        if(!u.manager)
+            this.removeUserList(u._id);
+	u.$save().then(function success(res) {
+	    if(res.success) {
+		callback();
+            }
+	    else
+		error();
+	}, function error(res) {
+	    console.log('Error happenned updating user');
+	    error();
+	});
+    };
+
     this.addUsersList = function(managerLogin, list) {
 	var l = new UsersLists({
 	    managerlogin: managerLogin,
@@ -35,5 +54,16 @@ app.service('AdminService', function($resource) {
 	}, function error(res) {
 	    console.log('Error happenned posting users list');
 	});
+    };
+
+    this.updateUsersList = function(l) {
+	list.$save().then(function success(res) {
+	}, function error(res) {
+	    console.log('Error happenned updating users list');
+	});
+    };
+
+    this.removeUserList = function(u_id, callback) {
+        UsersLists.remove({uid: u_id}).$promise.then(callback);
     };
 });

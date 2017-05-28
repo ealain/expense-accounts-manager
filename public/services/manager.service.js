@@ -3,8 +3,10 @@ app.service('managerService', function($resource) {
     var UsersList = $resource('/manager/ulist');
     var Notes = $resource('/notes');
 
-    this.getUserList = function() {
-        return UsersList.query()
+    this.getUserList = function(id) {
+        if(id)
+            return UsersList.query({managerid: id});
+        return UsersList.query();
     };
 
     this.getUser = function(u_id) {
