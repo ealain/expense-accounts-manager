@@ -56,13 +56,6 @@ app.service('AdminService', function($resource) {
 	});
     };
 
-    this.updateUsersList = function(l) {
-	list.$save().then(function success(res) {
-	}, function error(res) {
-	    console.log('Error happenned updating users list');
-	});
-    };
-
     this.removeUserList = function(u_id, callback) {
         UsersLists.remove({uid: u_id}).$promise.then(callback);
     };
