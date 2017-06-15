@@ -94,10 +94,4 @@ app.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'views/manager.notes.html',
         controller: 'managerNotesCtrl'
     });
-
-    $stateProvider.state('manager.musers', {
-        url: '/users',
-        templateUrl: 'views/manager.users.html',
-        controller: 'managerUsersCtrl'
-    });
 });
