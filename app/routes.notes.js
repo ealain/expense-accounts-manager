@@ -51,31 +51,65 @@ module.exports = function(app, router) {
 	});
     });
 
+    router.post('/approve', auth, function(req, res) {
+        console.log('Request to approve a note');
+        console.log('Query of req:' + req.query.id);
+        Note.findOne({
+            _id: req.query.id,
+        }, function(err, note) {
+            ManAttribs.findOne({
+                managerId: req.userId
+            }, function(err, attribs) {
+                if(note && attribs.users.includes(note.userId)) {
+                    note.approved = !note.approved;
+                    note.save(function(err) {
+                        if(err) {
+                            console.log('Error while saving' + err);
+                            res.json({success: false, message: 'Error while saving'});
+                        }
+                        else {
+                            console.log('Saved note ' + note.title);
+                            res.json({success: true, message: 'Token accepted and account saved'});
+                        }
+                    });
+                }
+                else {
+                    console.log('User not allowed');
+                    res.json({success: false, message: 'User not allowed'});
+                }
+            });
+        });
+    });
+
     router.post('/:id', auth, function(req, res) {
 	console.log('Request to modify a note');
 
-	Note.findOne({
-	    _id: req.params.id,
-	    userId: req.userId
-	}, function(err, note) {
-	    note.date = req.body.date;
-	    note.title = req.body.title;
-	    note.amount = req.body.amount;
-	    note.currency = req.body.currency;
-	    note.comment = req.body.comment;
-	    note.approved = false;
-
-	    note.save(function(err) {
-		if(err) {
-		    console.log('Error while saving' + err);
-		    res.json({success: false, message: 'Error while saving'});
-		}
-		else {
-		    console.log('Saved note ' + note.title);
-		    res.json({success: true, message: 'Token accepted and account saved'});
-		}
-	    });
-	});
+        Note.findOne({
+            _id: req.params.id,
+            userId: req.userId
+        }, function(err, note) {
+            if(note) {
+                note.date = req.body.date;
+                note.title = req.body.title;
+                note.amount = req.body.amount;
+                note.currency = req.body.currency;
+                note.comment = req.body.comment;
+                note.approved = false;
+                note.save(function(err) {
+                    if(err) {
+                        console.log('Error while saving' + err);
+                        res.json({success: false, message: 'Error while saving'});
+                    }
+                    else {
+                        console.log('Saved note ' + note.title);
+                        res.json({success: true, message: 'Token accepted and account saved'});
+                    }
+                });
+            }
+            else {
+                console.log("No note with id : " + req.params.id);
+            }
+        });
     });
 
     router.get('/', auth, function(req, res, next) {

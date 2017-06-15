@@ -6,6 +6,7 @@ Notes à valider
         <ul>
             <li ng-repeat="note in notes[user._id]" ng-if="note.approved == false">
                 {{note.title}}
+                <button ng-click="approve(user._id, $index)">Valider</button>
             </li>
         </ul>
     </li>

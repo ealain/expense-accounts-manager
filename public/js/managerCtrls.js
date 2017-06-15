@@ -14,6 +14,10 @@ app.controller('managerDashCtrl', function($scope, $state, managerService) {
             managerService.getUserNotes(u_id).$promise.then(function(n) {
                 $scope.notes[u_id] = n;
             });
+            $scope.approve = function(uid, nindex) {
+                console.log($scope.notes[uid][nindex]);
+                managerService.approveUserNote($scope.notes[uid][nindex]);
+            }
         });
     });
 });
