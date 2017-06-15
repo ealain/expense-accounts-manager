@@ -88,7 +88,7 @@ module.exports = function(app, router) {
             _id: req.params.id,
             userId: req.userId
         }, function(err, note) {
-            if(note) {
+            if(note && !note.approved) {
                 note.date = req.body.date;
                 note.title = req.body.title;
                 note.amount = req.body.amount;
@@ -107,7 +107,7 @@ module.exports = function(app, router) {
                 });
             }
             else {
-                console.log("No note with id : " + req.params.id);
+                console.log("No unapproved note with id : " + req.params.id);
             }
         });
     });
