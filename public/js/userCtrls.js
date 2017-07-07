@@ -12,16 +12,28 @@ app.controller('userDashCtrl', function($scope, NotesService) {
     }
 });
 
+app.directive('fileModel', function() {
+    return {
+        link: function(scope, element, attrbs) {
+            element.bind('change', function(changeEvent) {
+                scope.$apply(function() {
+                    scope.file = changeEvent.target.files[0];
+                })
+            })
+        }
+    }
+});
+
 app.controller('userCreateCtrl', function($scope, $state, NotesService) {
     $scope.addNote = function() {
-	NotesService.add($scope.note, function() {
-	    // Popup note ajoutée
-	    $state.go('user.udashboard');
-	});
+        NotesService.add($scope.note, $scope.file, function() {
+            // Popup note ajoutée
+            $state.go('user.udashboard');
+        });
     };
 });
 
-app.controller('userEditCtrl', function($scope, $state, $stateParams, $http, NotesService) {
+app.controller('userEditCtrl', function($scope, $state, $stateParams, NotesService) {
 
     NotesService.getOne($stateParams.note_id, function(n) {
 	$scope.note = n;
@@ -39,5 +51,5 @@ app.controller('userEditCtrl', function($scope, $state, $stateParams, $http, Not
 	    // Popup note supprimée
 	    $state.go('user.udashboard');
 	});
-    }
+    };
 });

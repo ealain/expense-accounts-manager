@@ -9,7 +9,6 @@ var port = process.env.PORT || 8080;
 var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
 
 app.listen(port);
 console.log("Listening on port " + port);
@@ -26,15 +25,22 @@ db.once('open', function() {
 });
 
 var notesRouter = express.Router();
+notesRouter.use(bodyParser.json());
 var usersRouter = express.Router();
+usersRouter.use(bodyParser.json());
 var managerRouter = express.Router();
+managerRouter.use(bodyParser.json());
+var updownloadRouter = express.Router();
+updownloadRouter.use(bodyParser.raw());
 
 app.use('/notes', notesRouter);
 app.use('/users', usersRouter);
 app.use('/manager', managerRouter);
+app.use('/uploads', updownloadRouter);
 
 require('./app/routes')(app);
 
 require('./app/routes.notes')(app, notesRouter);
 require('./app/routes.users')(app, usersRouter);
 require('./app/routes.manager')(app, managerRouter);
+require('./app/routes.updownloads')(app, updownloadRouter);

@@ -1,4 +1,4 @@
-app.service('NotesService', function($resource) {
+app.service('NotesService', function($resource, $http) {
     var Notes = $resource('/notes/:id', {id:'@_id'});
 
     var isoStringToDate = function(d) {
@@ -38,21 +38,28 @@ app.service('NotesService', function($resource) {
 	});
     }
 
-    this.add = function(note, callback) {
-	var n = new Notes({
-	    date: new Date(parseInt(note.year),
-			   parseInt(note.month)-1,
-			   parseInt(note.day)+1).toISOString(),
-	    title: note.title,
-	    amount: note.amount,
-	    currency: note.currency,
-	    comment: note.comment,
-	});
-	n.$save().then(function success(res) {
-	    console.log('Post successful: ' + res.success);
-	    callback();
-	}, function error(res) {
-	    console.log('Error happened posting data');
-	});
+    this.add = function(note, file, callback) {
+        var n = new Notes({
+            date: new Date(parseInt(note.year),
+                parseInt(note.month)-1,
+                parseInt(note.day)+1).toISOString(),
+            title: note.title,
+            amount: note.amount,
+            currency: note.currency,
+            comment: note.comment,
+        });
+        n.$save().then(function success(res) {
+            console.log('Post successful: ' + res.success);
+            if(res.success && file) {
+                $http.post('uploads/' + res.noteid, file, {params: {name: file.name}, headers: {'Content-type': undefined}}).then(function() {
+                    console.log('Upload successful');
+                }, function() {
+                    console.log('Upload unsuccessful');
+                });
+            }
+            callback();
+        }, function error(res) {
+            console.log('Error happened posting data');
+        });
     }
 });

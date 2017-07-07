@@ -25,6 +25,7 @@ printf "\n}" >> config.js
 printf "\nStarting local database at localhost:27017/ea-manager..."
 mkdir log 2> /dev/null
 mkdir data 2> /dev/null
+mkdir data/uploads 2> /dev/null
 echo -n "" > log/db.log
 echo -n "" > log/install.log
 mongod --nojournal --dbpath=data 1>> log/db.log 2>> log/db.log &

@@ -1,7 +1,10 @@
+var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var User = require('./models/user');
 
 module.exports = function(app) {
+
+    app.use(bodyParser.json());
 
     app.post('/signup', function(req, res) {
 	console.log('Request to signup');
