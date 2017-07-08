@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	controller: 'userDashCtrl'
     });
 
-    $stateProvider.state('user.edit', {
+    $stateProvider.state('user.uedit', {
 	url: '/edit/:note_id',
 	templateUrl: 'views/edit.html',
 	controller: 'userEditCtrl'

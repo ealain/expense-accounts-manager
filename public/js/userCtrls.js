@@ -8,7 +8,7 @@ app.controller('userDashCtrl', function($scope, NotesService) {
     $scope.notes = NotesService.get();
 
     $scope.edit = function(note) {
-	$state.go('user.edit', {note_id: note.id});
+	$state.go('user.uedit', {note_id: note.id});
     }
 });
 
@@ -51,5 +51,11 @@ app.controller('userEditCtrl', function($scope, $state, $stateParams, NotesServi
 	    // Popup note supprimée
 	    $state.go('user.udashboard');
 	});
+    };
+
+    $scope.remove = function(note, filename) {
+        NotesService.remove(note, filename, function(note) {
+            $scope.note = note;
+        });
     };
 });

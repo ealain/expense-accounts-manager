@@ -1,4 +1,6 @@
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
+var path = require('path');
 var Note = require('./models/note');
 var ManAttribs = require('./models/man-attrib');
 
@@ -36,6 +38,7 @@ module.exports = function(app, router) {
 	note.amount = req.body.amount;
 	note.currency = req.body.currency;
 	note.comment = req.body.comment;
+        note.files = req.body.files;
 	note.approved = false;
 	note.userId = req.userId;
 
@@ -94,6 +97,7 @@ module.exports = function(app, router) {
                 note.amount = req.body.amount;
                 note.currency = req.body.currency;
                 note.comment = req.body.comment;
+                note.files = req.body.files;
                 note.approved = false;
                 note.save(function(err) {
                     if(err) {
@@ -168,36 +172,82 @@ module.exports = function(app, router) {
     });
 
     router.delete('/:id', auth, function(req, res) {
-	console.log('Request to delete note ' + req.params.id);
-
-	Note.find({
-	    _id: req.params.id,
-	    userId: req.userId
-	}, function(err, note) {
-	    if(err) {
-		console.log('Error: cannot find note to be deleted');
-		res.json({success: false, message: 'Note to delete does not exist'});
-	    }
-	    else {
-		if(note.approved) {
-		    console.log('Note has been approved, user cannot delete it');
-		    res.json({success: false, message: 'Approved notes cannot be deleted'});
-		}
-		else {
-		    Note.remove({
-			_id: req.params.id
-		    }, function(err, note) {
-			if(err) {
-			    console.log('Error deleting note' + err);
-			    res.json({success: false, message: 'Unable to delete note'});
-			}
-			else {
-			    console.log("Deleted note with id: " + req.params.id);
-			    res.json({success: true, message: 'Note deleted'});
-			}
-		    });
-		}
-	    }
-	});
+        if(!req.query.file) {
+            console.log('Request to delete note ' + req.params.id);
+            Note.findOne({
+                _id: req.params.id,
+                userId: req.userId
+            }, function(err, note) {
+                if(err) {
+                    console.log('Error: cannot find note to be deleted');
+                    res.json({success: false, message: 'Note to delete does not exist'});
+                }
+                else {
+                    if(note.approved) {
+                        console.log('Note has been approved, user cannot delete it');
+                        res.json({success: false, message: 'Approved notes cannot be deleted'});
+                    }
+                    else {
+                        Note.remove({
+                            _id: req.params.id
+                        }, function(err, note) {
+                            if(err) {
+                                console.log('Error deleting note' + err);
+                                res.json({success: false, message: 'Unable to delete note'});
+                            }
+                            else {
+                                console.log("Deleted note with id: " + req.params.id);
+                                res.json({success: true, message: 'Note deleted'});
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            console.log('Request to delete file ' + req.query.file + ' of note ' + req.params.id);
+            Note.findOne({
+                _id: req.params.id,
+                userId: req.userId
+            }, function(err, note) {
+                if(err) {
+                    console.log('Error: cannot find note with file to be deleted');
+                    res.json({success: false, message: 'Note with file to delete does not exist'});
+                }
+                else {
+                    if(note.approved) {
+                        console.log('Note has been approved, user cannot change attached files');
+                        res.json({success: false, message: 'Approved notes cannot be changed'});
+                    }
+                    else {
+                        note.files.splice(note.files.indexOf(req.query.file), 1);
+                        note.save(function(err, saved_note) {
+                            if(err) {
+                                console.log('Error while retrieving file from note ' + err);
+                                res.json({success: false, message: 'Error while retrieving file from note'});
+                            }
+                            else {
+                                fs.unlink(path.join('data/uploads/', String(note._id), '/', req.query.file), (err) => {
+                                    if(err) {
+                                        if(note.files.length === 0) {
+                                            fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
+                                                if(err) {console.log('Unable to delete note directory:' + err);}});
+                                        }
+                                        console.log('File already deleted in file system');
+                                        res.json(note);
+                                    } else {
+                                        if(note.files.length === 0) {
+                                            fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
+                                                if(err) {console.log('Unable to delete note directory:' + err);}});
+                                        }
+                                        console.log("Deleted file: " + req.query.file);
+                                        res.json(note);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        }
     });
 }

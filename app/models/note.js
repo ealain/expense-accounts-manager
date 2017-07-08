@@ -8,7 +8,8 @@ var noteSchema = new Schema({
     currency: {type: String, required: true},
     comment: {type: String},
     approved: {type: Boolean, required: true},
-    userId: {type: String, required: true}
+    userId: {type: String, required: true},
+    files: {type: Array}
 });
 
 module.exports = mongoose.model('note', noteSchema);

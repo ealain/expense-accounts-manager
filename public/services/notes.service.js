@@ -26,6 +26,17 @@ app.service('NotesService', function($resource, $http) {
 	});
     };
 
+    this.remove = function(note, filename, callback) {
+        note.$remove({file: filename}).then(function success(note) {
+            var date = String(note.date);
+            note.day = isoStringToDate(note.date).getDate();
+            note.month = isoStringToDate(note.date).getMonth() + 1;
+            note.year = isoStringToDate(note.date).getFullYear();
+            callback(note);
+        });
+    };
+
+
     this.update = function(note, callback) {
 	note.date = new Date(parseInt(note.year),
 			     parseInt(note.month)-1,
@@ -47,6 +58,7 @@ app.service('NotesService', function($resource, $http) {
             amount: note.amount,
             currency: note.currency,
             comment: note.comment,
+            files: file.name
         });
         n.$save().then(function success(res) {
             console.log('Post successful: ' + res.success);
