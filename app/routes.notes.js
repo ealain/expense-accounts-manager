@@ -55,7 +55,7 @@ module.exports = function(app, router) {
     });
 
     router.post('/approve', auth, function(req, res) {
-        console.log('Request to approve a note');
+        console.log('Request to (dis)approve a note');
         console.log('Query of req:' + req.query.id);
         Note.findOne({
             _id: req.query.id,
@@ -72,7 +72,7 @@ module.exports = function(app, router) {
                         }
                         else {
                             console.log('Saved note ' + note.title);
-                            res.json({success: true, message: 'Token accepted and account saved'});
+                            res.json(note);
                         }
                     });
                 }

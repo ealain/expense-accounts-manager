@@ -35,5 +35,8 @@ app.controller('managerNotesCtrl', function($scope, managerService) {
                 $scope.notes[u_id] = n;
             });
         });
+        $scope.unlock = function(note) {
+            managerService.approveUserNote(note);
+        };
     });
 });

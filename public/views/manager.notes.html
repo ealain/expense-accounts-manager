@@ -3,7 +3,7 @@
     <li ng-repeat="user in users">
         {{user.login}}
         <ul>
-            <li ng-repeat="note in notes[user._id]">{{note.title}}</li>
+            <li ng-repeat="note in notes[user._id]">{{note.title}}<button ng-if="note.approved" ng-click="unlock(note)">Déverrouiller</button></li>
         </ul>
     </li>
 </ul>
