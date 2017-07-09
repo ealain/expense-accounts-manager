@@ -99,14 +99,14 @@ module.exports = function(app, router) {
                 note.comment = req.body.comment;
                 note.files = req.body.files;
                 note.approved = false;
-                note.save(function(err) {
+                note.save(function(err, saved_note) {
                     if(err) {
                         console.log('Error while saving' + err);
                         res.json({success: false, message: 'Error while saving'});
                     }
                     else {
                         console.log('Saved note ' + note.title);
-                        res.json({success: true, message: 'Token accepted and account saved'});
+                        res.json({success: true, message: 'Token accepted and account saved', noteid: saved_note._id});
                     }
                 });
             }

@@ -43,7 +43,7 @@ app.service('NotesService', function($resource, $http) {
 			     parseInt(note.day)+1).toISOString();
 	note.$save().then(function success(res) {
 	    console.log('Post successful: ' + res.success);
-	    callback();
+	    callback(res.noteid);
 	}, function error(res) {
 	    console.log('Error happened posting data');
 	});

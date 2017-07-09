@@ -48,9 +48,14 @@ app.controller('userEditCtrl', function($scope, $state, $stateParams, NotesServi
 	$scope.note = n;
     });
 
+    $scope.files = [];
+
     $scope.update = function() {
+        for(let f of $scope.files) {
+            $scope.note.files.push(f.name);
+        }
 	NotesService.update($scope.note, function(noteid) {
-            for (file of $scope.files) {
+            for(let file of $scope.files) {
                 NotesService.attach(file, noteid, () => console.log('Upload of ' + file.name + ' successful'));
             }
 	    // Popup note modifiée

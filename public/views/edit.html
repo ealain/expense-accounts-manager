@@ -15,8 +15,10 @@
     <p>Devise <input type="text" ng-model="note.currency"></input></p>
     <p>Commentaire <input type="text" ng-model="note.comment"></input></p>
     <p>Documents associés</p>
+    <input type="file" file-model="note.file"></input>
     <ul>
         <li ng-repeat="f in note.files track by $index">{{f}}<button ng-click="remove(note, note.files[$index])">X</button></input></li>
+        <li ng-repeat="f in files">{{f.name}}</li>
     </ul>
     <p><button ng-click="update()">Valider</button><button ng-click="del()">Supprimer</button></p>
   </form>
