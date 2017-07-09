@@ -17,7 +17,7 @@ app.directive('fileModel', function() {
         link: function(scope, element, attrbs) {
             element.bind('change', function(changeEvent) {
                 scope.$apply(function() {
-                    scope.file = changeEvent.target.files[0];
+                    scope.files.push(changeEvent.target.files[0]);
                 })
             })
         }
@@ -25,8 +25,17 @@ app.directive('fileModel', function() {
 });
 
 app.controller('userCreateCtrl', function($scope, $state, NotesService) {
+    $scope.note = {};
+    $scope.note.files = [];
+    $scope.files = [];
     $scope.addNote = function() {
-        NotesService.add($scope.note, $scope.file, function() {
+        for(let f of $scope.files) {
+            $scope.note.files.push(f.name);
+        }
+        NotesService.add($scope.note, function(noteid) {
+            for(let file of $scope.files) {
+                NotesService.attach(file, noteid, () => console.log('Upload of ' + file.name + ' successful'));
+            }
             // Popup note ajoutée
             $state.go('user.udashboard');
         });
@@ -40,7 +49,10 @@ app.controller('userEditCtrl', function($scope, $state, $stateParams, NotesServi
     });
 
     $scope.update = function() {
-	NotesService.update($scope.note, function() {
+	NotesService.update($scope.note, function(noteid) {
+            for (file of $scope.files) {
+                NotesService.attach(file, noteid, () => console.log('Upload of ' + file.name + ' successful'));
+            }
 	    // Popup note modifiée
 	    $state.go('user.udashboard');
 	});

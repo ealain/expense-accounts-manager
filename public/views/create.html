@@ -14,7 +14,11 @@
     <p>Montant <input type="text" ng-model="note.amount" placeholder="100"></input></p>
     <p>Devise <input type="text" ng-model="note.currency" placeholder="€"></input></p>
     <p>Commentaire <input type="text" ng-model="note.comment"></input></p>
+    <p>Documents associés</p>
     <input type="file" file-model="note.file"></input>
+    <ul>
+        <li ng-repeat="f in files">{{f.name}}</li>
+    </ul>
     <p><button ng-click="addNote()">Valider</button></p>
   </form>
   <p>{{addMe}}</p>

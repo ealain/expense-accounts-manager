@@ -18,7 +18,7 @@ app.service('NotesService', function($resource, $http) {
 	    n.year = isoStringToDate(n.date).getFullYear();
 	    next(n);
 	});
-    }
+    };
 
     this.del = function(note, callback) {
 	note.$remove().then(function success() {
@@ -47,9 +47,9 @@ app.service('NotesService', function($resource, $http) {
 	}, function error(res) {
 	    console.log('Error happened posting data');
 	});
-    }
+    };
 
-    this.add = function(note, file, callback) {
+    this.add = function(note, callback) {
         var n = new Notes({
             date: new Date(parseInt(note.year),
                 parseInt(note.month)-1,
@@ -58,20 +58,23 @@ app.service('NotesService', function($resource, $http) {
             amount: note.amount,
             currency: note.currency,
             comment: note.comment,
-            files: file.name
+            files: note.files
         });
         n.$save().then(function success(res) {
             console.log('Post successful: ' + res.success);
-            if(res.success && file) {
-                $http.post('uploads/' + res.noteid, file, {params: {name: file.name}, headers: {'Content-type': undefined}}).then(function() {
-                    console.log('Upload successful');
-                }, function() {
-                    console.log('Upload unsuccessful');
-                });
-            }
-            callback();
+            callback(res.noteid);
         }, function error(res) {
             console.log('Error happened posting data');
         });
-    }
+    };
+
+    this.attach = function(file, noteId, callback) {
+        $http.post('uploads/' + noteId, file, {params: {name: file.name}, headers: {'Content-type': undefined}}).then(function() {
+            console.log('Upload successful');
+            callback();
+        }, function() {
+            console.log('Upload unsuccessful');
+        });
+    };
+
 });
