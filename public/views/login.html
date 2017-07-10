@@ -1,9 +1,22 @@
-<div>
-  <p>Authentification requise <a ui-sref="signup">Sign up</a></p>
-  <label>Identifiant</label>
-  <input ng-model="user.login"><br>
-  <label>Mot de passe</label>
-  <input type="password" ng-model="user.password"><br>
-  <button ng-click="login(user, setwrongpwd)">Envoyer</button>
-  <p ng-if="wrongpwd">Mot de passe invalide</p>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">Gestionnaire de notes de frais</div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a ui-sref="signup">Sign up</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <label>Identifiant</label>
+        <input class="form-control" ng-model="user.login"><br>
+        <label>Mot de passe</label>
+        <input class="form-control" type="password" ng-model="user.password"><br>
+        <button class="btn btn-block btn-success" ng-click="login(user, setwrongpwd)">Connexion</button>
+        <p class="alert alert-danger" ng-if="wrongpwd">Mot de passe invalide</p>
+    </div>
+    <div class="col-sm-4"></div>
 </div>

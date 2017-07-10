@@ -1,26 +1,43 @@
-<div>
-  <h1>Ajouter une nouvelle note</h1>
-
-  <p>Remplir les cases suivantes</p>
-  <form>
-    <p>Date</p>
-    <label for="day">Jour (JJ)</label>
-    <input type="text" id="day" maxlength="2" size="2" ng-model="note.day"></input>
-    <label for="month">Mois (MM)</label>
-    <input type="text" id="month" maxlength="2" size="2" ng-model="note.month"></input>
-    <label for="year">Année (AA)</label>
-    <input type="text" id="year" maxlength="4" size="4" ng-model="note.year"></input></br>
-    <p>Intitulé <input type="text" ng-model="note.title"></input></p>
-    <p>Montant <input type="text" ng-model="note.amount"></input></p>
-    <p>Devise <input type="text" ng-model="note.currency"></input></p>
-    <p>Commentaire <input type="text" ng-model="note.comment"></input></p>
-    <p>Documents associés</p>
-    <input type="file" file-model="note.file"></input>
-    <ul>
-        <li ng-repeat="f in note.files track by $index">{{f}}<button ng-click="remove(note, note.files[$index])">X</button></input></li>
-        <li ng-repeat="f in files">{{f.name}}</li>
-    </ul>
-    <p><button ng-click="update()">Valider</button><button ng-click="del()">Supprimer</button></p>
-  </form>
-  <p>{{addMe}}</p>
+<div class="col-sm-6">
+    <form class="form-group">
+        <label>Date</label></br>
+        <input type="text" id="day" maxlength="2" size="2" ng-model="note.day"></input>
+        <input type="text" id="month" maxlength="2" size="2" ng-model="note.month" ></input>
+        <input type="text" id="year" maxlength="4" size="4" ng-model="note.year"></input>
+    </form>
+    <form class="form-group">
+        <label for="title">Intitulé</label></br>
+        <input type="text" id="title" ng-model="note.title"></input></br>
+    </form>
+    <form class="form-group">
+        <label for="amount">Montant</label></br>
+        <input id="amount" type="text" ng-model="note.amount"></input></br>
+    </form>
+    <form class="form-group">
+        <label for="currency">Devise</label></br>
+        <input id="currency"type="text" ng-model="note.currency"></input></br>
+    </form>
+    <div class="btn-group">
+        <p><button class="btn btn-success" ng-click="update()">Valider</button>
+        <button class="btn btn-danger" ng-click="del()">Supprimer</button></p>
+    </div>
+</div>
+<div class="col-sm-6">
+    <form class="form-group">
+        <label for="comment">Commentaire</label></br>
+        <input class="form-control" id="comment" type="text" ng-model="note.comment"></input></br>
+    </form>
+    <form class="form-group">
+        <label for="file">Documents associés</label></br>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="f in note.files track by $index">
+                {{f}}
+                <button class="badge glyphicon glyphicon-remove" ng-click="remove(note, note.files[$index])"> </button>
+            </li>
+            <li class="list-group-item" ng-repeat="f in files">{{f.name}}</li>
+            <label class="list-group-item">
+                Ajouter un document <input id="file" file-model="note.file" type="file" style="display: none;">
+            </label>
+        </ul>
+    </form>
 </div>

@@ -7,7 +7,13 @@ app.service('NotesService', function($resource, $http) {
     };
 
     this.get = function() {
-	return Notes.query(function() {}, function(err) {console.log('Error getting array');});
+        return Notes.query(function(notes) {
+            for(let n of notes) {
+                n.day = isoStringToDate(n.date).getDate();
+                n.month = isoStringToDate(n.date).getMonth() + 1;
+                n.year = isoStringToDate(n.date).getFullYear();
+            }
+        }, function(err) {console.log('Error getting array');});
     };
 
     this.getOne = function(note_id, next) {
