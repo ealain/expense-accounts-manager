@@ -5,5 +5,8 @@
 <p>Commentaire : {{note.comment}}</p>
 <p>Documents associés :</p>
 <ul>
-    <li ng-repeat="f in note.files"><a href="/uploads/{{note._id}}/{{f}}" download>{{f}}</a></li>
+    <li ng-repeat="f in note.files">
+        <a href="/uploads/{{note._id}}/{{f}}" download>{{f}}</a>
+    </li>
 </ul>
+<button ng-click="approve()">Valider</button>

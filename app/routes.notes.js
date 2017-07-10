@@ -69,7 +69,7 @@ module.exports = function(app, router) {
             _id: req.query.id,
         }, function(err, note) {
             ManAttribs.findOne({
-                managerId: req.userId
+                managerId: req.managerId
             }, function(err, attribs) {
                 if(note && attribs.users.includes(note.userId)) {
                     note.approved = !note.approved;

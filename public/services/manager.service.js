@@ -23,6 +23,6 @@ app.service('managerService', function($resource) {
     };
 
     this.approveUserNote = function(n) {
-        n.$approve();
+        return n.$approve();
     };
 });

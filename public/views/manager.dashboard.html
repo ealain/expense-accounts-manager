@@ -1,12 +1,9 @@
-Notes à valider
-
 <ul>
     <li ng-repeat="user in users">
         {{user.login}}
         <ul>
-            <li ng-repeat="note in notes[user._id]" ng-if="note.approved == false">
+            <li ng-repeat="note in notes[user._id]" ng-if="note.approved == false" ng-click="view(note)">
                 {{note.title}}
-                <button ng-click="approve(user._id, $index)">Valider</button>
             </li>
         </ul>
     </li>

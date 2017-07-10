@@ -2,7 +2,10 @@ app.controller('managerCtrl', function($state) {
     $state.go('manager.mdashboard');
 });
 
-app.controller('managerDashCtrl', function($scope, managerService) {
+app.controller('managerDashCtrl', function($scope, $state, managerService) {
+    $scope.view = function(n) {
+        $state.go('manager.mnotesdetails', {note_id: n._id});
+    };
     managerService.getUserList().$promise.then(function(usersList) {
         $scope.users = [];
         $scope.notes = {};
@@ -14,16 +17,12 @@ app.controller('managerDashCtrl', function($scope, managerService) {
             managerService.getUserNotes(u_id).$promise.then(function(n) {
                 $scope.notes[u_id] = n;
             });
-            $scope.approve = function(uid, nindex) {
-                console.log($scope.notes[uid][nindex]);
-                managerService.approveUserNote($scope.notes[uid][nindex]);
-            }
         });
     });
 });
 
 app.controller('managerNotesCtrl', function($scope, $state, managerService) {
-    $scope.edit = function(n) {
+    $scope.view = function(n) {
         $state.go('manager.mnotesdetails', {note_id: n._id});
     };
     managerService.getUserList().$promise.then(function(usersList) {
@@ -40,11 +39,12 @@ app.controller('managerNotesCtrl', function($scope, $state, managerService) {
         });
         $scope.unlock = function(note) {
             managerService.approveUserNote(note);
+            $state.go('manager.mdashboard');
         };
     });
 });
 
-app.controller('managerNotesDetailsCtrl', function($scope, $stateParams, managerService) {
+app.controller('managerNotesDetailsCtrl', function($scope, $state, $stateParams, managerService) {
     managerService.getNoteDetails($stateParams.note_id).$promise.then(function(n) {
         var isoStringToDate = function(d) {
             var b = d.split(/\D/);
@@ -56,4 +56,8 @@ app.controller('managerNotesDetailsCtrl', function($scope, $stateParams, manager
         n.year = isoStringToDate(n.date).getFullYear();
         $scope.note = n;
     });
+    $scope.approve = function() {
+        managerService.approveUserNote($scope.note);
+        $state.go('manager.mdashboard');
+    }
 });
