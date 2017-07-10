@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var path = require('path');
 var fs = require('fs');
 var Note = require('./models/note');
+var ManAttribs = require('./models/man-attrib');
 
 module.exports = function(app, router) {
 
@@ -21,7 +22,15 @@ module.exports = function(app, router) {
                 }
                 else {
                     console.log('User successfully authentified');
-		    req.userId = decoded._doc._id;
+                    if(decoded._doc.manager) {
+                        req.managerId = decoded._doc._id;
+                    }
+                    else if(decoded._doc.admin) {
+                        req.adminId = decoded._doc._id;
+                    }
+                    else {
+                        req.userId = decoded._doc._id;
+                    }
                     next();
                 }
             });
@@ -49,6 +58,39 @@ module.exports = function(app, router) {
                         });
                     });
                 });
+            }
+        });
+    });
+
+    router.get('/:noteid/:filename', auth, function(req, res) {
+        console.log('Request to dl file ' + req.params.filename);
+        Note.findOne({
+            _id: req.params.noteid,
+        }, function(err, note) {
+            if(req.managerId) {
+                ManAttribs.findOne({
+                    managerId: req.managerId
+                }, function(err, attribs) {
+                    if(err || !attribs) {
+                        console.log('Erreur');
+                        res.json({success: false, message: 'Error on server side'});
+                    }
+                    else if(attribs.users.includes(note.userId)) {
+                        console.log('File sent');
+                        var file = fs.readFileSync(path.dirname(__dirname) + '/data/uploads/' + req.params.noteid + '/' + req.params.filename, 'binary');
+                        res.setHeader('Content-Length', file.length);
+                        res.write(file, 'binary');
+                        res.end();
+                    }
+                    else {
+                        console.log('User not allowed');
+                        res.json({success: false, message: 'User not allowed'});
+                    }
+                });
+            }
+            else {
+                console.log('User not allowed');
+                res.json({success: false, message: 'User not allowed'});
             }
         });
     });
