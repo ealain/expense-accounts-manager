@@ -94,4 +94,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'views/manager.notes.html',
         controller: 'managerNotesCtrl'
     });
+
+    $stateProvider.state('manager.mnotesdetails', {
+        url: '/notes/:note_id',
+        templateUrl: 'views/manager.notes.details.html',
+        controller: 'managerNotesDetailsCtrl'
+    });
 });

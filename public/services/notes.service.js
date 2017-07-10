@@ -12,7 +12,6 @@ app.service('NotesService', function($resource, $http) {
 
     this.getOne = function(note_id, next) {
 	Notes.get({id:note_id}).$promise.then(function(n) {
-	    var date = String(n.date);
 	    n.day = isoStringToDate(n.date).getDate();
 	    n.month = isoStringToDate(n.date).getMonth() + 1;
 	    n.year = isoStringToDate(n.date).getFullYear();

@@ -22,7 +22,15 @@ module.exports = function(app, router) {
 		}
 		else {
 		    console.log('User successfully authentified');
-		    req.userId = decoded._doc._id;
+                    if(decoded._doc.manager) {
+                        req.managerId = decoded._doc._id;
+                    }
+                    else if(decoded._doc.admin) {
+                        req.adminId = decoded._doc._id;
+                    }
+                    else {
+                        req.userId = decoded._doc._id;
+                    }
 		    next();
 		}
 	    });
@@ -122,7 +130,7 @@ module.exports = function(app, router) {
             // Notes of another user have been requested
             // Check that the operation is allowed (manager has access to user info)
             ManAttribs.findOne({
-                managerId: req.userId
+                managerId: req.managerId
             }, 'users', function(err, users) {
                 if(err || !(users.users.includes(req.query.user))) {
                     // Requested user was not attributed to the enquirer
@@ -154,21 +162,43 @@ module.exports = function(app, router) {
     });
 
     router.get('/:id', auth, function(req, res) {
-	console.log('Request to read note ' + req.params.id);
-
-	Note.findOne({
-	    _id: req.params.id,
-	    userId: req.userId
-	}, function(err, note) {
-	    if(err) {
-		console.log('Error looking for notes' + err);
-		res.json({success: false, message: 'Unable to read notes'});
-	    }
-	    else {
-		console.log("Accounts sent");
-		res.json(note);
-	    }
-	});
+        console.log('Request to read note ' + req.params.id);
+        Note.findOne({
+            _id: req.params.id,
+        }, function(err, note) {
+            if(err) {
+                console.log('Error looking for notes ' + err);
+                res.json({success: false, message: 'Unable to read notes'});
+            }
+            else {
+                if(req.userId && req.userId === note.userId) {
+                    console.log("Accounts sent");
+                    res.json(note);
+                }
+                else if(req.managerId) {
+                    ManAttribs.findOne({
+                        managerId: req.managerId
+                    }, function(err, attribs) {
+                        if(err || !attribs) {
+                            console.log('Erreur');
+                            res.json({success: false, message: 'Error on server side'});
+                        }
+                        else if(attribs.users.includes(note.userId)) {
+                            console.log('Accounts sent');
+                            res.json(note);
+                        }
+                        else {
+                            console.log('User not allowed');
+                            res.json({success: false, message: 'User not allowed'});
+                        }
+                    });
+                }
+                else {
+                    console.log('User not allowed');
+                    res.json({success: false, message: 'User not allowed'});
+                }
+            }
+        });
     });
 
     router.delete('/:id', auth, function(req, res) {

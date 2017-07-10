@@ -1,0 +1,9 @@
+<p><strong>{{note.title}}</strong></p>
+<p>Date : {{note.day}} / {{note.month}} / {{note.year}}</p>
+<p>Montant : {{note.amount}}</p>
+<p>Devise : {{note.currency}}</p>
+<p>Commentaire : {{note.comment}}</p>
+<p>Documents associés :</p>
+<ul>
+    <li ng-repeat="f in note.files">{{f}}</li>
+</ul>
