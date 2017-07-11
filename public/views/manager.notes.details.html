@@ -1,12 +1,22 @@
-<p><strong>{{note.title}}</strong></p>
-<p>Date : {{note.day}} / {{note.month}} / {{note.year}}</p>
-<p>Montant : {{note.amount}}</p>
-<p>Devise : {{note.currency}}</p>
-<p>Commentaire : {{note.comment}}</p>
-<p>Documents associés :</p>
-<ul>
-    <li ng-repeat="f in note.files">
-        <a href="/uploads/{{note._id}}/{{f}}" download>{{f}}</a>
-    </li>
-</ul>
-<button ng-click="approve()">Valider</button>
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">{{note.title}}</div><div class="pull-right">{{note.day}} / {{note.month}} / {{note.year}}</div></br>
+        </div>
+        <div class="panel-footer">
+            <p></p>
+            <p><strong>Montant</strong><span class="pull-right">{{note.amount}} {{note.currency}}</span></p>
+            <strong>Commentaire</strong>
+            <p>{{note.comment}}</p>
+            <strong>Documents associés</strong>
+            <ul>
+                <li ng-repeat="f in note.files">
+                    <a href="/uploads/{{note._id}}/{{f}}" download>{{f}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-block" ng-click="approve()">Valider</button>
+</div>
+<div class="col-sm-3"></div>

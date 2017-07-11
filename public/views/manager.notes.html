@@ -1,9 +1,31 @@
-<p>Notes par utilisateur</p>
-<ul>
-    <li ng-repeat="user in users">
-        {{user.login}}
-        <ul>
-            <li ng-repeat="note in notes[user._id]" ng-click="view(note)">{{note.title}}<button ng-if="note.approved" ng-click="unlock(note)">Déverrouiller</button></li>
-        </ul>
-    </li>
-</ul>
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+    <div ng-repeat="user in users">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>{{user.login}}</strong>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>&nbsp</th>
+                        <th>Sujet</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>Déverrouiller</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="note in notes[user._id] track by $index" ng-click="view(note)">
+                        <td class="col-sm-1">&nbsp</td>
+                        <td class="col-sm-4">{{note.title}}</td>
+                        <td class="col-sm-3">{{note.day}} / {{note.month}} / {{note.year}}</td>
+                        <td class="col-sm-2">{{note.amount}} {{note.currency}}</td>
+                        <td class="col-sm-2"><div class="text-center"><button class="badge" ng-if="note.approved" ng-click="unlock(note)"><span class="glyphicon glyphicon-lock"></span></button></td></div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-sm-2"></div>
