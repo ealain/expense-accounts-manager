@@ -1,8 +1,0 @@
-<ul>
-    <li ng-repeat="user in usersList" ng-if="!(user.admin||user.manager||user.login===$parent.user.login)">
-        {{user.login}}
-        <input type="checkbox" ng-model="selection[$index]"></input>
-    </li>
-</ul>
-
-<button ng-click="send()">Modifier</button>

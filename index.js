@@ -8,7 +8,7 @@ var port = process.env.PORT || 8080;
 
 var bodyParser = require('body-parser');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/dist'));
 
 app.listen(port);
 console.log("Listening on port " + port);
@@ -16,7 +16,7 @@ console.log("Listening on port " + port);
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db_url);
+mongoose.connect(config.db_url, {useMongoClient: true});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection to database failed'));

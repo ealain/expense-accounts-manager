@@ -12,11 +12,11 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <label>Identifiant</label>
-        <input class="form-control" ng-model="user.login"><br>
+        <input class="form-control" [(ngModel)]="user.login"><br>
         <label>Mot de passe</label>
-        <input class="form-control" type="password" ng-model="user.password"><br>
-        <button class="btn btn-block btn-success" ng-click="login(user, setwrongpwd)">Connexion</button>
-        <p class="alert alert-danger" ng-if="wrongpwd">Mot de passe invalide</p>
+        <input class="form-control" type="password" [(ngModel)]="user.password"><br>
+        <button class="btn btn-block btn-success" (click)="login(user)">Connexion</button>
+        <p class="alert alert-danger" *ngIf="wrongpwd">Mot de passe invalide</p>
     </div>
     <div class="col-sm-4"></div>
 </div>
