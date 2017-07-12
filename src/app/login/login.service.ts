@@ -12,7 +12,7 @@ export class LoginService {
 
     constructor(private http: Http) {}
 
-    login(user): Promise<User> {
+    login(user): Promise<any> {
         return this.http.post(this.loginUrl, JSON.stringify({login: user.login, password: user.password}), {headers: this.headers})
         .toPromise()
         .then(response => response.json())

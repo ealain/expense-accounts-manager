@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from '../user';
 import { LoginService } from './login.service';
@@ -15,16 +16,21 @@ export class LoginComponent {
         manager: false
     };
 
-    constructor(private loginService: LoginService) {}
+    constructor(
+        private loginService: LoginService,
+        private router: Router) {}
 
-    wrongpwd = false;
+    wrongpwd: boolean = false;
 
     login(user: User): void {
         this.loginService.login(user)
         .then(response => {
-            if(response.admin) {console.log('Is admin !')}
-            else if(user.manager) {console.log('Is manager.')}
-            else {console.log('Is user')}
+            if(response.success) {
+                if(response.admin) {console.log('Is admin !')}
+                else if(response.manager) {console.log('Is manager.')}
+                else {this.router.navigate(['user']);}
+            }
+            else {this.wrongpwd = true;}
         });
     };
 }

@@ -6,16 +6,21 @@ import { HttpModule }    from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
+import { UserDashboardComponent } from './user/user.dashboard.component';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
+        UserDashboardComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        AppRoutingModule
     ],
     providers: [LoginService],
     bootstrap: [AppComponent]
