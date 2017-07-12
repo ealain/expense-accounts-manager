@@ -1,30 +1,31 @@
 <div class="col-sm-3"></div>
 <div class="col-sm-6">
-    <h4 class="text-center">Notes en attente de validation</h4>
+    <h3 class="text-center">Notes en attente de validation</h3>
     <div ng-repeat="user in users">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>{{user.login}}</strong>
+                <div class="panel-title">{{user.login}}</div>
             </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>&nbsp</th>
-                        <th>Sujet</th>
-                        <th>Date</th>
-                        <th>Montant</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="note in notes[user._id] track by $index" ng-if="!note.approved" ng-click="view(note)">
-                        <td class="col-sm-1">&nbsp</td>
-                        <td class="col-sm-4">{{note.title}}</td>
-                        <td class="col-sm-4">{{note.day}} / {{note.month}} / {{note.year}}</td>
-                        <td class="col-sm-3">{{note.amount}} {{note.currency}}</td>
-                    </tr>
-                </tbody>
-                </ul>
-            </table>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sujet</th>
+                                <th>Date</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="note in notes[user._id] track by $index" ng-if="!note.approved" ng-click="view(note)">
+                                <td class="col-sm-5">{{note.title}}</td>
+                                <td class="col-sm-4">{{note.day}} / {{note.month}} / {{note.year}}</td>
+                                <td class="col-sm-3">{{note.amount}} {{note.currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,25 +2,25 @@
 <div class="col-sm-6">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div class="text-center">Utilisateurs</div>
+            <div class="panel-title text-center">Utilisateurs</div>
         </div>
-        <div class="panel-footer">
+        <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="u in users track by $index" ng-click="edit(u)" ng-if="!u.admin && !u.manager">{{u.login}}</li>
             </ul>
         </div>
         <div class="panel-heading">
-            <div class="text-center">Gestionnaires</div>
+            <div class="panel-title text-center">Gestionnaires</div>
         </div>
-        <div class="panel-footer">
+        <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="u in users track by $index" ng-click="edit(u)" ng-if="u.manager">{{u.login}}</li>
             </ul>
         </div>
         <div class="panel-heading">
-            <div class="text-center">Administrateurs</div>
+            <div class="panel-title text-center">Administrateurs</div>
         </div>
-        <div class="panel-footer">
+        <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="u in users track by $index" ng-click="edit(u)" ng-if="u.admin">{{u.login}}</li>
             </ul>
