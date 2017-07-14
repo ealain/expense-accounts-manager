@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '../user';
 import { LoginService } from './login.service';
+
+import { User } from '../user';
 
 @Component({
     selector: 'login',
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
-    user: User = {
+    private user: User = {
         login: '',
         password: '',
         admin: false,
@@ -20,9 +21,9 @@ export class LoginComponent {
         private loginService: LoginService,
         private router: Router) {}
 
-    wrongpwd: boolean = false;
+    private wrongpwd: boolean = false;
 
-    login(user: User): void {
+    login(user: any): void {
         this.loginService.login(user)
         .then(response => {
             if(response.success) {

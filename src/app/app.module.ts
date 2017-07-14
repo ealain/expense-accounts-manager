@@ -5,7 +5,9 @@ import { HttpModule }    from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 import { LoginService } from './login/login.service';
+import { NoteService } from './shared/note.service';
 import { UserDashboardComponent } from './user/user.dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
     declarations: [
         AppComponent,
         LoginComponent,
+        UserComponent,
         UserDashboardComponent
     ],
     imports: [
@@ -22,7 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [LoginService],
+    providers: [LoginService, NoteService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

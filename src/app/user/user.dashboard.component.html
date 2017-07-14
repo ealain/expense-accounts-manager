@@ -8,11 +8,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="n in notes track by $index" ng-if="!n.approved" ui-sref="user.uedit({note_id: n._id})">
-                <th>{{n.title}}</th>
-                <th>{{n.day}} / {{n.month}} / {{n.year}}</th>
-                <th>{{n.amount}} {{n.currency}}</th>
-            </tr>
+            <ng-container *ngFor="let n of notes">
+                <tr *ngIf="!n.approved">
+                    <th>{{n.title}}</th>
+                    <th>{{n.day}} / {{n.month}} / {{n.year}}</th>
+                    <th>{{n.amount}} {{n.currency}}</th>
+                </tr>
+            </ng-container>
         </tbody>
     </table>
 </div>
