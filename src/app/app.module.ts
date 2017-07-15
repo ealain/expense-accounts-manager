@@ -6,6 +6,7 @@ import { HttpModule }    from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import { UserCreateNoteComponent } from './user/user.createNote.component';
 import { LoginService } from './login/login.service';
 import { NoteService } from './shared/note.service';
 import { UserDashboardComponent } from './user/user.dashboard.component';
@@ -17,7 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
         AppComponent,
         LoginComponent,
         UserComponent,
-        UserDashboardComponent
+        UserDashboardComponent,
+        UserCreateNoteComponent
     ],
     imports: [
         BrowserModule,

@@ -8,7 +8,7 @@ import { User } from '../user';
 @Injectable()
 export class LoginService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private loginUrl = 'http://localhost:8080/login';
+    private loginUrl = 'http://localhost:8080/api/login';
 
     constructor(private http: Http) {}
 

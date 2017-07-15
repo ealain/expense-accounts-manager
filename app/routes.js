@@ -1,12 +1,15 @@
+var express = require('express');
+var router = express.Router();
 var bodyParser = require('body-parser');
+
 var jwt = require('jsonwebtoken');
 var User = require('./models/user');
 
 module.exports = function(app) {
 
-    app.use(bodyParser.json());
+    router.use(bodyParser.json());
 
-    app.post('/signup', function(req, res) {
+    router.post('/signup', function(req, res) {
 	console.log('Request to signup');
 
 	var user = new User;
@@ -25,7 +28,7 @@ module.exports = function(app) {
 	});
     });
 
-    app.post('/login', function(req, res) {
+    router.post('/login', function(req, res) {
 	console.log('Request to login');
 	User.findOne({
 	    login: req.body.login
@@ -48,33 +51,33 @@ module.exports = function(app) {
 	});
     });
 
-    app.post('/logout', function(req, res) {
-	console.log('Extracting token from header...');
-	var token = req.headers.cookie.split('=')[1];
-
-	jwt.verify(token, app.get('token_key'), function(err, decoded) {
-	    if(err) {
-		console.log('Invalid token... aborting' + err);
-		res.json({success: false, message: 'Invalid token'});
-	    }
-	    else {
-		console.log('User successfully authentified');
-
-		console.log('Request to logout');
-		User.findOne({
-		    login: decoded._doc.login
-		}, function(err, user) {
-		    if(err) throw err;
-		    if (!user) {
-			res.json({ success: false, message: 'Authentication failed. User not found.' });
-		    } else {
-			res.append('Set-Cookie', 'access_token=deleted' + '; HttpOnly' +
-				   '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
-			res.json({success: true, message: 'Token cancelled'});
-			console.log('Sent token deletion');
-		    }
-		});
-	    }
-	});
+    router.post('/logout', function(req, res) {
+        console.log('Extracting token from header...');
+        var token = req.headers.cookie.split('=')[1];
+        jwt.verify(token, app.get('token_key'), function(err, decoded) {
+            if(err) {
+                console.log('Invalid token... aborting' + err);
+                res.json({success: false, message: 'Invalid token'});
+            }
+            else {
+                console.log('User successfully authentified');
+                console.log('Request to logout');
+                User.findOne({
+                    login: decoded._doc.login
+                }, function(err, user) {
+                    if(err) throw err;
+                    if (!user) {
+                        res.json({ success: false, message: 'Authentication failed. User not found.' });
+                    } else {
+                        res.append('Set-Cookie', 'access_token=deleted' + '; HttpOnly' +
+                            '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
+                        res.json({success: true, message: 'Token cancelled'});
+                        console.log('Sent token deletion');
+                    }
+                });
+            }
+        });
     });
+
+    return router;
 }

@@ -3,9 +3,11 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import { Note } from './note';
+
 @Injectable()
 export class NoteService {
-    private url = 'http://localhost:8080/notes';
+    private url = 'http://localhost:8080/api/notes';
 
     constructor(private http: Http) {}
 
@@ -35,6 +37,13 @@ export class NoteService {
             }
             return result;
         })
+        .catch(this.handleError);
+    }
+
+    add(note: Note): Promise<any> {
+        return this.http.post(this.url, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
         .catch(this.handleError);
     }
 
