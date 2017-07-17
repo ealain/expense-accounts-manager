@@ -8,6 +8,7 @@ import { Note } from './note';
 @Injectable()
 export class NoteService {
     private url = 'http://localhost:8080/api/notes';
+    private urlupload = 'http://localhost:8080/api/uploads';
 
     constructor(private http: Http) {}
 
@@ -41,7 +42,15 @@ export class NoteService {
     }
 
     add(note: Note): Promise<any> {
-        return this.http.post(this.url, {withCredentials: true})
+        note.date = new Date(+note.year, +note.month-1, +note.day+1);
+        return this.http.post(this.url, note, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
+    attach(file: any, noteId: string): Promise<any> {
+        return this.http.post(this.urlupload + '/' + noteId, file, {params: {name: file.name}, withCredentials: true})
         .toPromise()
         .then(response => response.json())
         .catch(this.handleError);
