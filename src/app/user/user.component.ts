@@ -12,6 +12,14 @@ export class UserComponent {
         private authService: AuthService,
         private router: Router) {}
 
+    home(): void {
+        this.router.navigate(['user']);
+    }
+
+    create(): void {
+        this.router.navigate(['user/create']);
+    }
+
     logout(): void {
         this.authService.logout()
         .then(response => {

@@ -1,10 +1,10 @@
 <div id="navbar-sharp" class="navbar navbar-inverse bg-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="user">Gestionnaire de notes de frais</a>
+            <a class="navbar-brand" (click)="home()">Gestionnaire de notes de frais</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="user/create">Nouvelle note</a></li>
+            <li><a (click)="create()">Nouvelle note</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a (click)="logout()">Déconnexion</a></li>
