@@ -9,7 +9,7 @@
         </thead>
         <tbody>
             <ng-container *ngFor="let n of notes">
-                <tr *ngIf="!n.approved">
+                <tr *ngIf="!n.approved" (click)="edit(n._id)">
                     <th>{{n.title}}</th>
                     <th>{{n.day}} / {{n.month}} / {{n.year}}</th>
                     <th>{{n.amount}} {{n.currency}}</th>

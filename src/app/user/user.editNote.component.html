@@ -1,23 +1,22 @@
 <div class="col-sm-6">
     <form class="form-group">
         <label>Date</label><br/>
-        <input type="text" id="day" maxlength="2" size="2" [(ngModel)]="note.day" placeholder="01" name="day"/>
-        <input type="text" id="month" maxlength="2" size="2" [(ngModel)]="note.month" placeholder="01" name="month"/>
-        <input type="text" id="year" maxlength="4" size="4" [(ngModel)]="note.year" placeholder="2017" name="year"/>
+        <input type="text" maxlength="2" size="2" [(ngModel)]="note.day" name="day"/>
+        <input type="text" maxlength="2" size="2" [(ngModel)]="note.month" name="month"/>
+        <input type="text" maxlength="4" size="4" [(ngModel)]="note.year" name="year"/>
     </form>
     <form class="form-group">
         <label for="title">Intitulé</label><br/>
-        <input type="text" id="title" [(ngModel)]="note.title" placeholder="Déplacement à Brest" name="title"/><br/>
+        <input type="text" id="title" [(ngModel)]="note.title" name="title"/><br/>
     </form>
     <form class="form-group">
         <label for="amount">Montant</label><br/>
-        <input id="amount" type="text" [(ngModel)]="note.amount" placeholder="100" name="amount"/><br/>
+        <input id="amount" type="text" [(ngModel)]="note.amount" name="amount"/><br/>
     </form>
     <form class="form-group">
         <label for="currency">Devise</label><br/>
-        <input id="currency"type="text" [(ngModel)]="note.currency" placeholder="€" name="currency"/><br/>
+        <input id="currency"type="text" [(ngModel)]="note.currency" name="currency"/><br/>
     </form>
-    <button class="btn btn-success" (click)="addNote()">Valider</button>
 </div>
 <div class="col-sm-6">
     <form class="form-group">
@@ -27,6 +26,10 @@
     <form class="form-group">
         <label>Documents associés</label><br/>
         <ul class="list-group">
+            <li class="list-group-item" *ngFor="let f of note.files">
+                {{f}}
+                <button class="badge glyphicon glyphicon-remove" (click)="remove(note, f)"> </button>
+            </li>
             <ng-container *ngFor="let f of files">
                 <li class="list-group-item">{{f.name}}</li>
             </ng-container>
@@ -35,4 +38,10 @@
             Ajouter un document <input type="file" #filelist (change)="onAddFile(filelist.files)" style="display: none;">
         </label>
     </form>
+</div>
+<div class="col-sm-12">
+    <div class="btn-group">
+        <p><button class="btn btn-success" ng-click="update()">Valider</button>
+        <button class="btn btn-danger" ng-click="del()">Supprimer</button></p>
+    </div>
 </div>

@@ -20,7 +20,13 @@ export class NoteService {
     getOne(id: string): Promise<any> {
         return this.http.get(this.url + '/' + id, {withCredentials: true})
         .toPromise()
-        .then(response => response.json())
+        .then(response => {
+            let n = response.json();
+            let d = new Date(n.date);
+            n.day = d.getDate() - 1;
+            n.month = d.getMonth() + 1;
+            n.year = d.getFullYear();
+            return n;})
         .catch(this.handleError);
     }
 
