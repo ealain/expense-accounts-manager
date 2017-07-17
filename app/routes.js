@@ -51,7 +51,7 @@ module.exports = function(app) {
 	});
     });
 
-    router.post('/logout', function(req, res) {
+    router.get('/logout', function(req, res) {
         console.log('Extracting token from header...');
         var token = req.headers.cookie.split('=')[1];
         jwt.verify(token, app.get('token_key'), function(err, decoded) {
