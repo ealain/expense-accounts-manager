@@ -28,7 +28,7 @@ export class LoginComponent {
         .then(response => {
             if(response.success) {
                 if(response.admin) {console.log('Is admin !')}
-                else if(response.manager) {console.log('Is manager.')}
+                else if(response.manager) {this.router.navigate(['manager']);}
                 else {this.router.navigate(['user']);}
             }
             else {this.wrongpwd = true;}

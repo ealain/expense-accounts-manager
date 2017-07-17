@@ -6,6 +6,7 @@ import { UserComponent } from './user/user.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
 import { UserEditNoteComponent } from './user/user.editNote.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
+import { ManagerComponent } from './manager/manager.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
         { path: 'create', component: UserCreateNoteComponent },
         { path: 'edit/:nid', component: UserEditNoteComponent }
     ]},
+    { path: 'manager', component: ManagerComponent, children: []}
 ];
 
 @NgModule({
