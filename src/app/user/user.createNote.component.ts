@@ -14,6 +14,7 @@ export class UserCreateNoteComponent {
         private router: Router) {}
 
     private note: Note = {
+        _id: null,
         day: null,
         month: null,
         year: null,

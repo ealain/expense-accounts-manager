@@ -55,10 +55,30 @@ export class NoteService {
         .catch(this.handleError);
     }
 
+    update(note: Note): Promise<any> {
+        note.date = new Date(+note.year, +note.month-1, +note.day+1);
+        return this.http.post(this.url + '/' + note._id, note, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
+    deleteOne(note: Note): Promise<any> {
+        return this.http.delete(this.url + '/' + note._id, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
     attach(file: any, noteId: string): Promise<any> {
         return this.http.post(this.urlupload + '/' + noteId, file, {params: {name: file.name}, withCredentials: true})
         .toPromise()
-        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
+    detach(filename, noteId: string): Promise<any> {
+        return this.http.delete(this.urlupload + '/' + noteId, {params: {name: filename}, withCredentials: true})
+        .toPromise()
         .catch(this.handleError);
     }
 

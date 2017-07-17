@@ -171,83 +171,40 @@ router.get('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    if(!req.query.file) {
-        console.log('Request to delete note ' + req.params.id);
-        Note.findOne({
-            _id: req.params.id,
-            userId: req.userId
-        }, function(err, note) {
-            if(err) {
-                console.log('Error: cannot find note to be deleted');
-                res.json({success: false, message: 'Note to delete does not exist'});
+    console.log('Request to delete note ' + req.params.id);
+    Note.findOne({
+        _id: req.params.id,
+        userId: req.userId
+    }, function(err, note) {
+        if(err) {
+            console.log('Error: cannot find note to be deleted');
+            res.json({success: false, message: 'Note to delete does not exist'});
+        }
+        else {
+            if(note.approved) {
+                console.log('Note has been approved, user cannot delete it');
+                res.json({success: false, message: 'Approved notes cannot be deleted'});
             }
             else {
-                if(note.approved) {
-                    console.log('Note has been approved, user cannot delete it');
-                    res.json({success: false, message: 'Approved notes cannot be deleted'});
+                for(let filename of note.files) {
+                    fs.unlink(path.join('data/uploads/', String(note._id), '/', filename), (err) => {if(err){console.log('Error removing associated file: ' + filename);}});
                 }
-                else {
-                    Note.remove({
-                        _id: req.params.id
-                    }, function(err, note) {
-                        if(err) {
-                            console.log('Error deleting note' + err);
-                            res.json({success: false, message: 'Unable to delete note'});
-                        }
-                        else {
-                            console.log("Deleted note with id: " + req.params.id);
-                            res.json({success: true, message: 'Note deleted'});
-                        }
-                    });
-                }
+                fs.rmdir(path.join('data/uploads', String(note._id)), (err) => {if(err){console.log('Error removing associated uploads folder');}});
+                Note.remove({
+                    _id: req.params.id
+                }, function(err, note) {
+                    if(err) {
+                        console.log('Error deleting note' + err);
+                        res.json({success: false, message: 'Unable to delete note'});
+                    }
+                    else {
+                        console.log("Deleted note with id: " + req.params.id);
+                        res.json({success: true, message: 'Note deleted'});
+                    }
+                });
             }
-        });
-    } else {
-        console.log('Request to delete file ' + req.query.file + ' of note ' + req.params.id);
-        Note.findOne({
-            _id: req.params.id,
-            userId: req.userId
-        }, function(err, note) {
-            if(err) {
-                console.log('Error: cannot find note with file to be deleted');
-                res.json({success: false, message: 'Note with file to delete does not exist'});
-            }
-            else {
-                if(note.approved) {
-                    console.log('Note has been approved, user cannot change attached files');
-                    res.json({success: false, message: 'Approved notes cannot be changed'});
-                }
-                else {
-                    note.files.splice(note.files.indexOf(req.query.file), 1);
-                    note.save(function(err, saved_note) {
-                        if(err) {
-                            console.log('Error while retrieving file from note ' + err);
-                            res.json({success: false, message: 'Error while retrieving file from note'});
-                        }
-                        else {
-                            fs.unlink(path.join('data/uploads/', String(note._id), '/', req.query.file), (err) => {
-                                if(err) {
-                                    if(note.files.length === 0) {
-                                        fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
-                                            if(err) {console.log('Unable to delete note directory:' + err);}});
-                                    }
-                                    console.log('File already deleted in file system');
-                                    res.json(note);
-                                } else {
-                                    if(note.files.length === 0) {
-                                        fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
-                                            if(err) {console.log('Unable to delete note directory:' + err);}});
-                                    }
-                                    console.log("Deleted file: " + req.query.file);
-                                    res.json(note);
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        });
-    }
+        }
+    });
 });
 
 module.exports = router;

@@ -65,4 +65,42 @@ router.get('/:noteid/:filename', auth, function(req, res) {
     });
 });
 
+router.delete('/:noteid', auth, function(req, res) {
+    console.log('Request to delete file ' + req.query.name + ' associated with note ' + req.params.noteid);
+    Note.findOne({
+        _id: req.params.noteid,
+        userId: req.userId
+    }, function(err, note) {
+        if(err) {
+            console.log('Error: cannot find note with file to be deleted');
+            res.json({success: false, message: 'Note with file to delete does not exist'});
+        }
+        else {
+            if(note.approved) {
+                console.log('Note has been approved, user cannot change attached files');
+                res.json({success: false, message: 'Approved notes cannot be changed'});
+            }
+            else {
+                fs.unlink(path.join('data/uploads/', String(note._id), '/', req.query.name), (err) => {
+                    if(err) {
+                        if(note.files.length === 0) {
+                            fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
+                                if(err) {console.log('Unable to delete note directory:' + err);}});
+                        }
+                        console.log('File seems already deleted in file system');
+                        res.json(note);
+                    } else {
+                        if(note.files.length === 0) {
+                            fs.rmdir(path.join('data/uploads/', String(note._id)), (err) => {
+                                if(err) {console.log('Unable to delete note directory:' + err);}});
+                        }
+                        console.log("Deleted file: " + req.query.name);
+                        res.json(note);
+                    }
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;

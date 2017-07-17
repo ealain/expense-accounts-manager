@@ -26,13 +26,10 @@
     <form class="form-group">
         <label>Documents associés</label><br/>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let f of note.files">
-                {{f}}
-                <button class="badge glyphicon glyphicon-remove" (click)="remove(note, f)"> </button>
+            <li class="list-group-item" *ngFor="let filename of note.files">
+                {{filename}}
+                <button class="badge glyphicon glyphicon-remove" (click)="deleteFile(filename)"> </button>
             </li>
-            <ng-container *ngFor="let f of files">
-                <li class="list-group-item">{{f.name}}</li>
-            </ng-container>
         </ul>
         <label class="btn btn-default btn-file">
             Ajouter un document <input type="file" #filelist (change)="onAddFile(filelist.files)" style="display: none;">
@@ -41,7 +38,7 @@
 </div>
 <div class="col-sm-12">
     <div class="btn-group">
-        <p><button class="btn btn-success" ng-click="update()">Valider</button>
-        <button class="btn btn-danger" ng-click="del()">Supprimer</button></p>
+        <p><button class="btn btn-success" (click)="updateNote()">Valider</button>
+        <button class="btn btn-danger" (click)="deleteNote()">Supprimer</button></p>
     </div>
 </div>
