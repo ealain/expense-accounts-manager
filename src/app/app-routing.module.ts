@@ -10,6 +10,8 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminDashboardComponent } from './admin/admin.dashboard.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +25,9 @@ const routes: Routes = [
         { path: '', component: ManagerDashboardComponent },
         { path: 'notes', component: ManagerNotesComponent },
         { path: 'notes/:nid', component: ManagerNoteDetailsComponent },
+    ]},
+    { path: 'admin', component: AdminComponent, children: [
+        { path: '', component: AdminDashboardComponent },
     ]}
 ];
 

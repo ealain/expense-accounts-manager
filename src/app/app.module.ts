@@ -13,6 +13,8 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminDashboardComponent } from './admin/admin.dashboard.component';
 
 import { AuthService } from './auth/auth.service';
 import { NoteService } from './shared/note.service';
@@ -31,7 +33,9 @@ import { AppRoutingModule } from './app-routing.module';
         ManagerComponent,
         ManagerDashboardComponent,
         ManagerNotesComponent,
-        ManagerNoteDetailsComponent
+        ManagerNoteDetailsComponent,
+        AdminComponent,
+        AdminDashboardComponent
     ],
     imports: [
         BrowserModule,

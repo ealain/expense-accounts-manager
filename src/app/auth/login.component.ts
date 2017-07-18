@@ -27,7 +27,7 @@ export class LoginComponent {
         this.authService.login(user)
         .then(response => {
             if(response.success) {
-                if(response.admin) {console.log('Is admin !')}
+                if(response.admin) {this.router.navigate(['admin']);}
                 else if(response.manager) {this.router.navigate(['manager']);}
                 else {this.router.navigate(['user']);}
             }
