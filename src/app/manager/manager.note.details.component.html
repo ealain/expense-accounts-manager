@@ -17,6 +17,6 @@
             </ul>
         </div>
     </div>
-    <button class="btn btn-primary btn-block" (click)="approve()">Valider</button>
+    <button class="btn btn-primary btn-block" (click)="approve()"><span *ngIf="note?.approved">Déverrouiller</span><span *ngIf="!note?.approved">Valider</span></button>
 </div>
 <div class="col-sm-3"></div>

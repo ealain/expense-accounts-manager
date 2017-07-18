@@ -14,8 +14,13 @@ export class ManagerNotesComponent implements OnInit {
     private notes: { [uid: string]: Note } = {};
 
     constructor(
+        private router: Router,
         private userService: UserService,
         private noteService: NoteService) {}
+
+    view(nid: string): void {
+        this.router.navigate(['manager/notes', nid]);
+    }
 
     getUsers(): void {
         this.userService.getUsers()
