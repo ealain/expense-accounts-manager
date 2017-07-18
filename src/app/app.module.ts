@@ -10,9 +10,11 @@ import { UserDashboardComponent } from './user/user.dashboard.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
 import { UserEditNoteComponent } from './user/user.editNote.component';
 import { ManagerComponent } from './manager/manager.component';
+import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 
 import { AuthService } from './auth/auth.service';
 import { NoteService } from './shared/note.service';
+import { UserService } from './shared/user.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,7 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
         UserDashboardComponent,
         UserEditNoteComponent,
         UserCreateNoteComponent,
-        ManagerComponent
+        ManagerComponent,
+        ManagerDashboardComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [AuthService, NoteService],
+    providers: [AuthService, NoteService, UserService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

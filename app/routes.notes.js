@@ -95,13 +95,13 @@ router.post('/:id', function(req, res) {
 
 router.get('/', function(req, res, next) {
     console.log('Request to read notes');
-    if(req.query.user) {
+    if(req.query.uid) {
         // Notes of another user have been requested
         // Check that the operation is allowed (manager has access to user info)
         ManAttribs.findOne({
             managerId: req.managerId
         }, 'users', function(err, users) {
-            if(err || !(users.users.includes(req.query.user))) {
+            if(err || !(users.users.includes(req.query.uid))) {
                 // Requested user was not attributed to the enquirer
                 console.log('Unauthorized');
                 res.json({success: false, message: 'Unauthorized'});
@@ -115,7 +115,7 @@ router.get('/', function(req, res, next) {
         // Deliver info of enquirer
         next();
 }, function(req, res) {
-    var uid = req.query.user || req.userId;
+    var uid = req.query.uid || req.userId;
     Note.find({
         userId: uid
     }, function(err, notes) {

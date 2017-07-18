@@ -47,6 +47,23 @@ export class NoteService {
         .catch(this.handleError);
     }
 
+    getManyByUser(uId): Promise<any> {
+        return this.http.get(this.url, {params: {uid: uId}, withCredentials: true})
+        .toPromise()
+        .then(response => {
+            let result = [];
+            for(let n of response.json()) {
+                let d = new Date(n.date);
+                n.day = d.getDate() - 1;
+                n.month = d.getMonth() + 1;
+                n.year = d.getFullYear();
+                result.push(n);
+            }
+            return result;
+        })
+        .catch(this.handleError);
+    }
+
     add(note: Note): Promise<any> {
         note.date = new Date(+note.year, +note.month-1, +note.day+1);
         return this.http.post(this.url, note, {withCredentials: true})

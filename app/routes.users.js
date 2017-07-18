@@ -8,6 +8,25 @@ var UsersList = require('./models/man-attrib');
 
 router.get('/', function(req, res) {
     console.log('Request to read users');
+    if(req.managerId) {
+        console.log('Request to read list of users for manager ' + req.managerId);
+        UsersList.findOne({
+            managerId: req.managerId
+        }, 'users', function(err, users) {
+            if(err) {
+                console.log('Error looking for list of users for manager ' + req.managerId);
+                res.json({success: false, message: 'Unable to read users of manager'});
+            }
+            else if(users) {
+                console.log('Response:', users.users);
+                res.json(users.users);
+            }
+            else {
+                res.send([]);
+            }
+        });
+    }
+    else {
     if(!req.adminId)
         res.json({success: false, message: 'User should be admin'});
     else {
@@ -21,6 +40,7 @@ router.get('/', function(req, res) {
                 console.log("Users sent");
             }
         });
+    }
     }
 });
 

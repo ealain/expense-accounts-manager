@@ -33,12 +33,10 @@ auth = require('./app/authentication')(app);
 var authRouter = require('./app/routes')(app);
 var notesRouter = require('./app/routes.notes');
 var usersRouter = require('./app/routes.users');
-var managerRouter = require('./app/routes.manager');
 var updownloadRouter = require('./app/routes.updownloads');
 
 app.use('/api/notes', auth, notesRouter);
 app.use('/api/users', auth, usersRouter);
-app.use('/api/manager', auth, managerRouter);
 app.use('/api/uploads', auth, updownloadRouter);
 app.use('/api', authRouter);
 
