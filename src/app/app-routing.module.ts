@@ -12,6 +12,7 @@ import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin.dashboard.component';
+import { AdminEditUserComponent } from './admin/admin.editUser.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
     ]},
     { path: 'admin', component: AdminComponent, children: [
         { path: '', component: AdminDashboardComponent },
+        { path: 'user/:uid', component: AdminEditUserComponent },
     ]}
 ];
 
