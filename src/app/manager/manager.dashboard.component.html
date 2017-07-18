@@ -18,7 +18,7 @@
                         </thead>
                         <tbody>
                             <ng-container *ngFor="let note of notes[user._id]">
-                            <tr *ngIf="!note.approved" (click)="view(note)">
+                            <tr *ngIf="!note.approved" (click)="view(note._id)">
                                 <td class="col-sm-5">{{note.title}}</td>
                                 <td class="col-sm-4">{{note.day}} / {{note.month}} / {{note.year}}</td>
                                 <td class="col-sm-3">{{note.amount}} {{note.currency}}</td>

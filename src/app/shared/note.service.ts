@@ -99,6 +99,10 @@ export class NoteService {
         .catch(this.handleError);
     }
 
+    approve(nid: string): Promise<any> {
+        return this.http.post(this.url + '/approve', {}, {params: {id: nid}, withCredentials: true}).toPromise().catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

@@ -18,6 +18,10 @@ export class ManagerDashboardComponent implements OnInit {
         private noteService: NoteService,
         private router: Router) {}
 
+    view(nid: string): void {
+        this.router.navigate(['manager/notes', nid]);
+    }
+
     getUsers(): void {
         this.userService.getUsers()
         .then(response => {

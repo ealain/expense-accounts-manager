@@ -12,6 +12,7 @@ import { UserEditNoteComponent } from './user/user.editNote.component';
 import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
+import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
 
 import { AuthService } from './auth/auth.service';
 import { NoteService } from './shared/note.service';
@@ -29,7 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
         UserCreateNoteComponent,
         ManagerComponent,
         ManagerDashboardComponent,
-        ManagerNotesComponent
+        ManagerNotesComponent,
+        ManagerNoteDetailsComponent
     ],
     imports: [
         BrowserModule,
