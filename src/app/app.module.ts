@@ -15,6 +15,7 @@ import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin.dashboard.component';
+import { AdminAddUserComponent } from './admin/admin.addUser.component';
 import { AdminEditUserComponent } from './admin/admin.editUser.component';
 
 import { AuthService } from './auth/auth.service';
@@ -37,6 +38,7 @@ import { AppRoutingModule } from './app-routing.module';
         ManagerNoteDetailsComponent,
         AdminComponent,
         AdminDashboardComponent,
+        AdminAddUserComponent,
         AdminEditUserComponent
     ],
     imports: [

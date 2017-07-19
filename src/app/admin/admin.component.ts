@@ -16,7 +16,7 @@ export class AdminComponent {
     }
 
     adduser(): void {
-        this.router.navigate(['adduser']);
+        this.router.navigate(['admin/user']);
     }
 
     logout(): void {
