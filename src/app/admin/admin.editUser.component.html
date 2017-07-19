@@ -13,9 +13,18 @@
                 <input id="admin" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label for="admin">Administrateur</label><br/>
             </form>
             <form class="radio">
-                <input id="manager" type="checkbox" (click)="showHideUsers()" [(ngModel)]="user.manager" name="manager"/><label for="manager">Manager</label><br/>
+                <input id="manager" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label for="manager">Manager</label><br/>
             </form>
-            <router-outlet></router-outlet>
+            <div *ngIf="user.manager">
+                <ul>
+                    <ng-container *ngFor="let user of users; let i=index">
+                        <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
+                            {{user.login}}
+                            <input type="checkbox" [(ngModel)]="selection[i]"/>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
         </div>
     </div>
     <button class="btn btn-primary btn-block" (click)="send()">Modifier</button>

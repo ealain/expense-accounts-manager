@@ -11,15 +11,42 @@ export class UserService {
 
     constructor(private http: Http) {}
 
-    getUsers(): Promise<any> {
-        return this.http.get(this.url, {withCredentials: true})
+    getUsers(uid?: string): Promise<any> {
+        if(uid) {
+            return this.http.get(this.url, {params: {uid: uid}, withCredentials: true})
+                .toPromise()
+                .then(response => response.json())
+                .catch(this.handleError);}
+        else {
+            return this.http.get(this.url, {withCredentials: true})
+                .toPromise()
+                .then(response => response.json())
+                .catch(this.handleError);}
+    }
+
+    getUser(uid: string): Promise<User> {
+        return this.http.get(this.url + '/' + uid, {withCredentials: true})
         .toPromise()
         .then(response => response.json())
         .catch(this.handleError);
     }
 
-    getUser(uid: string): Promise<User> {
-        return this.http.get(this.url + '/' + uid, {withCredentials: true})
+    updateUser(u: User): Promise<any> {
+        return this.http.post(this.url, u, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
+    addUserList(id: string, l: Array<string>): Promise<any> {
+        return this.http.post(this.url + '/lists', {users: l}, {params: {mid: id}, withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
+    removeUserList(id: string): Promise<any> {
+        return this.http.delete(this.url + '/lists', {params: {uid: id}, withCredentials: true})
         .toPromise()
         .then(response => response.json())
         .catch(this.handleError);

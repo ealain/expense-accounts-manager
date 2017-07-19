@@ -26,21 +26,40 @@ router.get('/', function(req, res) {
             }
         });
     }
-    else {
-    if(!req.adminId)
-        res.json({success: false, message: 'User should be admin'});
-    else {
-        User.find({}, '_id login admin manager', function(err, users) {
-            if(err) {
-                console.log('Error looking for users' + err);
-                res.json({success: false, message: 'Unable to read users'});
-            }
-            else {
-                res.json(users);
-                console.log("Users sent");
-            }
-        });
+    else if(req.adminId) {
+        if(req.query.uid) {
+            console.log('Request to read user list of user:', req.query.uid);
+            UsersList.findOne({
+                managerId: req.query.uid
+            }, 'users', function(err, users) {
+                if(err) {
+                    console.log('Error looking for list of users for manager ' + req.managerId);
+                    res.json({success: false, message: 'Unable to read users of manager'});
+                }
+                else if(users) {
+                    console.log('Response:', users.users);
+                    res.json(users.users);
+                }
+                else {
+                    res.send([]);
+                }
+            });
+        }
+        else {
+            User.find({}, '_id login admin manager', function(err, users) {
+                if(err) {
+                    console.log('Error looking for users' + err);
+                    res.json({success: false, message: 'Unable to read users'});
+                }
+                else {
+                    res.json(users);
+                    console.log("Users sent");
+                }
+            });
+        }
     }
+    else {
+        res.json({success: false, message: 'User should be admin'});
     }
 });
 
@@ -153,9 +172,8 @@ router.post('/lists', function(req, res) {
     console.log('Request to add users list for manager');
     if(req.adminId) {
         var list = new UsersList;
-        var managerId;
         User.findOne({
-            login: req.body.managerlogin
+            _id: req.query.mid
         }, function(err, u) {
             if(u) {
                 list.managerId = u._id;
