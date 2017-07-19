@@ -17,12 +17,18 @@ module.exports = function(app) {
                 else {
                     console.log('User successfully authentified');
                     if(decoded._doc.manager) {
+                        req.adminId = null;
                         req.managerId = decoded._doc._id;
+                        req.userId = null;
                     }
                     else if(decoded._doc.admin) {
                         req.adminId = decoded._doc._id;
+                        req.managerId = null;
+                        req.userId = null;
                     }
                     else {
+                        req.adminId = null;
+                        req.managerId = null;
                         req.userId = decoded._doc._id;
                     }
                     next();
