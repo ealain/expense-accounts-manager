@@ -81,14 +81,12 @@ export class AdminEditUserComponent implements OnInit {
     del(): void {
         this.userService.removeUserList(this.user._id)
         .then(response1 => {
-            if(response1.success) {
             this.userService.delUser(this.user)
                 .then(response2 => {
                     if(response1.success && response2.success) {
                         this.router.navigate(['admin']);
                     }
                 });
-            }
         });
     }
 }
