@@ -5,6 +5,7 @@
             <div class="panel-title text-center">{{note?.title}}</div><div class="pull-right">{{note?.day}} / {{note?.month}} / {{note?.year}}</div><br/>
         </div>
         <div class="panel-body">
+            <p></p>
             <p><strong>Montant</strong><span class="pull-right">{{note?.amount}} {{note?.currency}}</span></p>
             <div *ngIf="note?.comment">
                 <strong>Commentaire</strong>
@@ -26,6 +27,8 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary btn-block" (click)="approve()"><span *ngIf="note?.approved">Déverrouiller</span><span *ngIf="!note?.approved">Valider</span></button>
+    <div class="alert alert-success">
+        <p class="text-center">Note validée</p>
+    </div>
 </div>
 <div class="col-sm-3"></div>

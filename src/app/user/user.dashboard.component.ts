@@ -25,7 +25,10 @@ export class UserDashboardComponent implements OnInit {
         this.getNotes();
     }
 
-    edit(nid): void {
-        this.router.navigate(['user/edit/' + nid]);
+    edit(n): void {
+        if(n.approved)
+        this.router.navigate(['user/view/' + n._id]);
+        else
+        this.router.navigate(['user/edit/' + n._id]);
     }
 }

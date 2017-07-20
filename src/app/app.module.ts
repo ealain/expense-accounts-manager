@@ -10,6 +10,7 @@ import { UserComponent } from './user/user.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
 import { UserEditNoteComponent } from './user/user.editNote.component';
+import { UserViewNoteComponent } from './user/user.viewNote.component';
 import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
@@ -33,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
         UserComponent,
         UserDashboardComponent,
         UserEditNoteComponent,
+        UserViewNoteComponent,
         UserCreateNoteComponent,
         ManagerComponent,
         ManagerDashboardComponent,
