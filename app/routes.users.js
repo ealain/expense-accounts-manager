@@ -146,14 +146,14 @@ router.post('/', function(req, res) {
                         else {
                             user.admin = req.body.admin;
                             user.manager = req.body.manager;
-                            user.save(function(err) {
+                            user.save(function(err, us) {
                                 if(err) {
                                     console.log('Error while saving user ' + err);
                                     res.json({success: false, message: 'Error while saving user'});
                                 }
                                 else {
                                     console.log('Saved user ' + user.login);
-                                    res.json({success: true, message: 'User saved !'});
+                                    res.json({success: true, uid: us._id, message: 'User saved !'});
                                 }
                             });
                         }

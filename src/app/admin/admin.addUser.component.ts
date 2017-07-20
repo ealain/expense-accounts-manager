@@ -37,16 +37,16 @@ export class AdminAddUserComponent {
     }
 
     send(): void {
-        if(this.user.manager) {
-            let selected: Array<string> = [];
-            for(let i = 0; i < this.selection.length; i++)
-                if(this.selection[i])
-                    selected.push(this.users[i]._id);
-            this.userService.addUserList(this.user._id, selected);
-        }
-        this.userService.updateUser(this.user)
+        this.userService.addUser(this.user)
         .then(response => {
             if(response.success) {
+                if(this.user.manager) {
+                    let selected: Array<string> = [];
+                    for(let i = 0; i < this.selection.length; i++)
+                        if(this.selection[i])
+                            selected.push(this.users[i]._id);
+                    this.userService.addUserList(response.uid, selected)
+                }
                 this.router.navigate(['admin']);
             }
         });

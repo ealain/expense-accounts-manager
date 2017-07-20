@@ -69,7 +69,7 @@ export class AdminEditUserComponent implements OnInit {
                         selected.push(this.users[i]._id);
                 this.userService.addUserList(this.user._id, selected);
             }
-            this.userService.updateUser(this.user)
+            this.userService.addUser(this.user)
                 .then(response2 => {
                     if(response1.success && response2.success) {
                         this.router.navigate(['admin']);

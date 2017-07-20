@@ -31,7 +31,7 @@ export class UserService {
         .catch(this.handleError);
     }
 
-    updateUser(u: User): Promise<any> {
+    addUser(u: User): Promise<any> {
         return this.http.post(this.url, u, {withCredentials: true})
         .toPromise()
         .then(response => response.json())
