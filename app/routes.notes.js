@@ -187,7 +187,8 @@ router.delete('/:id', function(req, res) {
             }
             else {
                 for(let filename of note.files) {
-                    fs.unlink(path.join('data/uploads/', String(note._id), '/', filename), (err) => {if(err){console.log('Error removing associated file: ' + filename);}});
+                    if(filename)
+                        fs.unlink(path.join('data/uploads/', String(note._id), '/', filename), (err) => {if(err){console.log('Error removing associated file: ' + filename);}});
                 }
                 fs.rmdir(path.join('data/uploads', String(note._id)), (err) => {if(err){console.log('Error removing associated uploads folder');}});
                 Note.remove({
