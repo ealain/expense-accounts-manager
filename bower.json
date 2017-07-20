@@ -1,9 +1,0 @@
-{
-  "name": "expense-accounts-manager",
-  "dependencies": {
-    "angular": "latest",
-    "angular-resource": "^1.6.4",
-    "angular-ui-router": "^1.0.1",
-    "bootstrap": "^3.3.7"
-  }
-}

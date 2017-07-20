@@ -1,0 +1,36 @@
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title text-center">Ajout d'utilisateur</div>
+        </div>
+        <div class="panel-body">
+            <form class="form-group">
+                <label for="login">Login</label><br/>
+                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/><br/>
+            </form>
+            <form class="form-group">
+                <label for="pwd">Mot de passe</label><br/>
+                <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/><br/>
+            </form>
+            <form class="radio">
+                <input id="admin" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label for="admin">Administrateur</label><br/>
+            </form>
+            <form class="radio">
+                <input id="manager" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label for="manager">Manager</label><br/>
+            </form>
+            <div *ngIf="user.manager">
+                <ul>
+                    <ng-container *ngFor="let user of users; let i=index">
+                        <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
+                            {{user.login}}
+                            <input type="checkbox" [(ngModel)]="selection[i]"/>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-block" (click)="send()">Ajouter</button>
+</div>
+<div class="col-sm-3"></div>

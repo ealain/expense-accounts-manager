@@ -1,0 +1,16 @@
+<div id="navbar-sharp" class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand" (click)="home()">Gestionnaire de notes de frais</div>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a (click)="viewAll()">Toutes les notes</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a (click)="logout()">Déconnexion</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,22 @@
+<nav id="navbar-sharp" class="navbar navbar-inverse bg-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">Gestionnaire de notes de frais</div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a (click)="signup()">Sign up</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <label>Identifiant</label>
+        <input class="form-control" [(ngModel)]="user.login"><br>
+        <label>Mot de passe</label>
+        <input class="form-control" type="password" [(ngModel)]="user.password"><br>
+        <button class="btn btn-block btn-success" (click)="login(user)">Connexion</button>
+        <p class="alert alert-danger" *ngIf="wrongpwd">Mot de passe invalide</p>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
