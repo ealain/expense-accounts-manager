@@ -18,13 +18,11 @@ module.exports = function(app) {
 	user.admin = false;
 	user.manager = false;
 
-	res.type('html');
-
 	user.save(function(err) {
 	    if(err)
-		res.send(err);
+		res.json({success: false, message: err});
 	    else
-		res.send('Request received' + user);
+		res.json({success: true, message: 'User saved !'});
 	});
     });
 

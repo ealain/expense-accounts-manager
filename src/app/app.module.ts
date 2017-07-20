@@ -5,6 +5,7 @@ import { HttpModule }    from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
+import { SignupComponent } from './auth/signup.component';
 import { UserComponent } from './user/user.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
@@ -28,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     declarations: [
         AppComponent,
         LoginComponent,
+        SignupComponent,
         UserComponent,
         UserDashboardComponent,
         UserEditNoteComponent,

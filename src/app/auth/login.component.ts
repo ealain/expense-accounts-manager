@@ -34,4 +34,8 @@ export class LoginComponent {
             else {this.wrongpwd = true;}
         });
     };
+
+    signup(user: any): void {
+        this.router.navigate(['signup']);
+    }
 }
