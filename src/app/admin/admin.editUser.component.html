@@ -27,7 +27,12 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary btn-block" (click)="send()">Modifier</button>
+    <div class="col-sm-6">
+        <button class="btn btn-primary btn-block" (click)="send()">Modifier</button>
+    </div>
+    <div class="col-sm-6">
+        <button class="btn btn-danger btn-block" (click)="del()">Supprimer</button>
+    </div>
     <p class="alert alert-danger" *ngIf="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
 </div>
 <div class="col-sm-3"></div>

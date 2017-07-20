@@ -38,6 +38,13 @@ export class UserService {
         .catch(this.handleError);
     }
 
+    delUser(u: User): Promise<any> {
+        return this.http.delete(this.url + '/' + u._id, {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
     addUserList(id: string, l: Array<string>): Promise<any> {
         return this.http.post(this.url + '/lists', {users: l}, {params: {mid: id}, withCredentials: true})
         .toPromise()

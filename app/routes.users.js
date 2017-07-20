@@ -217,4 +217,20 @@ router.delete('/lists', function(req, res) {
     });
 });
 
+router.delete('/:id', function(req, res) {
+    console.log('Request to delete user');
+    if(req.adminId) {
+        User.findById(req.params.id, function(err, u) {
+            if(err) {
+                console.log('Error finding user to delete');
+            }
+            else if(u) {
+                u.remove();
+                console.log('User successfully deleted');
+                res.json({success: true, message: 'User successfully deleted'});
+            }
+        });
+    }
+});
+
 module.exports = router;
