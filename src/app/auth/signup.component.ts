@@ -12,6 +12,8 @@ export class SignupComponent {
         login: '',
         password: ''
     };
+    private same_login: boolean = false;
+    private unknown_error: boolean = false;
 
     constructor(
         private authService: AuthService,
@@ -27,7 +29,13 @@ export class SignupComponent {
             if(response.success) {
                 this.router.navigate(['login']);
             }
+            else if(response.same_login) {
+                this.same_login = true;
+                this.unknown_error = false;
+            }
             else {
+                this.same_login = false;
+                this.unknown_error = true;
             }
         });
     }

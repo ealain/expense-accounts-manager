@@ -16,6 +16,8 @@ export class AdminAddUserComponent {
     private selection: Array<boolean> = [];
     private userlist: Array<User> = [];
     private users: Array<User> = [];
+    private unknown_error: boolean = false;
+    private same_login: boolean = false;
 
     onChangeManager(): void {
         if(!this.user.manager) {
@@ -48,6 +50,14 @@ export class AdminAddUserComponent {
                     this.userService.addUserList(response.uid, selected)
                 }
                 this.router.navigate(['admin']);
+            }
+            else if(response.same_login) {
+                this.same_login = true;
+                this.unknown_error = false;
+            }
+            else {
+                this.same_login = false;
+                this.unknown_error = true;
             }
         });
     }

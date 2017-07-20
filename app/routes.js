@@ -18,12 +18,22 @@ module.exports = function(app) {
 	user.admin = false;
 	user.manager = false;
 
-	user.save(function(err) {
-	    if(err)
-		res.json({success: false, message: err});
-	    else
-		res.json({success: true, message: 'User saved !'});
-	});
+        User.findOne({
+            login: user.login
+        }, function(err, u) {
+            if(u) {
+                console.log('Error user exists with same login');
+                res.json({success: false, same_login: true, message: 'Error user exists with same login'});
+            }
+            else {
+                user.save(function(err) {
+                    if(err)
+                        res.json({success: false, message: err});
+                    else
+                        res.json({success: true, message: 'User saved !'});
+                });
+            }
+        });
     });
 
     router.post('/login', function(req, res) {

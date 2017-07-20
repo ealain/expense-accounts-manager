@@ -16,6 +16,8 @@
         <label>Mot de passe</label>
         <input class="form-control" type="password" placeholder="Choisir un mot de passe" [(ngModel)]="user.password"><br/>
         <button class="btn btn-block btn-success" (click)="signup(user)">Inscription</button>
+        <p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
+        <p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>
     </div>
     <div class="col-sm-4"></div>
 </div>

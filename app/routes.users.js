@@ -141,7 +141,7 @@ router.post('/', function(req, res) {
                     }, function(err, u) {
                         if(u) {
                             console.log('Error user exists with same login');
-                            res.json({success: false, message: 'Error user exists with same login'});
+                            res.json({success: false, same_login: true, message: 'Error user exists with same login'});
                         }
                         else {
                             user.admin = req.body.admin;

@@ -32,5 +32,7 @@
         </div>
     </div>
     <button class="btn btn-primary btn-block" (click)="send()">Ajouter</button>
+    <p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
+    <p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>
 </div>
 <div class="col-sm-3"></div>
