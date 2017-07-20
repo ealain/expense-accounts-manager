@@ -40,6 +40,10 @@ app.use('/api/users', auth, usersRouter);
 app.use('/api/uploads', auth, updownloadRouter);
 app.use('/api', authRouter);
 
+app.get('/uploads/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'data/uploads/' + req.params[0]));
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
