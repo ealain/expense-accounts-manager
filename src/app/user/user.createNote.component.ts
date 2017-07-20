@@ -13,7 +13,7 @@ export class UserCreateNoteComponent {
         private noteService: NoteService,
         private router: Router) {}
 
-    private note: Note = {
+    note: Note = {
         _id: null,
         day: null,
         month: null,
@@ -26,7 +26,7 @@ export class UserCreateNoteComponent {
         files: [],
     } 
 
-    private files: Array<any> = [];
+    files: Array<any> = [];
 
     onAddFile(filelist): void {
         this.files.push(filelist[filelist.length - 1]);

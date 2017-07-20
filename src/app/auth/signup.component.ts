@@ -8,12 +8,12 @@ import { AuthService } from './auth.service';
     templateUrl: './signup.component.html'
 })
 export class SignupComponent {
-    private user: any = {
+    user: any = {
         login: '',
         password: ''
     };
-    private same_login: boolean = false;
-    private unknown_error: boolean = false;
+    same_login: boolean = false;
+    unknown_error: boolean = false;
 
     constructor(
         private authService: AuthService,

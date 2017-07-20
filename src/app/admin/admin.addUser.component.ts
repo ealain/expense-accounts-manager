@@ -12,12 +12,12 @@ export class AdminAddUserComponent {
         private userService: UserService,
         private router: Router) {}
 
-    private user: any = {login: null, password: null, admin: false, manager: false};
-    private selection: Array<boolean> = [];
-    private userlist: Array<User> = [];
-    private users: Array<User> = [];
-    private unknown_error: boolean = false;
-    private same_login: boolean = false;
+    user: any = {login: null, password: null, admin: false, manager: false};
+    selection: Array<boolean> = [];
+    userlist: Array<User> = [];
+    users: Array<User> = [];
+    unknown_error: boolean = false;
+    same_login: boolean = false;
 
     onChangeManager(): void {
         if(!this.user.manager) {

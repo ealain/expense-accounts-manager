@@ -10,7 +10,7 @@ import { Note } from '../shared/note';
     templateUrl: 'user.dashboard.component.html',
 })
 export class UserDashboardComponent implements OnInit {
-    private notes: Note[];
+    notes: Note[];
 
     constructor(
         private router: Router,

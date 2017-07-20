@@ -12,7 +12,7 @@ export class AdminDashboardComponent implements OnInit {
         private userService: UserService,
         private router: Router) {}
 
-    private users: User[];
+    users: User[];
 
     ngOnInit(): void {
         this.userService.getUsers().then(users => this.users = users);

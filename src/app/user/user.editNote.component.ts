@@ -14,7 +14,7 @@ export class UserEditNoteComponent {
         private route: ActivatedRoute,
         private router: Router) {}
 
-    private note: Note = {
+    note: Note = {
         _id: null,
         day: null,
         month: null,
@@ -27,7 +27,7 @@ export class UserEditNoteComponent {
         files: [],    
     };
 
-    private files: Array<any> = [];
+    files: Array<any> = [];
     private filesToDelete: Array<any> = [];
 
     ngOnInit() {

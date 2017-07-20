@@ -10,7 +10,7 @@ import { User } from '../user';
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
-    private user: User = {
+    user: User = {
         login: '',
         password: '',
         admin: false,
@@ -21,7 +21,7 @@ export class LoginComponent {
         private authService: AuthService,
         private router: Router) {}
 
-    private wrongpwd: boolean = false;
+    wrongpwd: boolean = false;
 
     login(user: any): void {
         this.authService.login(user)
@@ -35,7 +35,7 @@ export class LoginComponent {
         });
     };
 
-    signup(user: any): void {
+    signup(): void {
         this.router.navigate(['signup']);
     }
 }

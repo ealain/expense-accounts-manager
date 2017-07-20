@@ -14,7 +14,7 @@ export class ManagerNoteDetailsComponent implements OnInit {
         private router: Router,
         private noteService: NoteService) {}
 
-    private note: Note;
+    note: any;
     private nid: string;
 
     view(nid: string): void {

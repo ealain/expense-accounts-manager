@@ -10,8 +10,8 @@ import { Note } from '../shared/note';
     templateUrl: './manager.dashboard.component.html'
 })
 export class ManagerDashboardComponent implements OnInit {
-    private users: User[] = [];
-    private notes: { [uid: string]: Note } = {};
+    users: User[] = [];
+    notes: { [uid: string]: Note } = {};
 
     constructor(
         private userService: UserService,

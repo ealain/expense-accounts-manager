@@ -13,11 +13,11 @@ export class AdminEditUserComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router) {}
 
-    private user: User = {_id: null, login: null, pwd: null, admin: null, manager: null};
-    private r: boolean = true;
-    private selection: Array<boolean> = [];
-    private userlist: Array<User> = [];
-    private users: Array<User> = [];
+    user: User = {_id: null, login: null, pwd: null, admin: null, manager: null};
+    r: boolean = true;
+    selection: Array<boolean> = [];
+    userlist: Array<User> = [];
+    users: Array<User> = [];
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {

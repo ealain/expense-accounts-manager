@@ -10,8 +10,8 @@ import { Note } from '../shared/note';
     templateUrl: './manager.notes.component.html'
 })
 export class ManagerNotesComponent implements OnInit {
-    private users: User[] = [];
-    private notes: { [uid: string]: Note } = {};
+    users: User[] = [];
+    notes: { [uid: string]: Note } = {};
 
     constructor(
         private router: Router,
