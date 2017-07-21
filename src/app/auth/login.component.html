@@ -12,9 +12,9 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <label>Identifiant</label>
-        <input class="form-control" [(ngModel)]="user.login"><br>
+        <input class="form-control" [(ngModel)]="user.login" (keyup.enter)="login(user)"><br>
         <label>Mot de passe</label>
-        <input class="form-control" type="password" [(ngModel)]="user.password"><br>
+        <input class="form-control" type="password" [(ngModel)]="user.password" (keyup.enter)="login(user)"><br>
         <button class="btn btn-block btn-success" (click)="login(user)">Connexion</button>
         <p class="alert alert-danger" *ngIf="wrongpwd">Mot de passe invalide</p>
     </div>
