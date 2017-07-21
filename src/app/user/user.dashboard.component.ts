@@ -12,17 +12,33 @@ import { Note } from '../shared/note';
 export class UserDashboardComponent implements OnInit {
     notes: Note[];
 
+    backgnd: Array<string> = [];
+
     constructor(
         private router: Router,
         private noteService: NoteService) {}
 
-    getNotes(): void {
+    ngOnInit(): void {
         this.noteService.getMany()
-        .then(response => this.notes = response);
+        .then(response => this.notes = response)
+        .then(() => {
+            for(let n of this.notes) {
+                if(n.approved)
+                    this.backgnd.push('#dff0d8');
+                else
+                    this.backgnd.push('');
+            }
+        });
     }
 
-    ngOnInit(): void {
-        this.getNotes();
+    menter(i: number): void {
+        this.backgnd[i] = '';
+    }
+
+    mleave(i: number): void {
+        if(this.notes[i].approved) {
+            this.backgnd[i] = '#dff0d8';
+        }
     }
 
     edit(n): void {

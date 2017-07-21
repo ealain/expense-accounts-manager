@@ -13,18 +13,7 @@ export class UserCreateNoteComponent {
         private noteService: NoteService,
         private router: Router) {}
 
-    note: Note = {
-        _id: null,
-        day: null,
-        month: null,
-        year: null,
-        date: null,
-        title: '',
-        amount: null,
-        currency: '',
-        comment: '',
-        files: [],
-    } 
+    note: Note = {_id: null, day: null, month: null, year: null, date: null, title: '', amount: null, currency: '', comment: '', approved: false, files: []}
 
     files: Array<any> = [];
 

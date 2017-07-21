@@ -14,18 +14,7 @@ export class UserEditNoteComponent {
         private route: ActivatedRoute,
         private router: Router) {}
 
-    note: Note = {
-        _id: null,
-        day: null,
-        month: null,
-        year: null,
-        date: null,
-        title: '',
-        amount: null,
-        currency: '',
-        comment: '',
-        files: [],    
-    };
+    note: Note = {_id: null, day: null, month: null, year: null, date: null, title: '', amount: null, currency: '', comment: '', approved: false, files: []};
 
     files: Array<any> = [];
     private filesToDelete: Array<any> = [];

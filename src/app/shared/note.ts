@@ -8,5 +8,6 @@ export class Note {
     amount: number;
     currency: string;
     comment: string;
+    approved: boolean;
     files: string[];
 }
