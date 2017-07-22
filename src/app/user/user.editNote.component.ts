@@ -16,6 +16,8 @@ export class UserEditNoteComponent {
 
     note: Note = {_id: null, day: null, month: null, year: null, date: null, title: '', amount: null, currency: '', comment: '', approved: false, files: []};
 
+    currencies: Array<string> = ['EUR (€)', 'USD ($)', 'GBP (£)', 'CNY (¥)', 'JPY (¥)', 'CHF (SFr.)'];
+
     files: Array<any> = [];
     private filesToDelete: Array<any> = [];
 
