@@ -1,38 +1,32 @@
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="panel-title text-center">Ajout d'utilisateur</div>
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title text-center">Ajout d'utilisateur</h4>
+        <form class="form-group">
+            <label for="login">Login</label>
+            <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/>
+        </form>
+        <form class="form-group">
+            <label for="pwd">Mot de passe</label>
+            <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/>
+        </form>
+        <form class="form-check">
+            <input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label class="form-check-label" for="admin">Administrateur</label>
+        </form>
+        <form class="form-check">
+            <input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label class="form-check-label" for="manager">Manager</label>
+        </form>
+        <div *ngIf="user.manager">
+            <ul>
+                <ng-container *ngFor="let user of users; let i=index">
+                    <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
+                        {{user.login}}
+                        <input type="checkbox" [(ngModel)]="selection[i]"/>
+                    </li>
+                </ng-container>
+            </ul>
         </div>
-        <div class="panel-body">
-            <form class="form-group">
-                <label for="login">Login</label><br/>
-                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/><br/>
-            </form>
-            <form class="form-group">
-                <label for="pwd">Mot de passe</label><br/>
-                <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/><br/>
-            </form>
-            <form class="radio">
-                <input id="admin" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label for="admin">Administrateur</label><br/>
-            </form>
-            <form class="radio">
-                <input id="manager" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label for="manager">Manager</label><br/>
-            </form>
-            <div *ngIf="user.manager">
-                <ul>
-                    <ng-container *ngFor="let user of users; let i=index">
-                        <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
-                            {{user.login}}
-                            <input type="checkbox" [(ngModel)]="selection[i]"/>
-                        </li>
-                    </ng-container>
-                </ul>
-            </div>
-        </div>
+        <button class="btn btn-primary" style="width: 100%" (click)="send()">Ajouter</button>
     </div>
-    <button class="btn btn-primary btn-block" (click)="send()">Ajouter</button>
-    <p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
-    <p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>
 </div>
-<div class="col-sm-3"></div>
+<p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
+<p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>

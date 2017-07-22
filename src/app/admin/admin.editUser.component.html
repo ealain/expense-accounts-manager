@@ -1,19 +1,16 @@
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="panel-title text-center">Modification de l'utilisateur {{user.login}}</div>
-        </div>
-        <div class="panel-body">
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title text-center">Modification de l'utilisateur {{user.login}}</h4>
+        <div class="card-text">
             <form class="form-group">
-                <label for="login">Login</label><br/>
-                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/><br/>
+                <label for="login">Login</label>
+                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/>
             </form>
-            <form class="radio">
-                <input id="admin" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label for="admin">Administrateur</label><br/>
+            <form class="form-check">
+                <input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label class="form-check-label" for="admin">Administrateur</label><br/>
             </form>
-            <form class="radio">
-                <input id="manager" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label for="manager">Manager</label><br/>
+            <form class="form-check">
+                <input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label class="form-check-label" for="manager">Manager</label><br/>
             </form>
             <div *ngIf="user.manager">
                 <ul>
@@ -26,13 +23,10 @@
                 </ul>
             </div>
         </div>
+        <div class="button-group text-center">
+            <button class="btn btn-primary" style="width: 65%" (click)="send()">Modifier</button>
+            <button class="btn btn-danger" style="width: 20%" (click)="del()">Supprimer</button>
+        </div>
+        <p class="alert alert-danger" *ngIf="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
     </div>
-    <div class="col-sm-6">
-        <button class="btn btn-primary btn-block" (click)="send()">Modifier</button>
-    </div>
-    <div class="col-sm-6">
-        <button class="btn btn-danger btn-block" (click)="del()">Supprimer</button>
-    </div>
-    <p class="alert alert-danger" *ngIf="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
 </div>
-<div class="col-sm-3"></div>

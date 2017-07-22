@@ -11,14 +11,6 @@ export class AdminComponent {
         private authService: AuthService,
         private router: Router) {}
 
-    home(): void {
-        this.router.navigate(['admin']);
-    }
-
-    adduser(): void {
-        this.router.navigate(['admin/user']);
-    }
-
     logout(): void {
         this.authService.logout()
         .then(response => {
