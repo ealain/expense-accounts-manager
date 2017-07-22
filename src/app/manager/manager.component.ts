@@ -11,19 +11,11 @@ export class ManagerComponent {
         private authService: AuthService,
         private router: Router) {}
 
-    home(): void {
-        this.router.navigate(['manager']);
-    }
-
-    viewAll(): void {
-        this.router.navigate(['manager/notes']);
-    }
-
     logout(): void {
         this.authService.logout()
         .then(response => {
             if(response.success) {
-                this.router.navigate(['login']);
+                // Route guard
             }
         });
     }
