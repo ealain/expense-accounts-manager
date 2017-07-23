@@ -1,18 +1,20 @@
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Sujet</th>
-            <th>Date</th>
-            <th>Montant</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let n of notes; let i=index">
-            <tr [ngStyle]="{'background-color': backgnd[i]}" (mouseenter)="menter(i)" (mouseleave)="mleave(i)" (click)="edit(n)">
-                <td>{{n.title}}</td>
-                <td>{{n.day}} / {{n.month}} / {{n.year}}</td>
-                <td>{{n.amount}} {{n.currency}}</td>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-default">
+            <tr>
+                <th>Sujet</th>
+                <th>Date</th>
+                <th>Montant</th>
             </tr>
-        </ng-container>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let n of notes; let i=index">
+                <tr [ngStyle]="{'background-color': backgnd[i]}" (mouseenter)="menter(i)" (mouseleave)="mleave(i)" (click)="edit(n)">
+                    <td>{{n.title}}</td>
+                    <td>{{n.day}} / {{n.month}} / {{n.year}}</td>
+                    <td>{{n.amount}} {{n.currency}}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
