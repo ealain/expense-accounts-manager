@@ -12,24 +12,28 @@ import { AuthService }      from './auth.service';
 export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(private authService: AuthService, private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         let url: string = state.url;
-        console.log(route.url[0].path);
         let privilege: string = route.url[0].path;
         return this.checkLogin(url, privilege);
     }
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         return this.canActivate(route, state);
     }
 
-    checkLogin(url: string, privilege: string): boolean {
-        console.log('privilege:', privilege);
-        if (privilege === 'admin' && this.authService.isLoggedInAdmin) { return true; }
-        if (privilege === 'manager' && this.authService.isLoggedInManager) { return true; }
-        if (privilege === 'user' && this.authService.isLoggedInUser) { return true; }
+    checkLogin(url: string, privilege: string): Promise<boolean> {
         this.authService.redirectUrl = url;
-        this.router.navigate(['/login']);
-        return false;
+        return this.authService.authenticate()
+            .then(response => {
+                if(privilege==='admin'&&this.authService.isLoggedInAdmin)
+                { return true; }
+                if(privilege==='manager'&&this.authService.isLoggedInManager)
+                { return true; }
+                if(privilege==='user'&&this.authService.isLoggedInUser)
+                { return true; }
+                this.router.navigate(['/login']);
+                return false;
+            });
     }
 }

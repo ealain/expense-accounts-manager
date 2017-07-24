@@ -35,6 +35,21 @@ export class AuthService {
         .catch(this.handleError);
     }
 
+    authenticate(): Promise<any> {
+        return this.http.get(this.loginUrl, {withCredentials:true})
+        .toPromise()
+        .then(response => {
+            let json = response.json();
+            if(json.success) {
+                this.isLoggedInAdmin = json.admin;
+                this.isLoggedInManager = json.manager;
+                this.isLoggedInUser = !json.manager && !json.admin;
+            }
+            return json;
+        })
+        .catch(this.handleError);
+    }
+
     logout(): Promise<any> {
         return this.http.get(this.logoutUrl)
         .toPromise()
