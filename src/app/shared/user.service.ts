@@ -31,6 +31,13 @@ export class UserService {
         .catch(this.handleError);
     }
 
+    getMe(): Promise<User> {
+        return this.http.get(this.url + '/me', {withCredentials: true})
+        .toPromise()
+        .then(response => response.json())
+        .catch(this.handleError);
+    }
+
     addUser(u: User): Promise<any> {
         return this.http.post(this.url, u, {withCredentials: true})
         .toPromise()

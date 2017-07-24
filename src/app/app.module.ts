@@ -16,6 +16,7 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
+import { ManagerChatComponent } from './manager/manager.chat.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin.dashboard.component';
 import { AdminAddUserComponent } from './admin/admin.addUser.component';
@@ -39,6 +40,7 @@ import { AppRoutingModule } from './app-routing.module';
         UserCreateNoteComponent,
         ManagerComponent,
         ManagerDashboardComponent,
+        ManagerChatComponent,
         ManagerNotesComponent,
         ManagerNoteDetailsComponent,
         AdminComponent,

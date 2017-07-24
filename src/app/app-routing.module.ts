@@ -13,6 +13,7 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
+import { ManagerChatComponent } from './manager/manager.chat.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin.dashboard.component';
 import { AdminAddUserComponent } from './admin/admin.addUser.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
         { path: '', component: ManagerDashboardComponent },
         { path: 'notes', component: ManagerNotesComponent },
         { path: 'notes/:nid', component: ManagerNoteDetailsComponent },
+        { path: 'chat', component: ManagerChatComponent },
     ]},
     { path: 'admin', canActivate: [AuthGuard], component: AdminComponent, children: [
         { path: '', component: AdminDashboardComponent },
