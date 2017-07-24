@@ -27,9 +27,9 @@ export class LoginComponent {
         this.authService.login(user)
         .then(response => {
             if(response.success) {
-                if(response.admin) {this.router.navigate(['admin']);}
-                else if(response.manager) {this.router.navigate(['manager']);}
-                else {this.router.navigate(['user']);}
+                if(response.admin) {this.router.navigate([this.authService.redirectUrl||'admin']);}
+                else if(response.manager) {this.router.navigate([this.authService.redirectUrl||'manager']);}
+                else {this.router.navigate([this.authService.redirectUrl||'user']);}
             }
             else {this.wrongpwd = true;}
         });

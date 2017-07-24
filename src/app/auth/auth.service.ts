@@ -18,7 +18,7 @@ export class AuthService {
     isLoggedInManager: boolean = false;
     isLoggedInUser: boolean = false;
 
-    redirectUrl: string = ''
+    redirectUrl: string = null;
 
     login(user: User): Promise<any> {
         return this.http.post(this.loginUrl, JSON.stringify({login: user.login, password: user.password}), {headers: this.headers})
@@ -38,7 +38,13 @@ export class AuthService {
     logout(): Promise<any> {
         return this.http.get(this.logoutUrl)
         .toPromise()
-        .then(response => response.json())
+        .then(response => {
+            this.redirectUrl = null;
+            this.isLoggedInAdmin = false;
+            this.isLoggedInManager = false;
+            this.isLoggedInUser = false;
+            return response.json();
+        })
         .catch(this.handleError);
     }
 
