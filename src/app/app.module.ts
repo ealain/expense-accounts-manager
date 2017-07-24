@@ -5,6 +5,7 @@ import { HttpModule }    from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
+import { AuthGuard } from './auth/auth-guard.service';
 import { SignupComponent } from './auth/signup.component';
 import { UserComponent } from './user/user.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
@@ -51,7 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [AuthService, NoteService, UserService],
+    providers: [AuthService, AuthGuard, NoteService, UserService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,10 +14,24 @@ export class AuthService {
 
     constructor(private http: Http) {}
 
+    isLoggedInAdmin: boolean = false;
+    isLoggedInManager: boolean = false;
+    isLoggedInUser: boolean = false;
+
+    redirectUrl: string = ''
+
     login(user: User): Promise<any> {
         return this.http.post(this.loginUrl, JSON.stringify({login: user.login, password: user.password}), {headers: this.headers})
         .toPromise()
-        .then(response => response.json())
+        .then(response => {
+            let json = response.json();
+            if(json.success) {
+                this.isLoggedInAdmin = json.admin;
+                this.isLoggedInManager = json.manager;
+                this.isLoggedInUser = !json.manager && !json.admin;
+            }
+            return json;
+        })
         .catch(this.handleError);
     }
 
