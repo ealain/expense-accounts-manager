@@ -1,7 +1,7 @@
 {
   "name": "expense-accounts-manager",
   "description": "An application to manage expense accounts",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/ealain/expense-accounts-manager.git"
@@ -30,6 +30,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.28",
     "body-parser": "^1.17.1",
     "bootstrap": "^4.0.0-alpha.6",
+    "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",

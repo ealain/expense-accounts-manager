@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var jwt = require('jsonwebtoken');
 var User = require('./models/user');
@@ -8,6 +9,7 @@ var User = require('./models/user');
 module.exports = function(app) {
 
     router.use(bodyParser.json());
+    router.use(cookieParser());
 
     router.post('/signup', function(req, res) {
 	console.log('Request to signup');
@@ -59,9 +61,28 @@ module.exports = function(app) {
 	});
     });
 
+    router.get('/login', function(req, res) {
+        console.log('Request to authenticate');
+        console.log('Extracting token from header...');
+        if(!req.cookies.access_token) {res.json({success: false, message: 'No token'});}
+        else {
+            var token = req.cookies.access_token;
+            jwt.verify(token, app.get('token_key'), function(err, decoded) {
+                if(err) {
+                    console.log('Invalid token... aborting' + err);
+                    res.json({success: false, message: 'Invalid token'});
+                }
+                else {
+                    console.log('User successfully authentified');
+                    res.json({success: true, admin: decoded._doc.admin, manager: decoded._doc.manager, message: 'Token is valid!'});
+                }
+            });
+        }
+    });
+
     router.get('/logout', function(req, res) {
         console.log('Extracting token from header...');
-        var token = req.headers.cookie.split('=')[1];
+        var token = req.cookies.access_token;
         jwt.verify(token, app.get('token_key'), function(err, decoded) {
             if(err) {
                 console.log('Invalid token... aborting' + err);
