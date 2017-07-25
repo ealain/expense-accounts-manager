@@ -4,13 +4,13 @@
         <div class="card-text">
             <form class="form-group">
                 <label for="login">Login</label>
-                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/>
+                <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login" disabled/>
             </form>
             <form class="form-check">
-                <input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label class="form-check-label" for="admin">Administrateur</label><br/>
+                <label class="form-check-label" for="admin"><input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/> Administrateur</label><br/>
             </form>
             <form class="form-check">
-                <input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label class="form-check-label" for="manager">Manager</label><br/>
+                <label class="form-check-label" for="manager"><input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/> Manager</label><br/>
             </form>
             <div *ngIf="user.manager">
                 <ul>
@@ -30,3 +30,5 @@
         <p class="alert alert-danger" *ngIf="!r">Les valeurs saisies sont invalides (les champs doivent être remplis et le login non déjà attribué).</p>
     </div>
 </div>
+<p class="alert alert-danger" *ngIf="two_privileges">L'utilisateur ne peut pas être administrateur et manager</p>
+<p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>

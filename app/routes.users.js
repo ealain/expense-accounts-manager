@@ -136,12 +136,16 @@ router.post('/', function(req, res) {
                 console.log('Error finding user to update');
             }
             else if(u) {
-                u.login = req.body.login;
-                u.manager = req.body.manager;
-                u.admin = req.body.admin;
-                u.save();
-                console.log('User successfully updated');
-                res.json({success: true, message: 'User successfully updated'});
+                if(req.body.admin && req.body.manager)
+                    res.json({success: false, two_privileges: true, message: "User cannot be both admin and manager"});
+                else {
+                    u.login = req.body.login;
+                    u.manager = req.body.manager;
+                    u.admin = req.body.admin;
+                    u.save();
+                    console.log('User successfully updated');
+                    res.json({success: true, message: 'User successfully updated'});
+                }
             }
             else {
                 var user = new User;
@@ -149,7 +153,7 @@ router.post('/', function(req, res) {
                 if(!req.body.login || !req.body.password)
                     res.json({success: false, message: "Invalid login or password"});
                 else if(req.body.admin && req.body.manager)
-                    res.json({success: false, message: "User cannot be both admin and manager"});
+                    res.json({success: false, two_privileges: true, message: "User cannot be both admin and manager"});
                 else {
                     user.login = req.body.login;
                     user.password = req.body.password;

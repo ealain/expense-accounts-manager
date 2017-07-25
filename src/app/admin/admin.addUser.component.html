@@ -10,10 +10,10 @@
             <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/>
         </form>
         <form class="form-check">
-            <input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/><label class="form-check-label" for="admin">Administrateur</label>
+            <label class="form-check-label" for="admin"><input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/> Administrateur</label>
         </form>
         <form class="form-check">
-            <input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/><label class="form-check-label" for="manager">Manager</label>
+            <label class="form-check-label" for="manager"><input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/> Manager</label>
         </form>
         <div *ngIf="user.manager">
             <ul>
@@ -29,4 +29,5 @@
     </div>
 </div>
 <p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
+<p class="alert alert-danger" *ngIf="two_privileges">L'utilisateur ne peut pas être administrateur et manager</p>
 <p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>

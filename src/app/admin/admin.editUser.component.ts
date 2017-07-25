@@ -18,6 +18,8 @@ export class AdminEditUserComponent implements OnInit {
     selection: Array<boolean> = [];
     userlist: Array<User> = [];
     users: Array<User> = [];
+    unknown_error: boolean = false;
+    two_privileges: boolean = false;
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -73,6 +75,18 @@ export class AdminEditUserComponent implements OnInit {
                 .then(response2 => {
                     if(response1.success && response2.success) {
                         this.router.navigate(['admin']);
+                    }
+                    else if(response2.same_login) {
+                        this.two_privileges = false;
+                        this.unknown_error = false;
+                    }
+                    else if(response2.two_privileges) {
+                        this.two_privileges = true;
+                        this.unknown_error = false;
+                    }
+                    else {
+                        this.two_privileges = false;
+                        this.unknown_error = true;
                     }
                 });
         });
