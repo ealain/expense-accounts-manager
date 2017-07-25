@@ -1,10 +1,10 @@
 <p>Bienvenue sur la discussion</p>
 <ng-container *ngFor="let m of messages">
-    <p [ngStyle]="{'text-align': m.author === login ? 'right' : ''}">{{m.author}} ><br/>{{m.content}}<br/>> {{m.dst}}</p>
+    <p [ngStyle]="{'text-align': m.author === mlogin ? 'right' : ''}">{{m.author}} ><br/>{{m.content}}<br/>> {{m.dst}}</p>
 </ng-container>
-<input type="text" class="form-control" placeholder="Message..." name="content" [(ngModel)]="new_content"/>
-<div class="button-group">
-    <ng-container *ngFor="let user of users">
-        <button class="button-group-item btn btn-default" (click)="send(user.login)">{{user.login}}</button>
-    </ng-container>
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Message..." name="content" [(ngModel)]="new_content"/>
+    <span class="input-group-btn">
+        <button class="btn btn-default" (click)="send()">Envoyer</button>
+    </span>
 </div>

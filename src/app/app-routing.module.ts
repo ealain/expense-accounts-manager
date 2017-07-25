@@ -33,7 +33,7 @@ const routes: Routes = [
         { path: '', component: ManagerDashboardComponent },
         { path: 'notes', component: ManagerNotesComponent },
         { path: 'notes/:nid', component: ManagerNoteDetailsComponent },
-        { path: 'chat', component: ManagerChatComponent },
+        { path: 'chat/:uid', component: ManagerChatComponent },
     ]},
     { path: 'admin', canActivate: [AuthGuard], component: AdminComponent, children: [
         { path: '', component: AdminDashboardComponent },
