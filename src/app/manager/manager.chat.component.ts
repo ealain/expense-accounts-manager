@@ -19,7 +19,7 @@ export class ManagerChatComponent implements OnInit {
     mid: string;
     ulogin: string;
     uid: string;
-    conversation: {mid: string, uid: string, messages: Array<{author: string, content: string}>} = {mid: null, uid: null, messages: []};
+    conversation: {uid: string, messages: Array<{author: string, content: string}>} = {uid: null, messages: []};
 
     new_content: string;
 
@@ -35,7 +35,7 @@ export class ManagerChatComponent implements OnInit {
         .subscribe((user: any) => {
             this.uid = user._id;
             this.ulogin = user.login;
-            this.ws.send(JSON.stringify({mid: this.mid, uid: this.uid, message: {content: '<getHistory>'}}), WebSocketSendMode.Direct);
+            this.ws.send(JSON.stringify({uid: this.uid, message: {content: '<getHistory>'}}), WebSocketSendMode.Direct);
         });
 
         this.ws.onMessage(
@@ -50,6 +50,6 @@ export class ManagerChatComponent implements OnInit {
 
     send(): void {
         //this.conversation.messages.push({author: this.mlogin, content: this.new_content});
-        this.ws.send(JSON.stringify({mid: this.mid, uid: this.uid, message: {author: this.mlogin, content: this.new_content}}), WebSocketSendMode.Direct);
+        this.ws.send(JSON.stringify({uid: this.uid, message: {author: this.mlogin, content: this.new_content}}), WebSocketSendMode.Direct);
     }
 }

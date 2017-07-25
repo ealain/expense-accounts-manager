@@ -6,6 +6,7 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { SignupComponent } from './auth/signup.component';
 import { UserComponent } from './user/user.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
+import { UserChatComponent } from './user/user.chat.component';
 import { UserEditNoteComponent } from './user/user.editNote.component';
 import { UserViewNoteComponent } from './user/user.viewNote.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'user', canActivate: [AuthGuard], component: UserComponent, children: [
         { path: '', component: UserDashboardComponent },
         { path: 'create', component: UserCreateNoteComponent },
+        { path: 'chat', component: UserChatComponent },
         { path: 'edit/:nid', component: UserEditNoteComponent },
         { path: 'view/:nid', component: UserViewNoteComponent }
     ]},
