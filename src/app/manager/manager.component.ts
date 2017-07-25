@@ -15,7 +15,7 @@ export class ManagerComponent {
         this.authService.logout()
         .then(response => {
             if(response.success) {
-                // Route guard
+                this.router.navigate(['/']);
             }
         });
     }

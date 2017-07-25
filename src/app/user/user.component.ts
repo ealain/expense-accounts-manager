@@ -16,7 +16,7 @@ export class UserComponent {
         this.authService.logout()
         .then(response => {
             if(response.success) {
-                // CanActivate "/"
+                this.router.navigate(['/']);
             }
         });
     }
