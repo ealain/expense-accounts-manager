@@ -33,9 +33,10 @@ wsServer.on('request', function(request) {
         var mjson = JSON.parse(message.utf8Data);
         console.log(mjson);
         console.log(!mjson.uid);
-        if(!mjson.uid) {
+        if(mjson.message.content === '<getHistory>') {
             Conversation.findOne({
-                mid: mjson.mid
+                mid: mjson.mid,
+                uid: mjson.uid
             }, 'messages', function(err, c) {
                 console.log('Here');
                 if(err) {console.log('Error retrieving conversation!');}

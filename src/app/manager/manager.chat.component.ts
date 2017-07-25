@@ -27,8 +27,7 @@ export class ManagerChatComponent implements OnInit {
         this.ws = new $WebSocket('ws://localhost:8000');
 
         this.userService.getMe()
-        .then(response => {this.mlogin = response.login; this.mid = response._id})
-        .then(() => this.ws.send(JSON.stringify({mid: this.mid, uid: null, messages: []}), WebSocketSendMode.Direct));
+        .then(response => {this.mlogin = response.login; this.mid = response._id});
 
         this.route.paramMap
         .switchMap((params: ParamMap) =>
@@ -36,6 +35,7 @@ export class ManagerChatComponent implements OnInit {
         .subscribe((user: any) => {
             this.uid = user._id;
             this.ulogin = user.login;
+            this.ws.send(JSON.stringify({mid: this.mid, uid: this.uid, message: {content: '<getHistory>'}}), WebSocketSendMode.Direct);
         });
 
         this.ws.onMessage(
