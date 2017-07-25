@@ -24,19 +24,18 @@ wsServer.on('request', function(request) {
     console.log((new Date), 'Connection request from:', request.origin);
     if(request.origin != 'http://localhost:8080') {return;}
     var connection = request.accept(null, request.origin);
-    //var c = new Conversation({mid: '591a136523a08811bc8bbfe8', uid: '5910d5f913e0d32be786e4ae', messages: {author: 'Manager', dst: 'Éloi', content: 'Initial message'}});
+    //var c = new Conversation({mid: '591a136523a08811bc8bbfe8', uid: '5910d5f913e0d32be786e4ae', messages: [{author: 'Manager', content: 'Initial message'}]});
     //c.save();
+    //console.log(connection);
     connection.on('message', function(message) {
         console.log(message.type);
         console.log(message.utf8Data);
         var mjson = JSON.parse(message.utf8Data);
         console.log(mjson);
-        console.log(/^\/mid [a-z0-9]{24}$/.test(mjson.content));
-        if(/^\/mid [a-z0-9]{24}$/.test(mjson.content)) {
-            var m_id = mjson.content.slice(5,);
-            console.log(m_id);
+        console.log(!mjson.uid);
+        if(!mjson.uid) {
             Conversation.findOne({
-                mid: m_id
+                mid: mjson.mid
             }, 'messages', function(err, c) {
                 console.log('Here');
                 if(err) {console.log('Error retrieving conversation!');}
@@ -51,11 +50,9 @@ wsServer.on('request', function(request) {
                 }
             });
         }
-        else if(/^\/uid [a-z0-9]{24}$/.test(mjson.content.utf8Data)) {
-            var u_id = mjson.content.splice(4,24);
-            console.log(u_id);
+        else if(!mjson.mid) {
             Conversation.find({
-                uid: u_id
+                uid: mjson.uid
             }, (err, c) => {
                 if(err) {console.log('Error retrieving conversation!');}
                 else if(c) {
@@ -70,8 +67,18 @@ wsServer.on('request', function(request) {
             });
         }
         else {
-            Conversation.find({
-                
+            Conversation.findOne({
+                mid: mjson.mid,
+                uid: mjson.uid
+            }, (err, c) => {
+                if(err) {console.log('Error retrieving conversation!');}
+                else if(c) {
+                    console.log(c);
+                    c.messages.push(mjson.message);
+                    c.save();
+                    connection.sendUTF(JSON.stringify(c));
+                    console.log('Success: conversation sent');
+                }
             });
         }
     });

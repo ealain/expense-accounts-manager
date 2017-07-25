@@ -19,7 +19,7 @@ export class ManagerChatComponent implements OnInit {
     mid: string;
     ulogin: string;
     uid: string;
-    messages: Array<{author: string, dst: string, content: string}> = [];
+    conversation: {mid: string, uid: string, messages: Array<{author: string, content: string}>} = {mid: null, uid: null, messages: []};
 
     new_content: string;
 
@@ -28,7 +28,7 @@ export class ManagerChatComponent implements OnInit {
 
         this.userService.getMe()
         .then(response => {this.mlogin = response.login; this.mid = response._id})
-        .then(() => this.ws.send(JSON.stringify({author: 'ng', dst: 'wss', content: '/mid '+this.mid}), WebSocketSendMode.Direct));
+        .then(() => this.ws.send(JSON.stringify({mid: this.mid, uid: null, messages: []}), WebSocketSendMode.Direct));
 
         this.route.paramMap
         .switchMap((params: ParamMap) =>
@@ -41,14 +41,15 @@ export class ManagerChatComponent implements OnInit {
         this.ws.onMessage(
             (msg: MessageEvent)=> {
                 console.log("onMessage ", msg.data);
-                this.messages = JSON.parse(msg.data).messages;
+                this.conversation.messages = JSON.parse(msg.data).messages;
+                console.log("Conversation messages:", this.conversation.messages);
             },
             {autoApply: false}
         );
     }
 
     send(): void {
-        this.messages.push({author: this.mlogin, dst: this.ulogin, content: this.new_content});
-        this.ws.send(this.messages[this.messages.length - 1], WebSocketSendMode.Direct);
+        //this.conversation.messages.push({author: this.mlogin, content: this.new_content});
+        this.ws.send(JSON.stringify({mid: this.mid, uid: this.uid, message: {author: this.mlogin, content: this.new_content}}), WebSocketSendMode.Direct);
     }
 }

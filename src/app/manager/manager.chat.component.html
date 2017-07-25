@@ -1,6 +1,6 @@
-<p>Bienvenue sur la discussion</p>
-<ng-container *ngFor="let m of messages">
-    <p [ngStyle]="{'text-align': m.author === mlogin ? 'right' : ''}">{{m.author}} ><br/>{{m.content}}<br/>> {{m.dst}}</p>
+<h4>Bienvenue sur la discussion avec {{ulogin}}</h4>
+<ng-container *ngFor="let m of conversation.messages">
+    <p [ngStyle]="{'text-align': m.author === mlogin ? 'right' : ''}">{{m.content}}</p>
 </ng-container>
 <div class="input-group">
     <input type="text" class="form-control" placeholder="Message..." name="content" [(ngModel)]="new_content"/>
