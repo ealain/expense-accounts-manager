@@ -1,0 +1,10 @@
+<h4>Discussion avec votre gestionnaire</h4>
+<ng-container *ngFor="let m of conversation.messages">
+    <p [ngStyle]="{'text-align': m.author === ulogin ? 'right' : ''}">{{m.content}}</p>
+</ng-container>
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Message..." name="content" [(ngModel)]="new_content"/>
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-primary" (click)="send()">Envoyer</button>
+    </span>
+</div>

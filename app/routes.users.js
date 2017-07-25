@@ -63,6 +63,23 @@ router.get('/', function(req, res) {
     }
 });
 
+router.get('/me', function(req, res) {
+    console.log('Request to read self');
+    var uid = req.adminId || req.managerId || req.userId;
+    User.findOne({
+        _id: uid
+    }, '_id login', function(err, user) {
+        if(err) {
+            console.log('Error looking for self ' + req.params.id);
+            res.json({success: false, message: 'Unable to read self ' + req.params.id});
+        }
+        else {
+            res.json(user);
+            console.log('Self sent');
+        }
+    });
+});
+
 router.get('/:id', function(req, res) {
     console.log('Request to read user ' + req.params.id);
     if(req.adminId) {

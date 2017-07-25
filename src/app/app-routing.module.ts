@@ -6,6 +6,7 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { SignupComponent } from './auth/signup.component';
 import { UserComponent } from './user/user.component';
 import { UserCreateNoteComponent } from './user/user.createNote.component';
+import { UserChatComponent } from './user/user.chat.component';
 import { UserEditNoteComponent } from './user/user.editNote.component';
 import { UserViewNoteComponent } from './user/user.viewNote.component';
 import { UserDashboardComponent } from './user/user.dashboard.component';
@@ -13,6 +14,7 @@ import { ManagerComponent } from './manager/manager.component';
 import { ManagerDashboardComponent } from './manager/manager.dashboard.component';
 import { ManagerNotesComponent } from './manager/manager.notes.component';
 import { ManagerNoteDetailsComponent } from './manager/manager.note.details.component';
+import { ManagerChatComponent } from './manager/manager.chat.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin.dashboard.component';
 import { AdminAddUserComponent } from './admin/admin.addUser.component';
@@ -25,6 +27,7 @@ const routes: Routes = [
     { path: 'user', canActivate: [AuthGuard], component: UserComponent, children: [
         { path: '', component: UserDashboardComponent },
         { path: 'create', component: UserCreateNoteComponent },
+        { path: 'chat', component: UserChatComponent },
         { path: 'edit/:nid', component: UserEditNoteComponent },
         { path: 'view/:nid', component: UserViewNoteComponent }
     ]},
@@ -32,6 +35,7 @@ const routes: Routes = [
         { path: '', component: ManagerDashboardComponent },
         { path: 'notes', component: ManagerNotesComponent },
         { path: 'notes/:nid', component: ManagerNoteDetailsComponent },
+        { path: 'chat/:uid', component: ManagerChatComponent },
     ]},
     { path: 'admin', canActivate: [AuthGuard], component: AdminComponent, children: [
         { path: '', component: AdminDashboardComponent },

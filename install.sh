@@ -48,3 +48,4 @@ fi
 printf "\nTo start the application run\n"
 printf "\t- db_server.sh (mongo daemon)\n"
 printf "\t- node index.js\n"
+printf "\t- node ws-server.js\n"
