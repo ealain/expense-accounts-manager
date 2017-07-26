@@ -3,6 +3,7 @@ config.js
 data
 log
 dist
+www
 
 node_modules
 public/libs

@@ -1,0 +1,8 @@
+{
+    "name": "Gestinnaire de notes de frais",
+    "short_name": "GNF",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#4e8ef7",
+    "theme_color": "#4e8ef7"
+}
