@@ -54,7 +54,7 @@ module.exports = function(app) {
 		    var token = jwt.sign(user, app.get('token_key'), {expiresIn: 60*60*24});
 
 		    res.append('Set-Cookie', 'access_token=' + token + '; HttpOnly');
-		    res.json({success: true, admin: user.admin, manager: user.manager, message: 'Enjoy your token!'});
+		    res.json({success: true, admin: user.admin, manager: user.manager, access_token: token, message: 'Enjoy your token!'});
 		    console.log('Sent token');
 		}
 	    }

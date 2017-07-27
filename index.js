@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var assert = require('assert');
 var path = require('path');
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/www'));
 
 app.listen(port);
 console.log("Listening on port " + port);
@@ -27,6 +27,14 @@ db.once('open', function() {
     console.log('Connection to database successful');
 });
 
+// Middleware to use front-end served on port 8100
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+//
 
 // Handle routing
 auth = require('./app/authentication')(app);

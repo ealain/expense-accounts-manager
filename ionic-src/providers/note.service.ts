@@ -10,7 +10,8 @@ export class NoteService {
     private url = 'http://localhost:8080/api/notes';
     private urlupload = 'http://localhost:8080/api/uploads';
 
-    constructor(private http: Http) {}
+    constructor(
+        private http: Http) {}
 
     private isoStringToDate(d: string): any {
 	var b = d.split(/\D/);
@@ -31,20 +32,22 @@ export class NoteService {
     }
 
     getMany(): Promise<any> {
-        return this.http.get(this.url, {withCredentials: true})
-        .toPromise()
-        .then(response => {
+        return new Promise((resolve, reject) => {
             let result = [];
-            for(let n of response.json()) {
-                let d = new Date(n.date);
-                n.day = d.getDate() - 1;
-                n.month = d.getMonth() + 1;
-                n.year = d.getFullYear();
-                result.push(n);
-            }
-            return result;
-        })
-        .catch(this.handleError);
+            this.http.get(this.url, {withCredentials: true})
+                .toPromise()
+                .then(response => {
+                    for(let n of response.json()) {
+                        let d = new Date(n.date);
+                        n.day = d.getDate() - 1;
+                        n.month = d.getMonth() + 1;
+                        n.year = d.getFullYear();
+                        result.push(n);
+                    }
+                })
+                .catch(this.handleError);
+            resolve(result);
+        });
     }
 
     getManyByUser(uId): Promise<any> {

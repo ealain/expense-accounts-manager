@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title text-center">{{note?.title}}</h4>
+        <h6 class="card-subtitle mb-2 text-muted pull-right">{{note?.day}} / {{note?.month}} / {{note?.year}}</h6><br/>
+        <strong>Montant</strong>
+        <span class="pull-right">{{note?.amount}} {{note?.currency}}</span>
+        <div *ngIf="note?.comment">
+            <strong>Commentaire</strong>
+            <p style="text-indent: 20px">{{note?.comment}}</p>
+        </div>
+        <div *ngIf="!note?.comment">
+            <strong>Pas de commentaire</strong><br/>
+        </div>
+        <div *ngIf="note?.files.length > 0">
+            <strong>Documents associés</strong>
+            <ul>
+                <li *ngFor="let f of note?.files">
+                    <a href="/uploads/{{note?._id}}/{{f}}" download>{{f}}</a>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="note?.files.length === 0">
+            <strong>Aucun document associé</strong>
+        </div>
+    <button class="btn btn-primary" style="margin-top: 0.3rem; width: 100%" (click)="approve()"><span *ngIf="note?.approved">Déverrouiller</span><span *ngIf="!note?.approved">Valider</span></button>
+    </div>
+</div>

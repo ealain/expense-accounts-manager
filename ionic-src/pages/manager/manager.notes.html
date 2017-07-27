@@ -1,0 +1,25 @@
+<div *ngFor="let user of users" class="card" style="margin-top: 1rem">
+    <div class="card-block">
+        <h4 class="card-title">{{user.login}}</h4>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Sujet</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let note of notes[user._id]">
+                        <tr (click)="view(note._id)">
+                            <td class="col-sm-5">{{note.title}}</td>
+                            <td class="col-sm-4">{{note.day}} / {{note.month}} / {{note.year}}</td>
+                            <td class="col-sm-3">{{note.amount}} {{note.currency}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

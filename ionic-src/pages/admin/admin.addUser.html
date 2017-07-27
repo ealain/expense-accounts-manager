@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title text-center">Ajout d'utilisateur</h4>
+        <form class="form-group">
+            <label for="login">Login</label>
+            <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/>
+        </form>
+        <form class="form-group">
+            <label for="pwd">Mot de passe</label>
+            <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/>
+        </form>
+        <form class="form-check">
+            <label class="form-check-label" for="admin"><input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/> Administrateur</label>
+        </form>
+        <form class="form-check">
+            <label class="form-check-label" for="manager"><input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/> Manager</label>
+        </form>
+        <div *ngIf="user.manager">
+            <ul>
+                <ng-container *ngFor="let user of users; let i=index">
+                    <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
+                        {{user.login}}
+                        <input type="checkbox" [(ngModel)]="selection[i]"/>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <button class="btn btn-primary" style="width: 100%" (click)="send()">Ajouter</button>
+    </div>
+</div>
+<p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
+<p class="alert alert-danger" *ngIf="two_privileges">L'utilisateur ne peut pas être administrateur et manager</p>
+<p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>

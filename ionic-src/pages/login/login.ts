@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth.service';
 import { User } from '../../shared/user';
+import { AdminDashboardPage } from '../admin/admin.dashboard';
+import { ManagerDashboardPage } from '../manager/manager.dashboard';
+import { UserDashboardPage } from '../user/user.dashboard';
 
 @Component({
   selector: 'page-login',
@@ -15,6 +19,7 @@ export class LoginPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
+        public localStorage: Storage,
         public authService: AuthService) {
     }
 
@@ -22,9 +27,10 @@ export class LoginPage {
         this.authService.login(user)
         .then(response => {
             if(response.success) {
-                if(response.admin) {console.log('admin');}
-                else if(response.manager) {console.log('manager');}
-                else {console.log('user');}
+                this.localStorage.set('access_token', response.access_token);
+                if(response.admin) {this.navCtrl.push(AdminDashboardPage);}
+                else if(response.manager) {this.navCtrl.push(ManagerDashboardPage);}
+                else {this.navCtrl.setRoot(UserDashboardPage);}
             }
             else {this.wrongpwd = true;}
         });

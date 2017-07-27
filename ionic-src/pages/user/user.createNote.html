@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Connexion</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Date</ion-label><br/>
+        <ion-input type="text" class="form-control" id="day" maxlength="2" size="2" [(ngModel)]="note.day" placeholder="01" name="day"></ion-input>
+        <ion-input type="text" class="form-control" id="month" maxlength="2" size="2" [(ngModel)]="note.month" placeholder="01" name="month"></ion-input>
+        <ion-input type="text" class="form-control" id="year" maxlength="4" size="4" [(ngModel)]="note.year" placeholder="2017" name="year"></ion-input>
+    </ion-item>
+    <ion-item>
+        <label for="title">Intitulé</label><br/>
+        <ion-input type="text" class="form-control" id="title" [(ngModel)]="note.title" placeholder="Déplacement à Brest" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+        <label for="amount">Montant</label><br/>
+        <ion-input id="amount" class="form-control" type="text" [(ngModel)]="note.amount" placeholder="100" name="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+        <label for="currency">Devise</label><br/>
+        <select id="currency" class="form-control" type="text" [(ngModel)]="note.currency" placeholder="€" name="currency">
+            <option *ngFor="let c of currencies">{{c}}</option>
+        </select>
+    </ion-item>
+    <ion-item>
+        <label for="comment">Commentaire</label>
+        <textarea class="form-control" rows="4" [(ngModel)]="note.comment" name="comment"></textarea>
+    </ion-item>
+    <ion-item>
+        Documents associés
+        <label class="custom-file badge badge-success" style="height: 1.1rem">+<ion-input type="file" class="form-control-file" #filelist (change)="onAddFile(filelist.files)" style="display: none;"></ion-input>
+        </label><br/>
+        <ul class="list-group">
+            <ng-container *ngFor="let f of files">
+                <li class="list-group-item">{{f.name}}</li>
+            </ng-container>
+        </ul>
+    </ion-item>
+    <button class="btn btn-success" (click)="addNote()">Valider</button>
+</ion-content>

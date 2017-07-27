@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Détail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="note.date"></ion-datetime>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Intitulé</ion-label><br/>
+      <ion-input [(ngModel)]="note.title"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Montant</ion-label><br/>
+      <ion-input [(ngModel)]="note.amount"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Devise</ion-label><br/>
+      <ion-select [(ngModel)]="note.currency">
+          <ion-option *ngFor="let c of currencies">{{c}}</ion-option>
+      </ion-select>
+  </ion-item>
+  <ion-item>
+      <ion-label floating>Commentaire</ion-label>
+      <ion-input [(ngModel)]="note.comment"></ion-input>
+  </ion-item>
+  <ion-item>
+      <p>Documents associés
+      <ion-badge color="secondary"><ion-icon name="add"><input type="file" #filelist (change)="onAddFile(filelist.files)" style="display: none;">
+          </ion-icon></ion-badge></p>
+          <ion-list>
+              <ng-container *ngFor="let filename of note.files">
+                  <ion-item class="list-group-item justify-content-between"><ion-badge color="danger"><ion-icon name="remove"></ion-icon></ion-badge> {{filename}}</ion-item>
+              </ng-container>
+          </ion-list>
+  </ion-item>
+  <button ion-button color="secondary" (click)="updateNote()">Valider</button>
+  <button ion-button color="danger" (click)="deleteNote()">Supprimer</button>
+</ion-content>
