@@ -1,28 +1,47 @@
-<h3 class="text-center">Notes en attente de validation</h3>
-<div *ngFor="let user of users" class="card" style="margin-top: 1rem">
-    <div class="card-block">
-        <div>
-        <h4 class="card-title">{{user.login}}<span class="badge badge-primary float-right" (click)="chat(uid)"><span class="fa fa-comments-o"></span></span></h4>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="thead-default">
-                    <tr>
-                        <th>Sujet</th>
-                        <th>Date</th>
-                        <th>Montant</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let note of notes[user._id]">
-                        <tr *ngIf="!note.approved" (click)="view(note._id)">
-                            <td class="col-sm-5">{{note.title}}</td>
-                            <td class="col-sm-4">{{note.day}} / {{note.month}} / {{note.year}}</td>
-                            <td class="col-sm-3">{{note.amount}} {{note.currency}}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>
+                Menu
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item menuToggle (click)="viewAll()">
+                Toutes les notes
+            </ion-item>
+            <ion-item menuToggle (click)="logout()">
+                Déconnexion
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-header>
+    <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+        À valider
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content #content padding>
+    <ion-card *ngFor="let user of users">
+        <ion-card-header><span style="float:left"><strong>{{user.login}}</strong></span><span style="float: right"><ion-badge (click)="chat(user._id)"><ion-icon name="chatbubbles"></ion-icon></ion-badge></span></ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ng-container *ngFor="let note of notes[user._id]">
+                    <ion-item *ngIf="!note.approved" (click)="view(note._id)">
+                        {{note.title}}
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

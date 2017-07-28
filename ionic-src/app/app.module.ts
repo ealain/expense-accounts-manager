@@ -13,6 +13,7 @@ import { UserEditNotePage } from '../pages/user/user.editNote';
 import { UserCreateNotePage } from '../pages/user/user.createNote';
 import { UserViewNotePage } from '../pages/user/user.viewNote';
 import { ManagerDashboardPage } from '../pages/manager/manager.dashboard';
+import { ManagerNotesPage } from '../pages/manager/manager.notes';
 import { ManagerNoteDetailsPage } from '../pages/manager/manager.note.details';
 import { ManagerChatPage } from '../pages/manager/manager.chat';
 import { AdminDashboardPage } from '../pages/admin/admin.dashboard';
@@ -32,6 +33,7 @@ import { UserService } from '../providers/user.service';
         UserCreateNotePage,
         UserViewNotePage,
         ManagerDashboardPage,
+        ManagerNotesPage,
         ManagerNoteDetailsPage,
         ManagerChatPage,
         AdminDashboardPage,
@@ -53,6 +55,7 @@ import { UserService } from '../providers/user.service';
         UserCreateNotePage,
         UserViewNotePage,
         ManagerDashboardPage,
+        ManagerNotesPage,
         ManagerNoteDetailsPage,
         ManagerChatPage,
         AdminDashboardPage,

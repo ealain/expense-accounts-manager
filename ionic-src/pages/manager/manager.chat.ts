@@ -46,5 +46,6 @@ export class ManagerChatPage implements OnInit {
 
     send(): void {
         this.ws.send(JSON.stringify({uid: this.uid, message: {author: this.mlogin, content: this.new_content}}), WebSocketSendMode.Direct);
+        this.new_content = "";
     }
 }

@@ -28,8 +28,8 @@ export class LoginPage {
         .then(response => {
             if(response.success) {
                 this.localStorage.set('access_token', response.access_token);
-                if(response.admin) {this.navCtrl.push(AdminDashboardPage);}
-                else if(response.manager) {this.navCtrl.push(ManagerDashboardPage);}
+                if(response.admin) {this.navCtrl.setRoot(AdminDashboardPage);}
+                else if(response.manager) {this.navCtrl.setRoot(ManagerDashboardPage);}
                 else {this.navCtrl.setRoot(UserDashboardPage);}
             }
             else {this.wrongpwd = true;}

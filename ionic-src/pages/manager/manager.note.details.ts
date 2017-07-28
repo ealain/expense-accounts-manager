@@ -30,6 +30,12 @@ export class ManagerNoteDetailsPage implements OnInit {
 
     ngOnInit() {
         this.noteService.getOne(this.navParams.get('nid'))
-            .then((note) => this.note = note);
+            .then((note) => {
+                this.note = note;
+                let d = new Date(this.note.date);
+                this.note.day = d.getDate() - 1;
+                this.note.month = d.getMonth() + 1;
+                this.note.year = d.getFullYear();
+            });
     }
 }
