@@ -22,15 +22,12 @@ export class AdminAddUserComponent {
 
     onChangeManager(): void {
         if(!this.user.manager) {
-            this.userService.getUsers(this.user._id).then(userlist => {
-                this.userlist = userlist;
-                this.userService.getUsers().then(users => {
-                    for(let i = 0; i<users.length; i++)
-                        if(!(users[i].admin||users[i].manager) && users[i]._id!=this.user._id)
-                            this.users.push(users[i]);
-                    for(let i = 0; i < this.users.length; i++)
-                        this.selection.push(userlist.includes(this.users[i]._id));
-                });
+            this.userService.getUsers().then(users => {
+                for(let i = 0; i<users.length; i++) {
+                    this.selection.push(false);
+                    if(!(users[i].admin||users[i].manager) && users[i]._id!=this.user._id)
+                        this.users.push(users[i]);
+                }
             });
         }
         else {
