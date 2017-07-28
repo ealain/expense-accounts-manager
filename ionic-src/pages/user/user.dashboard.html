@@ -1,17 +1,40 @@
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>
+                Menu
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item menuToggle (click)="create()">
+                Nouvelle note
+            </ion-item>
+            <ion-item menuToggle (click)="chat()">
+                Chatter avec mon manager
+            </ion-item>
+            <ion-item menuToggle (click)="logout()">
+                Déconnexion
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
 <ion-header>
     <ion-navbar>
-        <ion-title>Dashboard</ion-title>
-    </ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+        Dashboard
+    </ion-title>
+
+  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-        <ion-fab bottom left>
-            <button ion-fab color="secondary"><ion-icon name="menu"></ion-icon></button>
-            <ion-fab-list side="right">
-                <button ion-fab (click)="create()"><ion-icon name="add"></ion-icon></button>
-                <button ion-fab (click)="logout()"><ion-icon name="log-out"></ion-icon></button>
-            </ion-fab-list>
-        </ion-fab>
+<ion-content #content padding>
         <ion-list>
             <ion-item>
                 <strong>Sujet</strong>

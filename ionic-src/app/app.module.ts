@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { UserDashboardPage } from '../pages/user/user.dashboard';
+import { UserChatPage } from '../pages/user/user.chat';
 import { UserEditNotePage } from '../pages/user/user.editNote';
 import { UserCreateNotePage } from '../pages/user/user.createNote';
 import { UserViewNotePage } from '../pages/user/user.viewNote';
@@ -29,6 +30,7 @@ import { UserService } from '../providers/user.service';
         MyApp,
         LoginPage,
         UserDashboardPage,
+        UserChatPage,
         UserEditNotePage,
         UserCreateNotePage,
         UserViewNotePage,
@@ -51,6 +53,7 @@ import { UserService } from '../providers/user.service';
         MyApp,
         LoginPage,
         UserDashboardPage,
+        UserChatPage,
         UserEditNotePage,
         UserCreateNotePage,
         UserViewNotePage,

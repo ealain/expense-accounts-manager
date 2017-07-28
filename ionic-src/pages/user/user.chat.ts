@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { $WebSocket, WebSocketSendMode } from 'angular2-websocket/angular2-websocket';
@@ -9,7 +9,7 @@ import { UserService } from '../../providers/user.service';
     selector: 'user-chat',
     templateUrl: 'user.chat.html',
 })
-export class UserChatComponent implements OnInit {
+export class UserChatPage {
     constructor(
         private userService: UserService) {}
 
@@ -21,7 +21,7 @@ export class UserChatComponent implements OnInit {
 
     new_content: string;
 
-    ngOnInit(): void {
+    ionViewDidLoad(): void {
         this.ws = new $WebSocket('ws://localhost:8000');
 
         this.userService.getMe()

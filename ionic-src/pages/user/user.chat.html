@@ -1,10 +1,18 @@
-<h4>Discussion avec votre gestionnaire</h4>
-<ng-container *ngFor="let m of conversation.messages">
-    <p [ngStyle]="{'text-align': m.author === ulogin ? 'right' : ''}">{{m.content}}</p>
-</ng-container>
-<div class="input-group">
-    <input type="text" class="form-control" placeholder="Message..." name="content" [(ngModel)]="new_content"/>
-    <span class="input-group-btn">
-        <button class="btn btn-default btn-primary" (click)="send()">Envoyer</button>
-    </span>
-</div>
+<ion-header>
+    <ion-navbar>
+        <ion-title>Discussion avec vos gestionnaires</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ng-container *ngFor="let m of conversation.messages">
+        <p [ngStyle]="{'text-align': m.author === ulogin ? 'right' : ''}">{{m.content}}</p>
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <span style="float: left"><ion-input type="text" [(ngModel)]="new_content" placeholder="Message..."></ion-input></span>
+        <span style="float: right"><button icon-only ion-button (click)="send()"><ion-icon name="send"></ion-icon></button></span>
+    </ion-toolbar>
+</ion-footer>

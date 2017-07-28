@@ -5,6 +5,7 @@ import { NoteService } from '../../providers/note.service';
 import { AuthService } from '../../providers/auth.service';
 import { LoginPage } from '../login/login';
 import { UserCreateNotePage } from './user.createNote';
+import { UserChatPage } from './user.chat';
 import { UserEditNotePage } from './user.editNote';
 import { UserViewNotePage } from './user.viewNote';
 
@@ -37,6 +38,10 @@ export class UserDashboardPage {
 
     create(): void {
         this.navCtrl.push(UserCreateNotePage);
+    }
+
+    chat(): void {
+        this.navCtrl.push(UserChatPage);
     }
 
     logout(): void {
