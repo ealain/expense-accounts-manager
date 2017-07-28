@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
     <ion-card>
         <ion-card-header>
             {{note?.title}}<br/>
@@ -43,9 +43,9 @@
                         <h2>Aucun document associé</h2>
                     </ion-item>
                 </div>
-                <br/>
-                <button ion-button color="secondary" (click)="approve()"><span *ngIf="note?.approved">Déverrouiller</span><span *ngIf="!note?.approved">Valider</span></button>
             </ion-list>
         </ion-card-content>
     </ion-card>
+    <button *ngIf="note?.approved" ion-button color="secondary" (click)="approve()">Valider</button>
+    <button *ngIf="!note?.approved" ion-button (click)="approve()">Déverrouiller</button>
 </ion-content>

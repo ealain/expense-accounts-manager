@@ -25,7 +25,7 @@ export class ManagerNoteDetailsPage implements OnInit {
 
     approve(): void {
         this.noteService.approve(this.navParams.get('nid'))
-        .then(() => this.navCtrl.push(ManagerDashboardPage));
+        .then(() => this.navCtrl.setRoot(ManagerDashboardPage));
     }
 
     ngOnInit() {
