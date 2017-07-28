@@ -1,33 +1,46 @@
-<div class="card">
-    <div class="card-block">
-        <h4 class="card-title text-center">Ajout d'utilisateur</h4>
-        <form class="form-group">
-            <label for="login">Login</label>
-            <input class="form-control" id="login" type="text" [(ngModel)]="user.login" placeholder="Login" name="login"/>
-        </form>
-        <form class="form-group">
-            <label for="pwd">Mot de passe</label>
-            <input class="form-control" id="pwd" type="password" [(ngModel)]="user.password" placeholder="Mot de passe" name="password"/>
-        </form>
-        <form class="form-check">
-            <label class="form-check-label" for="admin"><input id="admin" class="form-check-input" type="checkbox" [(ngModel)]="user.admin" name="admin"/> Administrateur</label>
-        </form>
-        <form class="form-check">
-            <label class="form-check-label" for="manager"><input id="manager" class="form-check-input" type="checkbox" (click)="onChangeManager()" [(ngModel)]="user.manager" name="manager"/> Manager</label>
-        </form>
-        <div *ngIf="user.manager">
-            <ul>
-                <ng-container *ngFor="let user of users; let i=index">
-                    <li *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
-                        {{user.login}}
-                        <input type="checkbox" [(ngModel)]="selection[i]"/>
-                    </li>
-                </ng-container>
-            </ul>
-        </div>
-        <button class="btn btn-primary" style="width: 100%" (click)="send()">Ajouter</button>
-    </div>
-</div>
-<p class="alert alert-danger" *ngIf="same_login">Identifiant déjà utilisé</p>
-<p class="alert alert-danger" *ngIf="two_privileges">L'utilisateur ne peut pas être administrateur et manager</p>
-<p class="alert alert-danger" *ngIf="unknown_error">Erreur</p>
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Nouvel utilisateur
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Identifiant</ion-label>
+                    <ion-input [(ngModel)]="user.login"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Mot de passe</ion-label>
+                    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Administrateur</ion-label>
+                    <ion-checkbox [(ngModel)]="user.admin"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Gestionnaire</ion-label>
+                    <ion-checkbox [(ngModel)]="user.manager" (click)="onChangeManager()"></ion-checkbox>
+                </ion-item>
+                <div *ngIf="user.manager">
+                    <em>Sélectionner les utilisateurs à lui affecter :
+                        <ng-container *ngFor="let user of users; let i=index;">
+                            <ion-item *ngIf="!(user.admin||user.manager)" [attr.data-index]="i">
+                                <ion-label>{{user.login}}</ion-label>
+                                <ion-checkbox [(ngModel)]="selection[i]"></ion-checkbox>
+                            </ion-item>
+                        </ng-container>
+                    </em>
+                </div>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <button ion-button style="width: 100%" (click)="send()">Ajouter</button>
+    <p *ngIf="same_login">Identifiant déjà utilisé</p>
+    <p *ngIf="two_privileges">L'utilisateur ne peut pas être administrateur et manager</p>
+    <p *ngIf="unknown_error">Erreur</p>
+</ion-content>

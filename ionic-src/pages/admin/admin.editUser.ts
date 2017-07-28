@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { UserService } from '../../providers/user.service';
@@ -8,7 +8,7 @@ import { AdminDashboardPage } from './admin.dashboard';
 @Component({
     templateUrl: './admin.editUser.html'
 })
-export class AdminEditUserPage implements OnInit {
+export class AdminEditUserPage {
     constructor(
         private userService: UserService,
         private navCtrl: NavController,
@@ -22,7 +22,7 @@ export class AdminEditUserPage implements OnInit {
     unknown_error: boolean = false;
     two_privileges: boolean = false;
 
-    ngOnInit(): void {
+    ionViewDidLoad(): void {
         this.user._id = this.navParams.get('uid');
         this.userService.getUser(this.user._id).then(user => {
             this.user = user;
@@ -42,7 +42,7 @@ export class AdminEditUserPage implements OnInit {
     }
 
     onChangeManager(): void {
-        if(!this.user.manager) {
+        if(this.user.manager) {
             this.userService.getUsers(this.user._id).then(userlist => {
                 this.userlist = userlist;
                 this.userService.getUsers().then(users => {
@@ -73,7 +73,7 @@ export class AdminEditUserPage implements OnInit {
             this.userService.addUser(this.user)
                 .then(response2 => {
                     if(response1.success && response2.success) {
-                        this.navCtrl.push(AdminDashboardPage);
+                        this.navCtrl.setRoot(AdminDashboardPage);
                     }
                     else if(response2.same_login) {
                         this.two_privileges = false;

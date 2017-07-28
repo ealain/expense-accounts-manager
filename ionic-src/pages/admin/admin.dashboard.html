@@ -1,26 +1,71 @@
-<div class="card">
-    <div class="card-block">
-        <h4 class="card-title text-center">Utilisateurs</h4>
-        <ul class="list-group">
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>
+                Menu
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item menuToggle (click)="addUser()">
+                Nouvel utilisateur
+            </ion-item>
+            <ion-item menuToggle (click)="logout()">
+                Déconnexion
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-header>
+    <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+        Utilisateurs
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content #content padding>
+    <ion-card>
+        <ion-card-header><span style="float:left"><strong>Utilisateurs</strong></span></ion-card-header>
+        <ion-card-content>
+            <ion-list>
             <ng-container *ngFor="let u of users">
-                <li class="list-group-item"  (click)="edit(u?._id)" *ngIf="!u?.admin && !u?.manager">{{u?.login}}</li>
-            </ng-container>
-        </ul>
-    </div>
-    <div class="card-block">
-        <h4 class="card-title text-center">Gestionnaires</h4>
-        <ul class="list-group">
+                    <ion-item (click)="edit(u?._id)" *ngIf="!u?.admin && !u?.manager">
+                        {{u?.login}}
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header><span style="float:left"><strong>Gestionnaires</strong></span></ion-card-header>
+        <ion-card-content>
+            <ion-list>
             <ng-container *ngFor="let u of users">
-                <li class="list-group-item" (click)="edit(u?._id)" *ngIf="u?.manager">{{u?.login}}</li>
-            </ng-container>
-        </ul>
-    </div>
-    <div class="card-block">
-        <h4 class="panel-title text-center">Administrateurs</h4>
-        <ul class="list-group">
+                    <ion-item (click)="edit(u?._id)" *ngIf="u?.manager">
+                        {{u?.login}}
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header><span style="float:left"><strong>Administrateurs</strong></span></ion-card-header>
+        <ion-card-content>
+            <ion-list>
             <ng-container *ngFor="let u of users">
-                <li class="list-group-item" (click)="edit(u?._id)" *ngIf="u?.admin">{{u?.login}}</li>
-            </ng-container>
-        </ul>
-    </div>
-</div>
+                    <ion-item (click)="edit(u?._id)" *ngIf="u?.admin">
+                        {{u?.login}}
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
