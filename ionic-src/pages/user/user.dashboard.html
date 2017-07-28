@@ -4,12 +4,12 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
         <ion-fab bottom left>
             <button ion-fab color="secondary"><ion-icon name="menu"></ion-icon></button>
             <ion-fab-list side="right">
-                <button ion-fab><ion-icon name="log-out"></ion-icon></button>
-                <button ion-fab><ion-icon name="add"></ion-icon></button>
+                <button ion-fab (click)="create()"><ion-icon name="add"></ion-icon></button>
+                <button ion-fab (click)="logout()"><ion-icon name="log-out"></ion-icon></button>
             </ion-fab-list>
         </ion-fab>
         <ion-list>

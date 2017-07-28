@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { NoteService } from '../../providers/note.service';
+import { AuthService } from '../../providers/auth.service';
+import { LoginPage } from '../login/login';
+import { UserCreateNotePage } from './user.createNote';
 import { UserEditNotePage } from './user.editNote';
 import { UserViewNotePage } from './user.viewNote';
 
@@ -15,8 +18,9 @@ export class UserDashboardPage {
     notes: Note[];
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
+        private navCtrl: NavController,
+        private navParams: NavParams,
+        private authService: AuthService,
         private noteService: NoteService) {}
 
     ionViewDidLoad(): void {
@@ -29,5 +33,18 @@ export class UserDashboardPage {
         this.navCtrl.push(UserViewNotePage, {nid: n._id});
         else
         this.navCtrl.push(UserEditNotePage, {nid: n._id});
+    }
+
+    create(): void {
+        this.navCtrl.push(UserCreateNotePage);
+    }
+
+    logout(): void {
+        this.authService.logout()
+        .then(response => {
+            if(response.success) {
+                this.navCtrl.setRoot(LoginPage);
+            }
+        });
     }
 }
