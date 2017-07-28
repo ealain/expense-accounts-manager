@@ -13,62 +13,30 @@ export class NoteService {
     constructor(
         private http: Http) {}
 
-    private isoStringToDate(d: string): any {
-	var b = d.split(/\D/);
-	return new Date(d);
-    }
-
     getOne(id: string): Promise<any> {
         return this.http.get(this.url + '/' + id, {withCredentials: true})
         .toPromise()
-        .then(response => {
-            let n = response.json();
-            let d = new Date(n.date);
-            n.day = d.getDate() - 1;
-            n.month = d.getMonth() + 1;
-            n.year = d.getFullYear();
-            return n;})
+        .then(response => response.json())
         .catch(this.handleError);
     }
 
     getMany(): Promise<any> {
         return new Promise((resolve, reject) => {
-            let result = [];
             this.http.get(this.url, {withCredentials: true})
                 .toPromise()
-                .then(response => {
-                    for(let n of response.json()) {
-                        let d = new Date(n.date);
-                        n.day = d.getDate() - 1;
-                        n.month = d.getMonth() + 1;
-                        n.year = d.getFullYear();
-                        result.push(n);
-                    }
-                })
+                .then(response => resolve(response.json()))
                 .catch(this.handleError);
-            resolve(result);
         });
     }
 
     getManyByUser(uId): Promise<any> {
         return this.http.get(this.url, {params: {uid: uId}, withCredentials: true})
         .toPromise()
-        .then(response => {
-            let result = [];
-            for(let n of response.json()) {
-                let d = new Date(n.date);
-                n.day = d.getDate() - 1;
-                n.month = d.getMonth() + 1;
-                n.year = d.getFullYear();
-                result.push(n);
-            }
-            return result;
-        })
+        .then(response => response.json())
         .catch(this.handleError);
     }
 
     add(note: Note): Promise<any> {
-        note.date = new Date(+note.year, +note.month-1, +note.day+1);
         return this.http.post(this.url, note, {withCredentials: true})
         .toPromise()
         .then(response => response.json())
@@ -76,7 +44,6 @@ export class NoteService {
     }
 
     update(note: Note): Promise<any> {
-        note.date = new Date(+note.year, +note.month-1, +note.day+1);
         return this.http.post(this.url + '/' + note._id, note, {withCredentials: true})
         .toPromise()
         .then(response => response.json())

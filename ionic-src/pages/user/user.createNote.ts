@@ -14,7 +14,7 @@ export class UserCreateNotePage {
         private noteService: NoteService,
         private navCtrl: NavController) {}
 
-    note: Note = {_id: null, day: null, month: null, year: null, date: null, title: '', amount: null, currency: '', comment: '', approved: false, files: []}
+    note: Note = {_id: null, date: null, title: '', amount: null, currency: '', comment: '', approved: false, files: []}
 
     currencies: Array<string> = ['EUR (€)', 'USD ($)', 'GBP (£)', 'CNY (¥)', 'JPY (¥)', 'CHF (SFr.)'];
 
