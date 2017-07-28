@@ -18,7 +18,7 @@ export class UserViewNoteComponent implements OnInit {
     private nid: string;
 
     view(nid: string): void {
-        this.router.navigate(['manager/notes', nid]);
+        this.router.navigate(['user']);
     }
 
     ngOnInit() {
